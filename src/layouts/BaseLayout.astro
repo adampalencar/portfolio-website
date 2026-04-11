@@ -1,0 +1,49 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import '../styles/tokens.css';
+import '../styles/typography.css';
+import '../styles/layout.css';
+import '../styles/animations.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Portfolio of Adam Palencar, UI/UX Designer' } = Astro.props;
+---
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    <!-- Astro Font API: injects @font-face + preload links -->
+    <Font cssVariable="--font-inter" />
+    <Font cssVariable="--font-jetbrains-mono" />
+
+    <!-- Theme: must be is:inline to run before first paint -->
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = saved ?? system;
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Grain texture: position:fixed, pointer-events:none -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <slot />
+  </body>
+</html>
+
+<script>
+  // Re-apply theme after each View Transitions page swap
+  document.addEventListener('astro:after-swap', () => {
+    const saved = localStorage.getItem('theme');
+    const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = saved ?? system;
+  });
+</script>
