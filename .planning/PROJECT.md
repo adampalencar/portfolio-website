@@ -17,12 +17,15 @@ A portfolio that earns interviews by demonstrating design craft through the site
 - [x] Three typography layers: Inter (display/body), JetBrains Mono (metadata/labels), self-hosted — Validated in Phase 1: Design System
 - [x] Dark mode toggle with localStorage persistence — Validated in Phase 1: Design System (flash prevention via is:inline + astro:after-swap)
 - [x] Subtle grain texture overlay (3-5% opacity, paper feel) — Validated in Phase 1: Design System
+- [x] Left sidebar navigation (fixed on desktop, collapsible top bar on tablet, hamburger on mobile) — Validated in Phase 2: Navigation Shell
+- [x] Sidebar expands like Obsidian folders on case study subpages (Work > child projects) — Validated in Phase 2: Navigation Shell
+- [x] Pixelarticons (24x24 SVG) for nav and UI elements — Validated in Phase 2: Navigation Shell
+- [x] Dense informational footer with email, LinkedIn, resume, location, version number — Validated in Phase 2: Navigation Shell
+- [x] Responsive at 3 breakpoints: desktop (1440px+), tablet (768-1199px), mobile (<375px) — Validated in Phase 2: Navigation Shell (nav shell only, content pages Phase 4)
 
 ### Active
 
 - [ ] Astro v5+ project with vanilla CSS, deployed to Netlify free tier
-- [ ] Left sidebar navigation (fixed on desktop, collapsible top bar on tablet, hamburger on mobile)
-- [ ] Sidebar expands like Obsidian folders on case study subpages (Work > child projects)
 - [ ] Homepage with hero, 3 featured project cards, intro section, contact strip
 - [ ] Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
 - [ ] Case study page template following Minto Pyramid structure with prev/next navigation
@@ -104,4 +107,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after Phase 1 completion*
+*Last updated: 2026-04-11 after Phase 2 completion*
