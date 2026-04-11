@@ -1,16 +1,19 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import '../styles/tokens.css';
 import '../styles/typography.css';
 import '../styles/layout.css';
 import '../styles/animations.css';
+import SkipLink from '../components/layout/SkipLink.astro';
 
 interface Props {
   title: string;
   description?: string;
 }
 const { title, description = 'Portfolio of Adam Palencar, UI/UX Designer' } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 <html lang="en" data-theme="light">
   <head>
@@ -18,6 +21,7 @@ const { title, description = 'Portfolio of Adam Palencar, UI/UX Designer' } = As
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <ClientRouter />
 
     <!-- Astro Font API: injects @font-face + preload links -->
     <Font cssVariable="--font-inter" />
@@ -35,9 +39,43 @@ const { title, description = 'Portfolio of Adam Palencar, UI/UX Designer' } = As
   <body>
     <!-- Grain texture: position:fixed, pointer-events:none -->
     <div class="grain-overlay" aria-hidden="true"></div>
-    <slot />
+    <SkipLink />
+    <div class="site-layout">
+      <!-- Sidebar component will be added in Task 3 -->
+      <main id="main-content" class="site-layout__main">
+        <slot />
+      </main>
+      <!-- Footer component will be added in Plan 03 -->
+    </div>
   </body>
 </html>
+
+<style>
+  @layer components {
+    .site-layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr;
+      grid-template-rows: 1fr auto;
+      min-height: 100vh;
+    }
+
+    .site-layout__main {
+      grid-column: 2;
+      min-width: 0;
+    }
+
+    @media (max-width: 1199px) {
+      .site-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .site-layout__main {
+        grid-column: 1;
+      }
+    }
+  }
+</style>
 
 <script>
   // Re-apply theme after each View Transitions page swap
