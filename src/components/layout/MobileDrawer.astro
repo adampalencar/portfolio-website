@@ -132,11 +132,11 @@ const isWorkSubpage = currentPath.startsWith('/work/');
     .mobile-drawer__panel {
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       bottom: 0;
       width: var(--sidebar-width);
       background: var(--bg-secondary);
-      transform: translateX(-100%);
+      transform: translateX(100%);
       transition: transform 300ms ease;
       overflow-y: auto;
       padding: var(--space-3) 0;

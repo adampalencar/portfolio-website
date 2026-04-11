@@ -68,13 +68,13 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const toggle = document.querySelector('.theme-toggle');
-    if (!toggle) return;
-    toggle.addEventListener('click', () => {
-      const current = document.documentElement.dataset.theme;
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem('theme', next);
+    document.querySelectorAll('.theme-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const current = document.documentElement.dataset.theme;
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
     });
   });
 </script>
