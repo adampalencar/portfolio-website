@@ -30,7 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. CSS custom properties for color, spacing, and typography are defined in a single tokens file and visually correct in the browser (off-white background, forest green accent, 8px grid)
   3. Inter Variable and JetBrains Mono Variable load from self-hosted Fontsource with no layout shift; both display in the correct hierarchy (display/body vs. metadata/labels)
   4. Toggling `[data-theme="dark"]` on `<html>` swaps the color tokens; the chosen theme persists in localStorage and does not flash on page load or after a View Transition navigation
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Astro project, CSS architecture, tokens, fonts, dark mode, BaseLayout
+- [ ] 01-02-PLAN.md — Grain texture, /dev kitchen sink page, visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 2: Navigation Shell
@@ -96,11 +99,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System | 0/TBD | Not started | - |
+| 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 0/TBD | Not started | - |
 | 3. Content Infrastructure | 0/TBD | Not started | - |
 | 4. Pages | 0/TBD | Not started | - |
