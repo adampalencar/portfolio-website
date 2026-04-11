@@ -27,8 +27,8 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Layout
 
 - [x] **LAY-01**: BaseLayout wrapping all pages with ClientRouter for View Transitions
-- [ ] **LAY-02**: Dense informational footer with email, LinkedIn, resume link, location, version number
-- [ ] **LAY-03**: Responsive at 3 breakpoints: desktop (1440px+), tablet (768-1199px), mobile (<375px)
+- [x] **LAY-02**: Dense informational footer with email, LinkedIn, resume link, location, version number
+- [x] **LAY-03**: Responsive at 3 breakpoints: desktop (1440px+), tablet (768-1199px), mobile (<375px)
 
 ### Content
 
@@ -129,8 +129,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | NAV-05 | Phase 2 | Complete |
 | NAV-06 | Phase 2 | Complete |
 | LAY-01 | Phase 2 | Complete |
-| LAY-02 | Phase 2 | Pending |
-| LAY-03 | Phase 2 | Pending |
+| LAY-02 | Phase 2 | Complete |
+| LAY-03 | Phase 2 | Complete |
 | CONT-01 | Phase 3 | Pending |
 | CONT-02 | Phase 3 | Pending |
 | CONT-03 | Phase 3 | Pending |
