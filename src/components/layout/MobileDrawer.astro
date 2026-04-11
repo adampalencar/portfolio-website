@@ -1,0 +1,384 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navItems = [
+  { label: 'Home', href: '/', icon: 'home' },
+  {
+    label: 'Work',
+    href: '/work',
+    icon: 'briefcase',
+    children: [
+      { label: 'Orbital Concierge', href: '/work/orbital-concierge' },
+    ],
+  },
+  { label: 'About', href: '/about', icon: 'user' },
+  { label: 'Contact', href: '/#contact', icon: 'mail' },
+];
+
+function isActive(href: string, current: string): boolean {
+  const normalizedCurrent = current.replace(/\/$/, '') || '/';
+  const normalizedHref = href.replace(/\/$/, '') || '/';
+  return normalizedCurrent === normalizedHref;
+}
+
+const isWorkSubpage = currentPath.startsWith('/work/');
+---
+<div class="mobile-drawer" id="mobile-drawer" data-open="false" aria-hidden="true">
+  <div class="mobile-drawer__backdrop"></div>
+  <div class="mobile-drawer__panel" role="dialog" aria-label="Navigation menu">
+    <div class="mobile-drawer__header">
+      <button class="mobile-drawer__close" type="button" aria-label="Close menu">
+        <Icon name="close" size={24} />
+      </button>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul class="mobile-drawer__nav">
+        {navItems.map((item) => (
+          <li class={item.children ? 'mobile-drawer__folder' : ''}>
+            {item.children ? (
+              <>
+                <div class="mobile-drawer__folder-header">
+                  <a
+                    href={item.href}
+                    class="mobile-drawer__link"
+                    data-nav-link
+                    aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+                  >
+                    <Icon name={item.icon} size={24} />
+                    <span class="mobile-drawer__label mono-label">{item.label}</span>
+                  </a>
+                  <button
+                    class="mobile-drawer__folder-trigger"
+                    type="button"
+                    aria-expanded={isWorkSubpage ? 'true' : 'false'}
+                    aria-controls="mobile-drawer-work-children"
+                    aria-label={`Toggle ${item.label} submenu`}
+                  >
+                    <Icon name="chevron-down" size={16} class="mobile-drawer__chevron" />
+                  </button>
+                </div>
+                <div
+                  id="mobile-drawer-work-children"
+                  class="mobile-drawer__folder-children"
+                  aria-hidden={isWorkSubpage ? 'false' : 'true'}
+                >
+                  <ul class="mobile-drawer__folder-children-inner">
+                    {item.children.map((child) => (
+                      <li>
+                        <a
+                          href={child.href}
+                          class="mobile-drawer__child"
+                          data-nav-link
+                          aria-current={isActive(child.href, currentPath) ? 'page' : undefined}
+                        >
+                          {child.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <a
+                href={item.href}
+                class="mobile-drawer__link"
+                data-nav-link
+                aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+              >
+                <Icon name={item.icon} size={24} />
+                <span class="mobile-drawer__label mono-label">{item.label}</span>
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<style>
+  @layer components {
+    .mobile-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal);
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .mobile-drawer[data-open="true"] {
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .mobile-drawer__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: opacity 250ms ease;
+    }
+
+    .mobile-drawer[data-open="true"] .mobile-drawer__backdrop {
+      opacity: 1;
+    }
+
+    .mobile-drawer__panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: var(--bg-secondary);
+      transform: translateX(-100%);
+      transition: transform 300ms ease;
+      overflow-y: auto;
+      padding: var(--space-3) 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-drawer[data-open="true"] .mobile-drawer__panel {
+      transform: translateX(0);
+    }
+
+    .mobile-drawer__header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 var(--space-3) var(--space-2);
+    }
+
+    .mobile-drawer__close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-1);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      transition: color 150ms ease, background 150ms ease;
+    }
+
+    .mobile-drawer__close:hover {
+      color: var(--text-primary);
+      background: var(--border-subtle);
+    }
+
+    .mobile-drawer__close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .mobile-drawer__nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-drawer__link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 150ms ease, background 150ms ease;
+    }
+
+    .mobile-drawer__link:hover {
+      color: var(--text-primary);
+    }
+
+    .mobile-drawer__link[aria-current="page"] {
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      padding-left: calc(var(--space-4) - 3px);
+    }
+
+    .mobile-drawer__link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .mobile-drawer__label {
+      color: inherit;
+    }
+
+    /* --- Folder (Work section with accordion) --- */
+
+    .mobile-drawer__folder-header {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-drawer__folder-header .mobile-drawer__link {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mobile-drawer__folder-trigger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2);
+      color: var(--text-secondary);
+      transition: color 150ms ease, background 150ms ease;
+      border-radius: 4px;
+      margin-right: var(--space-2);
+    }
+
+    .mobile-drawer__folder-trigger:hover {
+      color: var(--text-primary);
+      background: var(--border-subtle);
+    }
+
+    .mobile-drawer__folder-trigger:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .mobile-drawer__chevron {
+      transition: transform 250ms ease;
+    }
+
+    .mobile-drawer__folder-trigger[aria-expanded="true"] .mobile-drawer__chevron {
+      transform: rotate(180deg);
+    }
+
+    /* --- Accordion children --- */
+
+    .mobile-drawer__folder-children {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 250ms ease;
+    }
+
+    .mobile-drawer__folder-children[aria-hidden="false"] {
+      grid-template-rows: 1fr;
+    }
+
+    .mobile-drawer__folder-children-inner {
+      overflow: hidden;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-drawer__child {
+      display: block;
+      padding: var(--space-1) var(--space-4) var(--space-1) calc(var(--space-4) + 32px);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+
+    .mobile-drawer__child:hover {
+      color: var(--text-primary);
+    }
+
+    .mobile-drawer__child[aria-current="page"] {
+      color: var(--accent);
+    }
+
+    .mobile-drawer__child:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* --- Hide on tablet and desktop where inline nav is visible --- */
+
+    @media (min-width: 768px) {
+      .mobile-drawer {
+        display: none;
+      }
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const drawer = document.getElementById('mobile-drawer');
+    const hamburger = document.querySelector('.top-bar__hamburger');
+    const closeBtn = document.querySelector('.mobile-drawer__close');
+    const backdrop = document.querySelector('.mobile-drawer__backdrop');
+
+    if (!drawer || !hamburger) return;
+
+    function openDrawer() {
+      drawer!.dataset.open = 'true';
+      drawer!.setAttribute('aria-hidden', 'false');
+      hamburger!.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      (closeBtn as HTMLElement)?.focus();
+    }
+
+    function closeDrawer() {
+      drawer!.dataset.open = 'false';
+      drawer!.setAttribute('aria-hidden', 'true');
+      hamburger!.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      (hamburger as HTMLElement).focus();
+    }
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = drawer!.dataset.open === 'true';
+      isOpen ? closeDrawer() : openDrawer();
+    });
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+
+    // Escape key closes drawer
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && drawer!.dataset.open === 'true') {
+        closeDrawer();
+      }
+    });
+
+    // Ensure drawer is closed on page load (handles View Transition persistence)
+    if (drawer.dataset.open === 'true') {
+      closeDrawer();
+    }
+
+    // Accordion toggle for Work folder in drawer
+    const drawerTriggers = drawer.querySelectorAll('.mobile-drawer__folder-trigger');
+    drawerTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const targetId = trigger.getAttribute('aria-controls');
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+        target.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+      });
+    });
+
+    // Update aria-current in drawer based on current path
+    const currentPath = window.location.pathname;
+    drawer.querySelectorAll('[data-nav-link]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
+      const normalizedHref = href.replace(/\/$/, '') || '/';
+      const isActive = normalizedCurrent === normalizedHref;
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  });
+</script>
