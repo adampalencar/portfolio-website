@@ -17,16 +17,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Navigation
 
-- [ ] **NAV-01**: Left sidebar navigation fixed on desktop (220px), collapsing to top bar on tablet (768-1199px), hamburger menu on mobile (<768px)
-- [ ] **NAV-02**: Sidebar expands like Obsidian folders on case study subpages (Work > child projects), one section expanded at a time
-- [ ] **NAV-03**: Dark mode toggle in sidebar bottom section with polished micro-interaction
-- [ ] **NAV-04**: Sidebar persists across page navigations via transition:persist (no flicker)
-- [ ] **NAV-05**: Full keyboard navigation and ARIA attributes on all nav controls (aria-expanded, aria-current, focus-visible)
-- [ ] **NAV-06**: Pixelarticons (24x24 SVG) for nav items and UI elements via astro-icon
+- [x] **NAV-01**: Left sidebar navigation fixed on desktop (220px), collapsing to top bar on tablet (768-1199px), hamburger menu on mobile (<768px)
+- [x] **NAV-02**: Sidebar expands like Obsidian folders on case study subpages (Work > child projects), one section expanded at a time
+- [x] **NAV-03**: Dark mode toggle in sidebar bottom section with polished micro-interaction
+- [x] **NAV-04**: Sidebar persists across page navigations via transition:persist (no flicker)
+- [x] **NAV-05**: Full keyboard navigation and ARIA attributes on all nav controls (aria-expanded, aria-current, focus-visible)
+- [x] **NAV-06**: Pixelarticons (24x24 SVG) for nav items and UI elements via astro-icon
 
 ### Layout
 
-- [ ] **LAY-01**: BaseLayout wrapping all pages with ClientRouter for View Transitions
+- [x] **LAY-01**: BaseLayout wrapping all pages with ClientRouter for View Transitions
 - [ ] **LAY-02**: Dense informational footer with email, LinkedIn, resume link, location, version number
 - [ ] **LAY-03**: Responsive at 3 breakpoints: desktop (1440px+), tablet (768-1199px), mobile (<375px)
 
@@ -122,13 +122,13 @@ Deferred to future release. Tracked but not in current roadmap.
 | FOUN-03 | Phase 1 | Complete |
 | FOUN-04 | Phase 1 | Complete |
 | FOUN-05 | Phase 1 | Complete |
-| NAV-01 | Phase 2 | Pending |
-| NAV-02 | Phase 2 | Pending |
-| NAV-03 | Phase 2 | Pending |
-| NAV-04 | Phase 2 | Pending |
-| NAV-05 | Phase 2 | Pending |
-| NAV-06 | Phase 2 | Pending |
-| LAY-01 | Phase 2 | Pending |
+| NAV-01 | Phase 2 | Complete |
+| NAV-02 | Phase 2 | Complete |
+| NAV-03 | Phase 2 | Complete |
+| NAV-04 | Phase 2 | Complete |
+| NAV-05 | Phase 2 | Complete |
+| NAV-06 | Phase 2 | Complete |
+| LAY-01 | Phase 2 | Complete |
 | LAY-02 | Phase 2 | Pending |
 | LAY-03 | Phase 2 | Pending |
 | CONT-01 | Phase 3 | Pending |

@@ -48,7 +48,7 @@ Plans:
   5. The dense footer renders at all breakpoints with email, LinkedIn, resume link, location, and version number
 **Plans**: 3 plans
 Plans:
-- [ ] 02-01-PLAN.md — Icon setup, BaseLayout enhancement (ClientRouter, skip-link, site-layout grid), desktop Sidebar with accordion and ThemeToggle
+- [x] 02-01-PLAN.md — Icon setup, BaseLayout enhancement (ClientRouter, skip-link, site-layout grid), desktop Sidebar with accordion and ThemeToggle
 - [ ] 02-02-PLAN.md — TopBar (tablet), MobileDrawer (mobile), Footer component with responsive layout
 - [ ] 02-03-PLAN.md — Visual verification checkpoint at all three breakpoints
 **UI hint**: yes
@@ -108,7 +108,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 0/2 | Planning complete | - |
-| 2. Navigation Shell | 0/3 | Planning complete | - |
+| 2. Navigation Shell | 1/3 | In Progress|  |
 | 3. Content Infrastructure | 0/TBD | Not started | - |
 | 4. Pages | 0/TBD | Not started | - |
 | 5. Animations and Polish | 0/TBD | Not started | - |
