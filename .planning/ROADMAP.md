@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 Plans:
 - [x] 01-01-PLAN.md — Scaffold Astro project, CSS architecture, tokens, fonts, dark mode, BaseLayout
-- [ ] 01-02-PLAN.md — Grain texture, /dev kitchen sink page, visual verification checkpoint
+- [x] 01-02-PLAN.md — Grain texture, /dev kitchen sink page, visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 2: Navigation Shell
