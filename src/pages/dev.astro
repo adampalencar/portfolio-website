@@ -1,0 +1,413 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+/**
+ * /dev - Kitchen Sink Design Token Reference
+ * Living reference page showing every design token in the system.
+ * Required by D-07.
+ */
+
+const colorTokens = [
+  { name: '--bg-primary', light: '#FAF9F6', type: 'bg' },
+  { name: '--bg-secondary', light: '#F1F0EE', type: 'bg' },
+  { name: '--bg-card', light: '#FFFFFF', type: 'bg' },
+  { name: '--text-primary', light: '#1A1A1A', type: 'text' },
+  { name: '--text-secondary', light: '#666666', type: 'text' },
+  { name: '--text-tertiary', light: '#999999', type: 'text' },
+  { name: '--accent', light: '#1B7A3D', type: 'accent' },
+  { name: '--accent-hover', light: '#145C2E', type: 'accent' },
+  { name: '--accent-5', light: '#F0F7F2', type: 'accent' },
+  { name: '--accent-15', light: '#D4EDDB', type: 'accent' },
+  { name: '--accent-40', light: '#8CC49E', type: 'accent' },
+  { name: '--border-subtle', light: 'rgba(0,0,0,0.06)', type: 'border' },
+  { name: '--border-visible', light: '#E5E5E5', type: 'border' },
+];
+
+const spacingTokens = [
+  { name: '--space-1', px: '4px' },
+  { name: '--space-2', px: '8px' },
+  { name: '--space-3', px: '16px' },
+  { name: '--space-4', px: '24px' },
+  { name: '--space-5', px: '32px' },
+  { name: '--space-6', px: '48px' },
+  { name: '--space-7', px: '64px' },
+  { name: '--space-8', px: '96px' },
+  { name: '--space-9', px: '128px' },
+];
+
+const headings = [
+  { tag: 'h1', size: '64px', weight: '700', token: '--size-4xl' },
+  { tag: 'h2', size: '48px', weight: '600', token: '--size-3xl' },
+  { tag: 'h3', size: '32px', weight: '600', token: '--size-2xl' },
+  { tag: 'h4', size: '24px', weight: '600', token: '--size-xl' },
+  { tag: 'h5', size: '18px', weight: '600', token: '--size-lg' },
+];
+
+const monoSamples = [
+  'ORBITAL CONCIERGE',
+  '2025.06 - 2025.12',
+  '01 / CASE STUDY',
+  'IOK-0042',
+];
+---
+<BaseLayout title="Design System - Dev Reference">
+  <main class="container dev-page">
+
+    <!-- Section 1: Colors -->
+    <section class="dev-page__section">
+      <p class="mono-label">01 / COLORS</p>
+      <div class="dev-page__color-grid">
+        {colorTokens.map((token) => (
+          <div class="dev-page__swatch-card">
+            <div
+              class="dev-page__swatch"
+              style={`background: var(${token.name})`}
+            >
+              {token.type === 'text' && (
+                <span class="dev-page__swatch-text" style={`color: var(${token.name})`}>
+                  Aa
+                </span>
+              )}
+            </div>
+            <code class="dev-page__swatch-name">{token.name}</code>
+            <code class="dev-page__swatch-value">{token.light}</code>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 2: Typography -->
+    <section class="dev-page__section">
+      <p class="mono-label">02 / TYPOGRAPHY</p>
+
+      <div class="dev-page__type-subsection">
+        <p class="mono-label">Display (Inter Bold/SemiBold)</p>
+        {headings.map((h) => (
+          <div class="dev-page__type-row">
+            <div class="dev-page__type-sample">
+              {h.tag === 'h1' && <h1>The quick brown fox</h1>}
+              {h.tag === 'h2' && <h2>The quick brown fox</h2>}
+              {h.tag === 'h3' && <h3>The quick brown fox</h3>}
+              {h.tag === 'h4' && <h4>The quick brown fox</h4>}
+              {h.tag === 'h5' && <h5>The quick brown fox</h5>}
+            </div>
+            <span class="mono-label dev-page__type-label">
+              {h.size} / {h.weight} / {h.token}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div class="dev-page__type-subsection">
+        <p class="mono-label">Body (Inter Regular)</p>
+        <p style="font-size: var(--size-lg); line-height: var(--leading-relaxed);">
+          This paragraph is set at --size-lg (18px) with --leading-relaxed line height. It demonstrates the body text layer using Inter Regular. The portfolio's written content appears at this size or at base size, depending on context.
+        </p>
+        <p>
+          This paragraph is set at --size-base (16px) with --leading-relaxed line height. Body text should be comfortable to read at length. The warm off-white background and 1.6 line height reduce eye strain on long case study pages.
+        </p>
+      </div>
+
+      <div class="dev-page__type-subsection">
+        <p class="mono-label">Mono Metadata (JetBrains Mono)</p>
+        <div class="dev-page__mono-samples">
+          {monoSamples.map((sample) => (
+            <span class="mono-label">{sample}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Spacing -->
+    <section class="dev-page__section">
+      <p class="mono-label">03 / SPACING</p>
+      <div class="dev-page__spacing-list">
+        {spacingTokens.map((s) => (
+          <div class="dev-page__spacing-row">
+            <div
+              class="dev-page__spacing-bar"
+              style={`width: var(${s.name})`}
+            />
+            <span class="mono-label">{s.name} / {s.px}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 4: Buttons -->
+    <section class="dev-page__section">
+      <p class="mono-label">04 / BUTTONS</p>
+
+      <div class="dev-page__button-group">
+        <p class="mono-label">Filled</p>
+        <div class="dev-page__button-row">
+          <button class="dev-btn dev-btn--filled" type="button">Rest</button>
+          <button class="dev-btn dev-btn--filled dev-btn--hover" type="button">Hover</button>
+          <button class="dev-btn dev-btn--filled dev-btn--focus" type="button">Focus</button>
+          <button class="dev-btn dev-btn--filled" type="button" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <div class="dev-page__button-group">
+        <p class="mono-label">Ghost</p>
+        <div class="dev-page__button-row">
+          <button class="dev-btn dev-btn--ghost" type="button">Rest</button>
+          <button class="dev-btn dev-btn--ghost dev-btn--hover" type="button">Hover</button>
+          <button class="dev-btn dev-btn--ghost dev-btn--focus" type="button">Focus</button>
+          <button class="dev-btn dev-btn--ghost" type="button" disabled>Disabled</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Grain Texture -->
+    <section class="dev-page__section">
+      <p class="mono-label">05 / GRAIN TEXTURE</p>
+      <div class="dev-page__grain-panels">
+        <div class="dev-page__grain-panel" style="background: var(--bg-primary)">
+          <span class="mono-label">bg-primary + grain</span>
+        </div>
+        <div class="dev-page__grain-panel" style="background: var(--bg-secondary)">
+          <span class="mono-label">bg-secondary + grain</span>
+        </div>
+      </div>
+      <p class="dev-page__grain-note mono-label">
+        Grain overlay is global at 4% opacity via position:fixed in BaseLayout
+      </p>
+    </section>
+
+    <!-- Section 6: Theme Toggle -->
+    <section class="dev-page__section">
+      <p class="mono-label">06 / THEME TOGGLE</p>
+      <button
+        class="dev-btn dev-btn--filled"
+        type="button"
+        data-theme-toggle
+      >
+        Loading...
+      </button>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<style>
+  @layer components {
+    /* Dev page layout */
+    .dev-page {
+      padding-block: var(--space-7);
+    }
+
+    .dev-page__section {
+      margin-block-end: var(--space-8);
+    }
+
+    .dev-page__section > .mono-label:first-child {
+      margin-block-end: var(--space-4);
+      font-size: var(--size-sm);
+      color: var(--text-secondary);
+    }
+
+    /* Color swatches */
+    .dev-page__color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-3);
+    }
+
+    @media (max-width: 767px) {
+      .dev-page__color-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .dev-page__swatch-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .dev-page__swatch {
+      height: 80px;
+      border-radius: 8px;
+      border: 1px solid var(--border-visible);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dev-page__swatch-text {
+      font-size: var(--size-2xl);
+      font-weight: 700;
+      background: var(--bg-primary);
+      padding: var(--space-1) var(--space-2);
+      border-radius: 4px;
+    }
+
+    .dev-page__swatch-name,
+    .dev-page__swatch-value {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      color: var(--text-tertiary);
+    }
+
+    .dev-page__swatch-value {
+      color: var(--text-secondary);
+    }
+
+    /* Typography section */
+    .dev-page__type-subsection {
+      margin-block-end: var(--space-6);
+    }
+
+    .dev-page__type-subsection > .mono-label:first-child {
+      margin-block-end: var(--space-3);
+    }
+
+    .dev-page__type-row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-block-end: var(--space-3);
+    }
+
+    .dev-page__type-row h1,
+    .dev-page__type-row h2,
+    .dev-page__type-row h3,
+    .dev-page__type-row h4,
+    .dev-page__type-row h5 {
+      margin: 0;
+      flex: 1;
+    }
+
+    .dev-page__type-label {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .dev-page__mono-samples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    /* Spacing bars */
+    .dev-page__spacing-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .dev-page__spacing-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .dev-page__spacing-bar {
+      height: 24px;
+      background: var(--accent-15);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .dev-page__button-group {
+      margin-block-end: var(--space-4);
+    }
+
+    .dev-page__button-group > .mono-label:first-child {
+      margin-block-end: var(--space-2);
+    }
+
+    .dev-page__button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .dev-btn {
+      padding: var(--space-2) var(--space-4);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: var(--size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .dev-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Filled buttons */
+    .dev-btn--filled {
+      background: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .dev-btn--filled.dev-btn--hover {
+      background: var(--accent-hover);
+    }
+
+    .dev-btn--filled.dev-btn--focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Ghost buttons */
+    .dev-btn--ghost {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .dev-btn--ghost.dev-btn--hover {
+      background: var(--accent-5);
+    }
+
+    .dev-btn--ghost.dev-btn--focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Grain panels */
+    .dev-page__grain-panels {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .dev-page__grain-panel {
+      width: 300px;
+      height: 200px;
+      border-radius: 8px;
+      border: 1px solid var(--border-visible);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-3);
+    }
+
+    .dev-page__grain-note {
+      margin-block-start: var(--space-2);
+    }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector('[data-theme-toggle]');
+  function updateLabel() {
+    const current = document.documentElement.dataset.theme || 'light';
+    if (btn) {
+      btn.textContent = `Current: ${current.charAt(0).toUpperCase() + current.slice(1)} — Click to switch to ${current === 'light' ? 'Dark' : 'Light'}`;
+    }
+  }
+  btn?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+    updateLabel();
+  });
+  updateLabel();
+</script>
