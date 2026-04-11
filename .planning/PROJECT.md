@@ -12,7 +12,11 @@ A portfolio that earns interviews by demonstrating design craft through the site
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Astro v5+ project with vanilla CSS, deployed to Netlify free tier — Validated in Phase 1: Design System (static output, Font API, netlify.toml)
+- [x] Design system in CSS: warm off-white (#FAF9F6), forest green accent (#1B7A3D), 12-col grid, 8px base — Validated in Phase 1: Design System
+- [x] Three typography layers: Inter (display/body), JetBrains Mono (metadata/labels), self-hosted — Validated in Phase 1: Design System
+- [x] Dark mode toggle with localStorage persistence — Validated in Phase 1: Design System (flash prevention via is:inline + astro:after-swap)
+- [x] Subtle grain texture overlay (3-5% opacity, paper feel) — Validated in Phase 1: Design System
 
 ### Active
 
@@ -100,4 +104,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after initialization*
+*Last updated: 2026-04-11 after Phase 1 completion*
