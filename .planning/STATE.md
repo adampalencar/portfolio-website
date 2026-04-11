@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 context gathered
-last_updated: "2026-04-11T18:52:29.928Z"
-last_activity: 2026-04-11 — Roadmap created, requirements mapped to 6 phases
+status: executing
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-04-11T19:17:28Z"
+last_activity: 2026-04-11 — Completed 01-01 (Astro scaffold + CSS design system)
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 2
+  completed_plans: 1
+  percent: 8
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 ## Current Position
 
 Phase: 1 of 6 (Design System)
-Plan: 0 of TBD in current phase
-Status: Ready to plan
-Last activity: 2026-04-11 — Roadmap created, requirements mapped to 6 phases
+Plan: 1 of 2 in current phase
+Status: Executing
+Last activity: 2026-04-11 — Completed 01-01 (Astro scaffold + CSS design system)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 8%
 
 ## Performance Metrics
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - Init: Dark mode flash risk confirmed; theme script needs `is:inline` in `<head>` AND `astro:after-swap` handler. Address in Phase 1.
 - Init: All scroll/interaction scripts must use `astro:page-load`, not `DOMContentLoaded`. Enforce from Phase 2 onwards.
 - Init: Case studies must be MDX (not plain Markdown) so images go through Astro's optimizer. Locked in CONT-05.
+- 01-01: Fontsource provider requires bare names ("Inter", "JetBrains Mono"), not "Variable" suffixed.
+- 01-01: @layer order locked: reset > tokens > base > components > utilities.
+- 01-01: Grain texture generated as 200x200 Perlin noise PNG via sharp (~34KB).
 
 ### Pending Todos
 
@@ -74,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-11T18:52:29.926Z
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-design-system/01-CONTEXT.md
+Last session: 2026-04-11T19:17:28Z
+Stopped at: Completed 01-01-PLAN.md
+Resume file: .planning/phases/01-design-system/01-01-SUMMARY.md

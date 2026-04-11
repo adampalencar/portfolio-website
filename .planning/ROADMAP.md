@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. Toggling `[data-theme="dark"]` on `<html>` swaps the color tokens; the chosen theme persists in localStorage and does not flash on page load or after a View Transition navigation
 **Plans**: 2 plans
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Astro project, CSS architecture, tokens, fonts, dark mode, BaseLayout
+- [x] 01-01-PLAN.md — Scaffold Astro project, CSS architecture, tokens, fonts, dark mode, BaseLayout
 - [ ] 01-02-PLAN.md — Grain texture, /dev kitchen sink page, visual verification checkpoint
 **UI hint**: yes
 

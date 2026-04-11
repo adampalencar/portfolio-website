@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUN-01**: Site built with Astro 6 and vanilla CSS, deployed to Netlify free tier as static output
-- [ ] **FOUN-02**: CSS design system using custom properties: warm off-white (#FAF9F6), forest green accent (#1B7A3D), 12-col grid, 8px base unit
-- [ ] **FOUN-03**: Three typography layers: Inter Variable (display/body), JetBrains Mono Variable (metadata/labels), self-hosted via Fontsource
-- [ ] **FOUN-04**: CSS cascade layers (@layer) and BEM naming convention from first component
-- [ ] **FOUN-05**: Dark mode infrastructure with [data-theme] attribute swap, localStorage persistence, and no flash on initial load or View Transition navigation
+- [x] **FOUN-01**: Site built with Astro 6 and vanilla CSS, deployed to Netlify free tier as static output
+- [x] **FOUN-02**: CSS design system using custom properties: warm off-white (#FAF9F6), forest green accent (#1B7A3D), 12-col grid, 8px base unit
+- [x] **FOUN-03**: Three typography layers: Inter Variable (display/body), JetBrains Mono Variable (metadata/labels), self-hosted via Fontsource
+- [x] **FOUN-04**: CSS cascade layers (@layer) and BEM naming convention from first component
+- [x] **FOUN-05**: Dark mode infrastructure with [data-theme] attribute swap, localStorage persistence, and no flash on initial load or View Transition navigation
 
 ### Navigation
 
@@ -117,11 +117,11 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUN-01 | Phase 1 | Pending |
-| FOUN-02 | Phase 1 | Pending |
-| FOUN-03 | Phase 1 | Pending |
-| FOUN-04 | Phase 1 | Pending |
-| FOUN-05 | Phase 1 | Pending |
+| FOUN-01 | Phase 1 | Complete |
+| FOUN-02 | Phase 1 | Complete |
+| FOUN-03 | Phase 1 | Complete |
+| FOUN-04 | Phase 1 | Complete |
+| FOUN-05 | Phase 1 | Complete |
 | NAV-01 | Phase 2 | Pending |
 | NAV-02 | Phase 2 | Pending |
 | NAV-03 | Phase 2 | Pending |
