@@ -1,8 +1,10 @@
 import { defineConfig, fontProviders } from 'astro/config';
+import icon from 'astro-icon';
 
 export default defineConfig({
   output: 'static',
   site: 'https://adampalencar.netlify.app',
+  integrations: [icon()],
   fonts: [
     {
       provider: fontProviders.fontsource(),
