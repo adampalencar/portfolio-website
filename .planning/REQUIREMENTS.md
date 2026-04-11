@@ -150,10 +150,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | VISL-03 | Phase 5 | Pending |
 | VISL-04 | Phase 5 | Pending |
 | VISL-05 | Phase 5 | Pending |
-| A11Y-01 | Phase 5 | Pending |
-| A11Y-02 | Phase 5 | Pending |
-| A11Y-03 | Phase 5 | Pending |
-| A11Y-04 | Phase 5 | Pending |
+| A11Y-01 | Phase 6 | Pending |
+| A11Y-02 | Phase 6 | Pending |
+| A11Y-03 | Phase 6 | Pending |
+| A11Y-04 | Phase 6 | Pending |
 | SEO-01 | Phase 6 | Pending |
 | SEO-02 | Phase 6 | Pending |
 | SEO-03 | Phase 6 | Pending |
@@ -162,8 +162,8 @@ Deferred to future release. Tracked but not in current roadmap.
 **Coverage:**
 - v1 requirements: 38 total
 - Mapped to phases: 38
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-11*
-*Last updated: 2026-04-11 after initial definition*
+*Last updated: 2026-04-11 — A11Y-01 through A11Y-04 moved to Phase 6 (QA and Pre-Launch) to be verified holistically after all content and animations are in place*
