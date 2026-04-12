@@ -63,7 +63,7 @@ Plans:
   3. Prev/next navigation at the bottom of each case study links to adjacent projects by tier order
 **Plans**: 2 plans
 Plans:
-- [ ] 03-01-PLAN.md — MDX integration, content schema, CaseStudyLayout template, dynamic route
+- [x] 03-01-PLAN.md — MDX integration, content schema, CaseStudyLayout template, dynamic route
 - [ ] 03-02-PLAN.md — Orbital Concierge MDX content, asset pipeline, visual verification
 **UI hint**: yes
 
@@ -112,7 +112,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 3/3 | Complete   | 2026-04-11 |
-| 3. Content Infrastructure | 0/2 | Planning complete | - |
+| 3. Content Infrastructure | 1/2 | In Progress|  |
 | 4. Pages | 0/TBD | Not started | - |
 | 5. Animations and Polish | 0/TBD | Not started | - |
 | 6. QA and Pre-Launch | 0/TBD | Not started | - |
