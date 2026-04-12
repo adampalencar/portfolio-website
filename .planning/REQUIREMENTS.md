@@ -35,7 +35,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CONT-01**: Content Layer API with Zod schema for case studies (MDX format) including title, role, timeline, tools, category, tier, thumbnail, one-liner, and tags array
 - [x] **CONT-02**: Case study page template following Minto Pyramid structure: hero, result, problem, key decisions, process evidence, final design, reflection, CTA
 - [x] **CONT-03**: Prev/next project navigation on case study pages
-- [ ] **CONT-04**: Orbital Concierge case study fully built with optimized screenshot assets as launch case study
+- [x] **CONT-04**: Orbital Concierge case study fully built with optimized screenshot assets as launch case study
 - [x] **CONT-05**: Images optimized via Astro's built-in image processing pipeline (MDX, not plain Markdown)
 
 ### Pages
@@ -134,7 +134,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | CONT-01 | Phase 3 | Complete |
 | CONT-02 | Phase 3 | Complete |
 | CONT-03 | Phase 3 | Complete |
-| CONT-04 | Phase 3 | Pending |
+| CONT-04 | Phase 3 | Complete |
 | CONT-05 | Phase 3 | Complete |
 | PAGE-01 | Phase 4 | Pending |
 | PAGE-02 | Phase 4 | Pending |
