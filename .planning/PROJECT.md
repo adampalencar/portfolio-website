@@ -22,14 +22,14 @@ A portfolio that earns interviews by demonstrating design craft through the site
 - [x] Pixelarticons (24x24 SVG) for nav and UI elements — Validated in Phase 2: Navigation Shell
 - [x] Dense informational footer with email, LinkedIn, resume, location, version number — Validated in Phase 2: Navigation Shell
 - [x] Responsive at 3 breakpoints: desktop (1440px+), tablet (768-1199px), mobile (<375px) — Validated in Phase 2: Navigation Shell (nav shell only, content pages Phase 4)
+- [x] Case study page template following Minto Pyramid structure with prev/next navigation — Validated in Phase 3: Content Infrastructure
+- [x] Orbital Concierge case study fully built as the launch case study — Validated in Phase 3: Content Infrastructure
 
 ### Active
 
 - [ ] Astro v5+ project with vanilla CSS, deployed to Netlify free tier
 - [ ] Homepage with hero, 3 featured project cards, intro section, contact strip
 - [ ] Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
-- [ ] Case study page template following Minto Pyramid structure with prev/next navigation
-- [ ] Orbital Concierge case study fully built as the launch case study
 - [ ] About page with bio, experience, education, tools, and personality section
 - [ ] Contact section (anchor from nav, not a separate page) with email, LinkedIn, resume download
 - [ ] Accessibility statement page (WCAG 2.2 AA target)
@@ -107,4 +107,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-11 after Phase 2 completion*
+*Last updated: 2026-04-12 after Phase 3 completion*
