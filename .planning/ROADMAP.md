@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Design System** - CSS tokens, typography, grid, dark mode infrastructure, Astro project scaffolding
 - [x] **Phase 2: Navigation Shell** - BaseLayout, sidebar nav, footer, responsive breakpoints (completed 2026-04-11)
 - [x] **Phase 3: Content Infrastructure** - Case study schema, CaseStudyLayout, Orbital Concierge content (completed 2026-04-12)
-- [ ] **Phase 4: Pages** - All site pages, project cards, tier layout, first Netlify deploy
+- [x] **Phase 4: Pages** - All site pages, project cards, tier layout, first Netlify deploy (completed 2026-04-12)
 - [ ] **Phase 5: Animations and Polish** - Scroll reveals, View Transitions, grain texture, motion preferences
 - [ ] **Phase 6: QA and Pre-Launch** - Accessibility audit, SEO metadata, Lighthouse 90+, final deploy
 
@@ -81,7 +81,7 @@ Plans:
 - [x] 04-01-PLAN.md — ProjectCard component and Krom/Pipeline MDX stubs with placeholder thumbnails
 - [x] 04-02-PLAN.md — Homepage (hero, featured cards, intro, contact strip) and Work page (tiered grid)
 - [x] 04-03-PLAN.md — About page (bio, experience timeline, tools grid, personality)
-- [ ] 04-04-PLAN.md — 404 page, accessibility statement, Netlify config, and visual verification checkpoint
+- [x] 04-04-PLAN.md — 404 page, accessibility statement, Netlify config, and visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 5: Animations and Polish
@@ -118,6 +118,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 3/3 | Complete   | 2026-04-11 |
 | 3. Content Infrastructure | 2/2 | Complete   | 2026-04-12 |
-| 4. Pages | 3/4 | In Progress|  |
+| 4. Pages | 4/4 | Complete   | 2026-04-12 |
 | 5. Animations and Polish | 0/TBD | Not started | - |
 | 6. QA and Pre-Launch | 0/TBD | Not started | - |

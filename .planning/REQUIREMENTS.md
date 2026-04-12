@@ -44,8 +44,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PAGE-02**: Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
 - [x] **PAGE-03**: About page with bio, experience, education, tools, personality section
 - [x] **PAGE-04**: Contact section as anchor from nav (not separate page) with email, LinkedIn, resume download
-- [ ] **PAGE-05**: Accessibility statement page targeting WCAG 2.2 AA
-- [ ] **PAGE-06**: Custom 404 page with personality and navigation back to homepage/work
+- [x] **PAGE-05**: Accessibility statement page targeting WCAG 2.2 AA
+- [x] **PAGE-06**: Custom 404 page with personality and navigation back to homepage/work
 
 ### Project Cards
 
@@ -140,8 +140,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | PAGE-02 | Phase 4 | Complete |
 | PAGE-03 | Phase 4 | Complete |
 | PAGE-04 | Phase 4 | Complete |
-| PAGE-05 | Phase 4 | Pending |
-| PAGE-06 | Phase 4 | Pending |
+| PAGE-05 | Phase 4 | Complete |
+| PAGE-06 | Phase 4 | Complete |
 | CARD-01 | Phase 4 | Complete |
 | CARD-02 | Phase 4 | Complete |
 | CARD-03 | Phase 4 | Complete |
