@@ -67,14 +67,13 @@ import { Icon } from 'astro-icon/components';
 </style>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll('.theme-toggle').forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        const current = document.documentElement.dataset.theme;
-        const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = next;
-        localStorage.setItem('theme', next);
-      });
-    });
+  // Event delegation: bind once, works for all theme toggles (sidebar + topbar)
+  document.addEventListener('click', (e) => {
+    const toggle = (e.target as Element).closest('.theme-toggle');
+    if (!toggle) return;
+    const current = document.documentElement.dataset.theme;
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
   });
 </script>

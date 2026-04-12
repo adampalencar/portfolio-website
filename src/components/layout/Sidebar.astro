@@ -217,18 +217,19 @@ const isWorkSection = currentPath.startsWith('/work');
 
     .nav-folder__child {
       display: block;
-      padding: var(--space-1) var(--space-4) var(--space-1) calc(var(--space-4) + 32px);
+      padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) + 32px);
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: var(--size-sm);
       text-transform: uppercase;
       letter-spacing: var(--tracking-wide);
       color: var(--text-tertiary);
       text-decoration: none;
-      transition: color 150ms ease;
+      transition: color 150ms ease, background 150ms ease;
     }
 
     .nav-folder__child:hover {
       color: var(--text-primary);
+      background: var(--border-subtle);
     }
 
     .nav-folder__child[aria-current="page"] {
@@ -258,6 +259,20 @@ const isWorkSection = currentPath.startsWith('/work');
 </style>
 
 <script>
+  // Bind click handlers once, not on every page-load (prevents duplicate listeners)
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as Element).closest('.nav-folder__trigger');
+    if (!trigger) return;
+    const targetId = trigger.getAttribute('aria-controls');
+    if (!targetId) return;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+    trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+    target.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+  });
+
+  // Update nav state on each navigation
   document.addEventListener('astro:page-load', () => {
     const currentPath = window.location.pathname;
 
@@ -283,20 +298,6 @@ const isWorkSection = currentPath.startsWith('/work');
       workChildren.setAttribute('aria-hidden', shouldExpand ? 'false' : 'true');
       workTrigger.setAttribute('aria-expanded', shouldExpand ? 'true' : 'false');
     }
-
-    // Accordion toggle on click
-    const triggers = document.querySelectorAll('.nav-folder__trigger');
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const targetId = trigger.getAttribute('aria-controls');
-        if (!targetId) return;
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-        trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-        target.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
-      });
-    });
 
     // Close mobile drawer on navigation (pitfall prevention)
     const drawer = document.querySelector('.mobile-drawer');
