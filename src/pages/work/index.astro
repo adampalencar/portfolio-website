@@ -1,29 +1,81 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ui/ProjectCard.astro';
 
 const allStudies = await getCollection('case-studies');
-const sorted = allStudies.sort((a, b) =>
-  a.data.tier !== b.data.tier
-    ? a.data.tier - b.data.tier
-    : a.id.localeCompare(b.id)
-);
+const sorted = allStudies.sort((a, b) => {
+  const order = ['orbital-concierge', 'krom', 'pipeline'];
+  const aIdx = order.indexOf(a.id);
+  const bIdx = order.indexOf(b.id);
+  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+  if (aIdx !== -1) return -1;
+  if (bIdx !== -1) return 1;
+  return a.data.tier - b.data.tier || a.id.localeCompare(b.id);
+});
+
+const featured = sorted[0];
+const rest = sorted.slice(1);
 ---
 
 <BaseLayout title="Work - Adam Palencar" description="Selected projects in game UI, product design, and interactive tools.">
 
   <div class="work-page">
-    <header class="work-page__header">
-      <h1>Work</h1>
-      <p class="work-page__subtitle mono-label">Selected projects</p>
-    </header>
-    <div class="work-grid">
-      {sorted.map(entry => (
-        <div id={entry.id} class={`work-grid__item work-grid__item--tier-${entry.data.tier}`}>
-          <ProjectCard entry={entry} />
+    <div class="section-marker">
+      <span class="section-marker__num">01</span>
+      <span class="section-marker__slash">/</span>
+      <span class="section-marker__title">ALL PROJECTS</span>
+      <span class="section-marker__line"></span>
+    </div>
+
+    <!-- Featured project (OC) -->
+    {featured && (
+      <a href={`/work/${featured.id}`} class="work-hero" id={featured.id}>
+        <div class="work-hero__image">
+          <Image
+            src={featured.data.thumbnail}
+            alt={featured.data.title}
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 767px) 100vw, (max-width: 1199px) 100vw, 80vw"
+          />
         </div>
-      ))}
+        <div class="work-hero__info">
+          <span class="work-hero__code">{featured.data.code}</span>
+          <h2 class="work-hero__title">{featured.data.title}</h2>
+          <p class="work-hero__desc">{featured.data.oneliner}</p>
+          <div class="work-hero__meta">
+            <span class="work-hero__tag">{featured.data.category.toUpperCase()} / {featured.data.discipline.toUpperCase()}</span>
+            <span class="work-hero__cta">Read case study &rarr;</span>
+          </div>
+        </div>
+      </a>
+    )}
+
+    <!-- Other projects grid -->
+    <div class="work-grid">
+      {rest.map(entry => {
+        const hasStudy = entry.id === 'orbital-concierge';
+        const linkTarget = hasStudy ? `/work/${entry.id}` : '#';
+        return (
+          <a href={linkTarget} class="work-card" id={entry.id} data-available={hasStudy || undefined}>
+            <div class="work-card__image">
+              <Image
+                src={entry.data.thumbnail}
+                alt={entry.data.title}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 767px) 100vw, 50vw"
+              />
+              {!hasStudy && <span class="work-card__badge">Coming soon</span>}
+            </div>
+            <div class="work-card__info">
+              <span class="work-card__code">{entry.data.code}</span>
+              <h3 class="work-card__title">{entry.data.title}</h3>
+              <p class="work-card__desc">{entry.data.oneliner}</p>
+              <span class="work-card__tag">{entry.data.category.toUpperCase()} / {entry.data.discipline.toUpperCase()}</span>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </div>
 
@@ -32,58 +84,236 @@ const sorted = allStudies.sort((a, b) =>
 <style>
   @layer components {
     .work-page {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-6) var(--grid-gutter) var(--space-8);
+      padding: var(--space-7) 96px var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
     }
 
-    .work-page__header {
-      margin-bottom: var(--space-6);
+    /* --- Section Marker --- */
+    .section-marker {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
     }
 
-    .work-page__subtitle {
+    .section-marker__num,
+    .section-marker__slash,
+    .section-marker__title {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      color: var(--text-tertiary);
+    }
+
+    .section-marker__num {
+      letter-spacing: 0.05em;
+    }
+
+    .section-marker__title {
+      letter-spacing: 0.1em;
+    }
+
+    .section-marker__line {
+      flex: 1;
+      height: 1px;
+      background: var(--border-visible);
+    }
+
+    /* --- Featured hero card --- */
+    .work-hero {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s ease;
+    }
+
+    .work-hero:hover {
+      opacity: 0.9;
+    }
+
+    .work-hero__image {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: var(--space-2);
+      background: var(--bg-secondary);
+    }
+
+    .work-hero__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .work-hero__info {
+      padding-top: var(--space-4);
+    }
+
+    .work-hero__code {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .work-hero__title {
+      font-family: var(--font-body);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0 0 8px 0;
+    }
+
+    .work-hero__desc {
+      font-size: var(--size-base);
+      line-height: var(--leading-relaxed);
       color: var(--text-secondary);
-      margin-top: var(--space-2);
+      max-width: 600px;
+      margin: 0 0 var(--space-3) 0;
     }
 
-    /* --- Tiered grid --- */
+    .work-hero__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 600px;
+    }
+
+    .work-hero__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .work-hero__cta {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .work-hero:hover .work-hero__cta {
+      color: var(--accent);
+    }
+
+    /* --- Project grid --- */
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: var(--space-4);
+      margin-top: var(--space-3);
     }
 
-    .work-grid__item--tier-1 {
-      grid-column: span 12;
+    .work-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s ease;
     }
 
-    .work-grid__item--tier-2 {
-      grid-column: span 6;
+    .work-card:hover {
+      opacity: 0.85;
     }
 
-    .work-grid__item--tier-3 {
-      grid-column: span 4;
+    .work-card__image {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: var(--space-2);
+      background: var(--bg-secondary);
     }
 
+    .work-card__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .work-card__badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: #FFFFFF;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .work-card__info {
+      padding-top: var(--space-3);
+    }
+
+    .work-card__code {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .work-card__title {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin: 0 0 8px 0;
+    }
+
+    .work-card__desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0 0 10px 0;
+      line-height: var(--leading-normal);
+    }
+
+    .work-card__tag {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    /* --- Responsive --- */
     @media (max-width: 1199px) {
-      .work-grid__item--tier-1 {
-        grid-column: span 12;
+      .work-page {
+        padding: var(--space-6) var(--grid-gutter) var(--space-8);
       }
 
-      .work-grid__item--tier-2 {
-        grid-column: span 6;
-      }
-
-      .work-grid__item--tier-3 {
-        grid-column: span 6;
+      .work-hero__title {
+        font-size: 28px;
       }
     }
 
     @media (max-width: 767px) {
-      .work-grid__item--tier-1,
-      .work-grid__item--tier-2,
-      .work-grid__item--tier-3 {
-        grid-column: span 12;
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-hero__title {
+        font-size: 24px;
+      }
+
+      .work-hero__meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
     }
   }

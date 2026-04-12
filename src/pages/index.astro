@@ -51,17 +51,19 @@ const tier1 = allStudies
 
   <!-- Intro / About -->
   <section class="intro">
-    <div class="section-marker">
-      <span class="section-marker__num">02</span>
-      <span class="section-marker__slash">/</span>
-      <span class="section-marker__title">ABOUT</span>
-      <span class="section-marker__line"></span>
-    </div>
+    <div class="intro__inner">
+      <div class="section-marker">
+        <span class="section-marker__num">02</span>
+        <span class="section-marker__slash">/</span>
+        <span class="section-marker__title">ABOUT</span>
+        <span class="section-marker__line"></span>
+      </div>
 
-    <h2 class="intro__heading">Sound editor turned UI/UX designer.</h2>
-    <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
-    <p class="intro__exp">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
-    <a href="/about" class="btn-outline">More about me</a>
+      <h2 class="intro__heading">Sound editor turned UI/UX designer.</h2>
+      <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
+      <p class="intro__exp">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
+      <a href="/about" class="btn-outline">More about me</a>
+    </div>
   </section>
 
   <!-- Contact Strip -->
@@ -71,9 +73,9 @@ const tier1 = allStudies
       <p class="contact-strip__body">I'm open to UI/UX roles in games, product design, and interactive tools. If you're hiring or want to talk, reach out.</p>
       <div class="contact-strip__links">
         <a href="mailto:adampalencar25@gmail.com" class="contact-strip__email">adampalencar25@gmail.com</a>
-        <span class="contact-strip__dot">·</span>
+        <span class="contact-strip__dot">&middot;</span>
         <a href="https://linkedin.com/in/adampalencar" target="_blank" rel="noopener noreferrer" class="contact-strip__link">LINKEDIN</a>
-        <span class="contact-strip__dot">·</span>
+        <span class="contact-strip__dot">&middot;</span>
         <!-- TODO: Replace placeholder PDF with real resume -->
         <a href="/resume/adam-palencar-resume.pdf" download class="contact-strip__link">RESUME</a>
       </div>
@@ -141,43 +143,6 @@ const tier1 = allStudies
       color: var(--text-secondary);
       max-width: 618px;
       margin: 0;
-    }
-
-    /* --- Buttons --- */
-    .btn-primary {
-      display: inline-block;
-      padding: 14px 28px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-family: var(--font-body);
-      font-size: 15px;
-      font-weight: 600;
-      transition: background 0.2s ease;
-      align-self: flex-start;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-    }
-
-    .btn-outline {
-      display: inline-block;
-      padding: 12px 24px;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      text-decoration: none;
-      border-radius: 4px;
-      border: 1px solid var(--text-primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.2s ease;
-    }
-
-    .btn-outline:hover {
-      background: var(--bg-secondary);
     }
 
     /* --- Section Marker --- */
@@ -250,6 +215,10 @@ const tier1 = allStudies
     .intro {
       background: var(--bg-secondary);
       padding: var(--space-7) 96px;
+    }
+
+    .intro__inner {
+      max-width: 680px;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -262,7 +231,6 @@ const tier1 = allStudies
       letter-spacing: -0.02em;
       line-height: var(--leading-tight);
       color: var(--text-primary);
-      max-width: 680px;
       margin: 0;
     }
 
@@ -270,7 +238,6 @@ const tier1 = allStudies
       font-size: var(--size-base);
       line-height: var(--leading-relaxed);
       color: var(--text-secondary);
-      max-width: 680px;
       margin: 0;
     }
 
@@ -278,17 +245,16 @@ const tier1 = allStudies
       font-size: 14px;
       line-height: var(--leading-normal);
       color: var(--text-tertiary);
-      max-width: 680px;
       margin: 0;
     }
 
-    /* --- Contact Strip --- */
+    /* --- Contact Strip (always dark, theme-independent) --- */
     .contact-wrap {
       padding: var(--space-6) 96px var(--space-5) 96px;
     }
 
     .contact-strip {
-      background: var(--text-primary);
+      background: #1A1A1A;
       border-radius: var(--space-2);
       padding: var(--space-6);
       display: flex;
@@ -305,20 +271,12 @@ const tier1 = allStudies
       margin: 0;
     }
 
-    [data-theme="dark"] .contact-strip__heading {
-      color: var(--bg-primary);
-    }
-
     .contact-strip__body {
       font-size: var(--size-base);
       line-height: var(--leading-relaxed);
-      color: var(--text-tertiary);
+      color: #999999;
       max-width: 600px;
       margin: 0;
-    }
-
-    [data-theme="dark"] .contact-strip__body {
-      color: #999999;
     }
 
     .contact-strip__links {
@@ -331,27 +289,24 @@ const tier1 = allStudies
     }
 
     .contact-strip__email {
-      color: var(--accent);
+      color: #1B7A3D;
       text-decoration: none;
       letter-spacing: 0.05em;
     }
 
     .contact-strip__email:hover {
       text-decoration: underline;
+      color: #1B7A3D;
     }
 
     .contact-strip__dot {
-      color: var(--text-secondary);
+      color: #666666;
     }
 
     .contact-strip__link {
-      color: var(--text-tertiary);
+      color: #999999;
       text-decoration: none;
       letter-spacing: 0.1em;
-    }
-
-    [data-theme="dark"] .contact-strip__link {
-      color: #999999;
     }
 
     .contact-strip__link:hover {
