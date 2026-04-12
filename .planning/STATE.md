@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-pages-03-PLAN.md
-last_updated: "2026-04-12T19:09:47.101Z"
+stopped_at: Completed 04-pages-02-PLAN.md
+last_updated: "2026-04-12T19:16:00.490Z"
 last_activity: 2026-04-12
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 11
-  completed_plans: 9
+  completed_plans: 10
   percent: 12
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 ## Current Position
 
 Phase: 04 (pages) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-04-12
 
@@ -60,6 +60,7 @@ Progress: [██░░░░░░░░] 12%
 | Phase 03-content-infrastructure P02 | 5min | 2 tasks | 11 files |
 | Phase 04-pages P01 | 2 | 2 tasks | 5 files |
 | Phase 04-pages P03 | 4min | 2 tasks | 18 files |
+| Phase 04-pages P02 | 3min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -94,6 +95,8 @@ Recent decisions affecting current work:
 - [Phase 04-pages]: SVGs placed in public/ not src/assets/ to avoid asset pipeline hashing and enable predictable URL paths
 - [Phase 04-pages]: FL Studio, FigJam, FMOD not on Simple Icons: created minimal text-label SVG fallbacks
 - [Phase 04-pages]: Adobe SVG slugs fetched via jsDelivr CDN instead of simpleicons.org direct (404s)
+- [Phase 04-pages]: CSS class tier spans (work-grid__item--tier-N) over :has() selector: cleaner template, explicit tier mapping
+- [Phase 04-pages]: Krom/Pipeline link to /work#krom and /work#pipeline anchors (not case study pages): stub content not authored yet
 
 ### Pending Todos
 
@@ -105,6 +108,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-12T19:09:47.098Z
-Stopped at: Completed 04-pages-03-PLAN.md
+Last session: 2026-04-12T19:16:00.488Z
+Stopped at: Completed 04-pages-02-PLAN.md
 Resume file: None

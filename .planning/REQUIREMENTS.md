@@ -40,17 +40,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Pages
 
-- [ ] **PAGE-01**: Homepage with hero (name, role, statement, CTA), 3 featured Tier 1 project cards, intro section, contact strip
-- [ ] **PAGE-02**: Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
+- [x] **PAGE-01**: Homepage with hero (name, role, statement, CTA), 3 featured Tier 1 project cards, intro section, contact strip
+- [x] **PAGE-02**: Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
 - [x] **PAGE-03**: About page with bio, experience, education, tools, personality section
-- [ ] **PAGE-04**: Contact section as anchor from nav (not separate page) with email, LinkedIn, resume download
+- [x] **PAGE-04**: Contact section as anchor from nav (not separate page) with email, LinkedIn, resume download
 - [ ] **PAGE-05**: Accessibility statement page targeting WCAG 2.2 AA
 - [ ] **PAGE-06**: Custom 404 page with personality and navigation back to homepage/work
 
 ### Project Cards
 
 - [x] **CARD-01**: Project cards with tier-based sizing: T1 large, T2 standard, T3 small thumbnail + description
-- [ ] **CARD-02**: Hover-to-video on project cards where video assets exist (CSS-only, muted, with static fallback)
+- [x] **CARD-02**: Hover-to-video on project cards where video assets exist (CSS-only, muted, with static fallback)
 - [x] **CARD-03**: Consistent aspect ratios across project grid (16:9 or 4:3)
 
 ### Visual Polish
@@ -136,14 +136,14 @@ Deferred to future release. Tracked but not in current roadmap.
 | CONT-03 | Phase 3 | Complete |
 | CONT-04 | Phase 3 | Complete |
 | CONT-05 | Phase 3 | Complete |
-| PAGE-01 | Phase 4 | Pending |
-| PAGE-02 | Phase 4 | Pending |
+| PAGE-01 | Phase 4 | Complete |
+| PAGE-02 | Phase 4 | Complete |
 | PAGE-03 | Phase 4 | Complete |
-| PAGE-04 | Phase 4 | Pending |
+| PAGE-04 | Phase 4 | Complete |
 | PAGE-05 | Phase 4 | Pending |
 | PAGE-06 | Phase 4 | Pending |
 | CARD-01 | Phase 4 | Complete |
-| CARD-02 | Phase 4 | Pending |
+| CARD-02 | Phase 4 | Complete |
 | CARD-03 | Phase 4 | Complete |
 | VISL-01 | Phase 5 | Pending |
 | VISL-02 | Phase 5 | Pending |
