@@ -1,10 +1,12 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import icon from 'astro-icon';
 
+import mdx from '@astrojs/mdx';
+
 export default defineConfig({
   output: 'static',
   site: 'https://adampalencar.netlify.app',
-  integrations: [icon()],
+  integrations: [icon(), mdx()],
   fonts: [
     {
       provider: fontProviders.fontsource(),
