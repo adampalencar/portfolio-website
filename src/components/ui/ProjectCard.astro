@@ -9,8 +9,9 @@ interface Props {
 }
 
 const { entry, href, featured = false } = Astro.props;
-const { title, oneliner, thumbnail, category, tier } = entry.data;
+const { title, oneliner, thumbnail, category, discipline, code, tier } = entry.data;
 const linkTarget = href ?? `/work/${entry.id}`;
+const tagLabel = `${category} / ${discipline}`.toUpperCase();
 ---
 
 <article class="project-card" data-tier={tier} data-featured={featured || undefined}>
@@ -24,9 +25,10 @@ const linkTarget = href ?? `/work/${entry.id}`;
       />
     </div>
     <div class="project-card__body">
-      <span class="project-card__tag mono-label">{category}</span>
+      <span class="project-card__code">{code}</span>
       <h3 class="project-card__title">{title}</h3>
       <p class="project-card__oneliner">{oneliner}</p>
+      <span class="project-card__tag">{tagLabel}</span>
     </div>
   </a>
 </article>
@@ -34,15 +36,11 @@ const linkTarget = href ?? `/work/${entry.id}`;
 <style>
   @layer components {
     .project-card {
-      border-radius: var(--space-2);
-      overflow: hidden;
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      transition: box-shadow 0.2s ease;
+      transition: opacity 0.2s ease;
     }
 
     .project-card:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      opacity: 0.85;
     }
 
     .project-card__link {
@@ -52,9 +50,9 @@ const linkTarget = href ?? `/work/${entry.id}`;
     }
 
     .project-card__image-wrap {
-      /* CARD-03: 16:9 chosen for field manual identity — widescreen, cinematic, matches game screenshots */
       aspect-ratio: 16 / 9;
       overflow: hidden;
+      border-radius: var(--space-2);
       background: var(--bg-secondary);
     }
 
@@ -65,30 +63,40 @@ const linkTarget = href ?? `/work/${entry.id}`;
     }
 
     .project-card__body {
-      padding: var(--space-3);
+      padding-top: var(--space-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .project-card__code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .project-card__title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .project-card__oneliner {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: var(--leading-normal);
     }
 
     .project-card__tag {
       font-family: var(--font-mono);
-      font-size: var(--size-xs);
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-wide);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       color: var(--accent);
-      margin-bottom: var(--space-1);
-      display: block;
-    }
-
-    .project-card__title {
-      font-size: var(--size-xl);
-      font-weight: 600;
-      margin: 0 0 var(--space-1) 0;
-    }
-
-    .project-card__oneliner {
-      font-size: var(--size-sm);
-      color: var(--text-secondary);
-      margin: 0;
-      line-height: var(--leading-normal);
     }
   }
 </style>

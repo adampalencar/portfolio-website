@@ -7,6 +7,8 @@ const caseStudies = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     oneliner: z.string(),
+    code: z.string(),
+    discipline: z.string(),
     role: z.string(),
     timeline: z.string(),
     tools: z.array(z.string()),

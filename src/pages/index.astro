@@ -7,41 +7,76 @@ const allStudies = await getCollection('case-studies');
 const tier1 = allStudies
   .filter(s => s.data.tier === 1)
   .sort((a, b) => {
-    const order = ['krom', 'pipeline', 'orbital-concierge'];
+    const order = ['orbital-concierge', 'krom', 'pipeline'];
     return order.indexOf(a.id) - order.indexOf(b.id);
   });
 ---
 
 <BaseLayout title="Adam Palencar - UI/UX Designer" description="Portfolio of Adam Palencar, UI/UX Designer. Games, tools, and interactive products.">
 
+  <!-- Hero -->
   <section class="hero">
-    <h1 class="hero__name">Adam Palencar</h1>
-    <p class="hero__role mono-label">UI/UX Designer, Toronto</p>
-    <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
-    <a href="/work" class="hero__cta">View my work</a>
+    <span class="hero__mark hero__mark--tl">+</span>
+    <span class="hero__mark hero__mark--tr">+</span>
+    <span class="hero__mark hero__mark--br">+</span>
+    <div class="hero__content">
+      <p class="hero__eyebrow">UI/UX DESIGNER, TORONTO · FIGMA · UNREAL ENGINE 5 · GAME UI</p>
+      <h1 class="hero__name"><span class="hero__name--first">Adam</span> Palencar</h1>
+      <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
+      <a href="/work" class="btn-primary">View my work</a>
+    </div>
   </section>
 
-  <section class="featured-work">
-    {tier1[0] && <ProjectCard entry={tier1[0]} href="/work#krom" featured />}
-    {tier1[1] && <ProjectCard entry={tier1[1]} href="/work#pipeline" featured />}
-    {tier1[2] && <ProjectCard entry={tier1[2]} featured />}
+  <!-- Featured Work -->
+  <section class="featured">
+    <div class="section-marker">
+      <span class="section-marker__num">01</span>
+      <span class="section-marker__slash">/</span>
+      <span class="section-marker__title">FEATURED WORK</span>
+      <span class="section-marker__line"></span>
+    </div>
+
+    {tier1[0] && <ProjectCard entry={tier1[0]} featured />}
+
+    <div class="featured__row">
+      {tier1[1] && <ProjectCard entry={tier1[1]} href="/work#krom" />}
+      {tier1[2] && <ProjectCard entry={tier1[2]} href="/work#pipeline" />}
+    </div>
+
+    <a href="/work" class="featured__cta">
+      <span>SEE ALL PROJECTS</span>
+      <span class="featured__cta-arrow">&rarr;</span>
+    </a>
   </section>
 
+  <!-- Intro / About -->
   <section class="intro">
+    <div class="section-marker">
+      <span class="section-marker__num">02</span>
+      <span class="section-marker__slash">/</span>
+      <span class="section-marker__title">ABOUT</span>
+      <span class="section-marker__line"></span>
+    </div>
+
     <h2 class="intro__heading">Sound editor turned UI/UX designer.</h2>
     <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
-    <p class="intro__body">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
-    <a href="/about" class="intro__cta">More about me</a>
+    <p class="intro__exp">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
+    <a href="/about" class="btn-outline">More about me</a>
   </section>
 
-  <section id="contact" class="contact-strip">
-    <h2 class="contact-strip__heading">Looking for work.</h2>
-    <p class="contact-strip__body">I'm open to UI/UX roles in games, product design, and interactive tools. If you're hiring or want to talk, reach out.</p>
-    <a href="mailto:adampalencar25@gmail.com" class="contact-strip__email">adampalencar25@gmail.com</a>
-    <div class="contact-strip__links">
-      <a href="https://linkedin.com/in/adampalencar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <!-- TODO: Replace placeholder PDF with real resume -->
-      <a href="/resume/adam-palencar-resume.pdf" download>Resume</a>
+  <!-- Contact Strip -->
+  <section id="contact" class="contact-wrap">
+    <div class="contact-strip">
+      <h2 class="contact-strip__heading">Looking for work.</h2>
+      <p class="contact-strip__body">I'm open to UI/UX roles in games, product design, and interactive tools. If you're hiring or want to talk, reach out.</p>
+      <div class="contact-strip__links">
+        <a href="mailto:adampalencar25@gmail.com" class="contact-strip__email">adampalencar25@gmail.com</a>
+        <span class="contact-strip__dot">·</span>
+        <a href="https://linkedin.com/in/adampalencar" target="_blank" rel="noopener noreferrer" class="contact-strip__link">LINKEDIN</a>
+        <span class="contact-strip__dot">·</span>
+        <!-- TODO: Replace placeholder PDF with real resume -->
+        <a href="/resume/adam-palencar-resume.pdf" download class="contact-strip__link">RESUME</a>
+      </div>
     </div>
   </section>
 
@@ -51,163 +86,327 @@ const tier1 = allStudies
   @layer components {
     /* --- Hero --- */
     .hero {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-8) var(--grid-gutter) var(--space-7);
-      text-align: left;
+      position: relative;
+      padding: var(--space-7) 96px var(--space-6) 96px;
     }
 
-    .hero__name {
-      /* h1 base handles size (64px), weight (700), tracking-tight */
-      margin-bottom: var(--space-2);
-    }
-
-    .hero__role {
+    .hero__mark {
+      position: absolute;
       font-family: var(--font-mono);
-      font-size: var(--size-sm);
-      text-transform: uppercase;
-      letter-spacing: var(--tracking-wide);
-      color: var(--text-secondary);
-      margin-bottom: var(--space-3);
+      font-size: 14px;
+      color: rgba(26, 26, 26, 0.05);
+      user-select: none;
     }
 
-    .hero__statement {
-      font-size: var(--size-xl);
-      max-width: 640px;
-      line-height: var(--leading-relaxed);
-      color: var(--text-secondary);
-      margin-bottom: var(--space-5);
+    .hero__mark--tl { top: 48px; left: 48px; }
+    .hero__mark--tr { top: 48px; right: 48px; }
+    .hero__mark--br { bottom: 48px; right: 48px; }
+
+    [data-theme="dark"] .hero__mark {
+      color: rgba(240, 237, 230, 0.05);
     }
 
-    .hero__cta {
-      display: inline-block;
-      padding: var(--space-2) var(--space-4);
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      border-radius: var(--space-1);
-      font-family: var(--font-mono);
-      font-size: var(--size-sm);
-      letter-spacing: var(--tracking-wide);
-      text-transform: uppercase;
-      transition: background 0.2s ease;
-    }
-
-    .hero__cta:hover {
-      background: var(--accent-hover);
-    }
-
-    /* --- Featured Work --- */
-    .featured-work {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: 0 var(--grid-gutter) var(--space-7);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .hero__content {
+      display: flex;
+      flex-direction: column;
       gap: var(--space-4);
     }
 
-    @media (max-width: 1199px) {
-      .featured-work {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .featured-work > :last-child {
-        grid-column: 1 / -1;
-      }
+    .hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      margin: 0;
     }
 
-    @media (max-width: 767px) {
-      .featured-work {
-        grid-template-columns: 1fr;
-      }
+    .hero__name {
+      font-family: var(--font-body);
+      font-size: 96px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--text-primary);
+      margin: 0;
+    }
 
-      .featured-work > :last-child {
-        grid-column: auto;
-      }
+    .hero__name--first {
+      color: var(--accent);
+    }
+
+    .hero__statement {
+      font-size: 20px;
+      line-height: var(--leading-relaxed);
+      color: var(--text-secondary);
+      max-width: 618px;
+      margin: 0;
+    }
+
+    /* --- Buttons --- */
+    .btn-primary {
+      display: inline-block;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+      align-self: flex-start;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-secondary);
+    }
+
+    /* --- Section Marker --- */
+    .section-marker {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+
+    .section-marker__num,
+    .section-marker__slash,
+    .section-marker__title {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      color: var(--text-tertiary);
+    }
+
+    .section-marker__num {
+      letter-spacing: 0.05em;
+    }
+
+    .section-marker__title {
+      letter-spacing: 0.1em;
+    }
+
+    .section-marker__line {
+      flex: 1;
+      height: 1px;
+      background: var(--border-visible);
+    }
+
+    /* --- Featured Work --- */
+    .featured {
+      padding: var(--space-7) 96px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+
+    .featured__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    .featured__cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding-top: var(--space-3);
+    }
+
+    .featured__cta:hover {
+      color: var(--text-primary);
+    }
+
+    .featured__cta-arrow {
+      font-size: 16px;
     }
 
     /* --- Intro --- */
     .intro {
-      max-width: 720px;
-      margin-inline: auto;
-      padding: var(--space-7) var(--grid-gutter);
+      background: var(--bg-secondary);
+      padding: var(--space-7) 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .intro__heading {
-      /* h2 base handles size (48px), weight (600), tracking-tight */
-      margin-bottom: var(--space-4);
+      font-family: var(--font-body);
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
+      max-width: 680px;
+      margin: 0;
     }
 
     .intro__body {
+      font-size: var(--size-base);
+      line-height: var(--leading-relaxed);
       color: var(--text-secondary);
-      margin-bottom: var(--space-3);
+      max-width: 680px;
+      margin: 0;
     }
 
-    .intro__cta {
-      display: inline-block;
-      padding: var(--space-2) var(--space-4);
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      text-decoration: none;
-      border-radius: var(--space-1);
-      font-family: var(--font-mono);
-      font-size: var(--size-sm);
-      letter-spacing: var(--tracking-wide);
-      text-transform: uppercase;
-      transition: background 0.2s ease, color 0.2s ease;
-      margin-top: var(--space-3);
-    }
-
-    .intro__cta:hover {
-      background: var(--accent);
-      color: #fff;
+    .intro__exp {
+      font-size: 14px;
+      line-height: var(--leading-normal);
+      color: var(--text-tertiary);
+      max-width: 680px;
+      margin: 0;
     }
 
     /* --- Contact Strip --- */
+    .contact-wrap {
+      padding: var(--space-6) 96px var(--space-5) 96px;
+    }
+
     .contact-strip {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-8) var(--grid-gutter);
-      border-top: 1px solid var(--border-visible);
+      background: var(--text-primary);
+      border-radius: var(--space-2);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
     }
 
     .contact-strip__heading {
-      /* h2 base handles styling */
-      margin-bottom: var(--space-4);
+      font-family: var(--font-body);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #FFFFFF;
+      margin: 0;
+    }
+
+    [data-theme="dark"] .contact-strip__heading {
+      color: var(--bg-primary);
     }
 
     .contact-strip__body {
-      color: var(--text-secondary);
-      max-width: 560px;
-      margin-bottom: var(--space-4);
+      font-size: var(--size-base);
+      line-height: var(--leading-relaxed);
+      color: var(--text-tertiary);
+      max-width: 600px;
+      margin: 0;
     }
 
-    .contact-strip__email {
-      font-size: var(--size-lg);
-      color: var(--accent);
-      text-decoration: underline;
-      display: block;
-      margin-bottom: var(--space-3);
-    }
-
-    .contact-strip__email:hover {
-      color: var(--accent-hover);
+    [data-theme="dark"] .contact-strip__body {
+      color: #999999;
     }
 
     .contact-strip__links {
       display: flex;
-      gap: var(--space-3);
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
     }
 
-    .contact-strip__links a {
+    .contact-strip__email {
       color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-strip__email:hover {
       text-decoration: underline;
     }
 
-    .contact-strip__links a:hover {
-      color: var(--accent-hover);
+    .contact-strip__dot {
+      color: var(--text-secondary);
+    }
+
+    .contact-strip__link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    [data-theme="dark"] .contact-strip__link {
+      color: #999999;
+    }
+
+    .contact-strip__link:hover {
+      color: #FFFFFF;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 1199px) {
+      .hero {
+        padding: var(--space-6) var(--grid-gutter);
+      }
+
+      .hero__name {
+        font-size: 64px;
+      }
+
+      .hero__mark { display: none; }
+
+      .featured {
+        padding: var(--space-6) var(--grid-gutter);
+      }
+
+      .intro {
+        padding: var(--space-6) var(--grid-gutter);
+      }
+
+      .contact-wrap {
+        padding: var(--space-6) var(--grid-gutter);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero__name {
+        font-size: 48px;
+      }
+
+      .hero__statement {
+        font-size: var(--size-base);
+      }
+
+      .featured__row {
+        grid-template-columns: 1fr;
+      }
+
+      .intro__heading {
+        font-size: 28px;
+      }
+
+      .contact-strip {
+        padding: var(--space-4);
+      }
+
+      .contact-strip__links {
+        flex-wrap: wrap;
+      }
     }
   }
 </style>
