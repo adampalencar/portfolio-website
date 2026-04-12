@@ -136,16 +136,20 @@ Architecture not yet mapped. Follow existing patterns found in the codebase.
 <!-- GSD:architecture-end -->
 
 <!-- GSD:workflow-start source:GSD defaults -->
-## GSD Workflow Enforcement
+## GSD Status: Paused
 
-Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+GSD was used for phases 1-4 (design system, nav shell, content infrastructure, pages).
+Phases 5-6 (animations/polish, QA/pre-launch) are done as direct edits without GSD.
 
-Use these entry points:
-- `/gsd:quick` for small fixes, doc updates, and ad-hoc tasks
-- `/gsd:debug` for investigation and bug fixing
-- `/gsd:execute-phase` for planned phase work
+**Reference artifacts (read-only, do not update):**
+- `.planning/ROADMAP.md` - phase breakdown, success criteria, requirements
+- `.planning/REQUIREMENTS.md` - full requirements list with traceability
+- `.planning/PROJECT.md` - project context, constraints, decisions
+- `.planning/STATE.md` - completion status (4/6 phases done)
+- `.planning/phases/*/` - plans, summaries, verifications per phase
+- `.planning/research/` - stack research, architecture, work page research
 
-Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+Do not run GSD commands or update GSD artifacts. Work directly on the codebase.
 <!-- GSD:workflow-end -->
 
 
