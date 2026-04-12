@@ -1,9 +1,361 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tools = [
+  { name: 'Figma', icon: '/icons/tools/figma.svg', group: 'Design' },
+  { name: 'FigJam', icon: '/icons/tools/figjam.svg', group: 'Design' },
+  { name: 'Miro', icon: '/icons/tools/miro.svg', group: 'Design' },
+  { name: 'Photoshop', icon: '/icons/tools/photoshop.svg', group: 'Adobe' },
+  { name: 'Illustrator', icon: '/icons/tools/illustrator.svg', group: 'Adobe' },
+  { name: 'InDesign', icon: '/icons/tools/indesign.svg', group: 'Adobe' },
+  { name: 'Premiere Pro', icon: '/icons/tools/premierepro.svg', group: 'Adobe' },
+  { name: 'After Effects', icon: '/icons/tools/aftereffects.svg', group: 'Adobe' },
+  { name: 'Pro Tools', icon: '/icons/tools/protools.svg', group: 'Audio' },
+  { name: 'FL Studio', icon: '/icons/tools/flstudio.svg', group: 'Audio' },
+  { name: 'FMOD', icon: '/icons/tools/fmod.svg', group: 'Audio' },
+  { name: 'HTML', icon: '/icons/tools/html5.svg', group: 'Code' },
+  { name: 'CSS', icon: '/icons/tools/css3.svg', group: 'Code' },
+  { name: 'Python', icon: '/icons/tools/python.svg', group: 'Code' },
+  { name: 'Godot', icon: '/icons/tools/godot.svg', group: 'Code' },
+  { name: 'Unreal Engine 5', icon: '/icons/tools/unrealengine.svg', group: 'Code' },
+];
 ---
-<BaseLayout title="About - Adam Palencar">
-  <div class="container">
-    <h1>About</h1>
-    <p>About page placeholder.</p>
-  </div>
+
+<BaseLayout title="About - Adam Palencar" description="UI/UX Designer based in Toronto with a background in sound production and video editing.">
+
+  <section class="about-hero">
+    <div class="about-hero__photo">
+      <div class="about-hero__initials">AP</div>
+    </div>
+    <div class="about-hero__content">
+      <h1>Adam Palencar</h1>
+      <p class="about-hero__subtitle mono-label">UI/UX Designer, Toronto</p>
+      <p>I design interfaces for games and interactive products. I used to edit video and produce audio. The throughline is the same problem in different formats: how do you get someone's attention, hold it, and make sure they understand what to do next?</p>
+      <p>I came to UX through sound production and video editing. Along the way I realized the thing I kept gravitating toward wasn't the media itself, it was the structure underneath: how information gets organized, how timing shapes comprehension, and at what point you've cut so much that the thing falls apart.</p>
+      <p>Now I'm looking for UI/UX work in games, tools, or apps. I care about clarity and systems thinking. I also care about knowing when to stop adding things.</p>
+      <p class="about-hero__availability"><strong>Available immediately. Open to remote, hybrid, or on-site in Toronto.</strong></p>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>Experience</h2>
+    <ol class="timeline" role="list">
+      <li class="timeline__entry">
+        <time class="mono-label" datetime="2025-06">2025.06 to 2025.12</time>
+        <h3 class="timeline__role">UI/UX Designer</h3>
+        <p class="timeline__company">Floppy Goat Inc. (Montreal, Remote)</p>
+        <p class="timeline__desc">Sole designer on Isles of Krom, a dark fantasy extraction roguelike. Designed 24+ screens and a reusable component system (15+ components) in Figma for Unreal Engine 5. Built the design system, defined interaction states, and delivered annotated handoffs tight enough that developers could implement without back-and-forth.</p>
+      </li>
+      <li class="timeline__entry">
+        <time class="mono-label" datetime="2023-02">2023.02 to 2023.11</time>
+        <h3 class="timeline__role">Digital Designer and Multimedia Editor</h3>
+        <p class="timeline__company">Freelance (Scotland, Remote)</p>
+        <p class="timeline__desc">Created branded digital assets, edited audio and video for commercial clients, and managed production workflows across formats. Handled everything from briefs to final exports, including versioning, review cycles, and client feedback.</p>
+      </li>
+      <li class="timeline__entry">
+        <time class="mono-label" datetime="2022-09">2022.09 to 2023.02</time>
+        <h3 class="timeline__role">Video Editor Intern</h3>
+        <p class="timeline__company">Lotus Pictures Inc. (New York City)</p>
+        <p class="timeline__desc">Edited B2B commercial content for clients including ADP and Adobe. Organized B-roll, standardized folder structures, and streamlined review packages to speed up approval cycles.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="about-section">
+    <h2>Education</h2>
+    <ol class="timeline" role="list">
+      <li class="timeline__entry">
+        <time class="mono-label" datetime="2025-01">2025.01 to 2025.12</time>
+        <h3 class="timeline__role">Graduate Certificate, User Experience Design</h3>
+        <p class="timeline__company">Humber Polytechnic, Toronto</p>
+        <p class="timeline__desc">Graduated with Honours</p>
+      </li>
+      <li class="timeline__entry">
+        <time class="mono-label" datetime="2020-08">2020.08 to 2022.09</time>
+        <h3 class="timeline__role">Higher National Diploma, Sound Production</h3>
+        <p class="timeline__company">Forth Valley College, Stirling, Scotland</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="about-section about-section--narrow">
+    <h2>What Makes Me Different</h2>
+    <p>Most UI/UX designers came to the field through graphic design or computer science. I came through sound and video production. That background shaped how I think about design:</p>
+    <p>Years of editing taught me that when information appears matters as much as what the information is. A transition that's 200ms too slow feels sluggish. A tooltip that shows up before the player is ready creates noise. I think about UI pacing the way an editor thinks about a cut.</p>
+    <p>Audio production is revision on revision on revision. You mix, listen back, adjust, listen again. I had thousands of hours of that cycle before I ever opened Figma, so the iteration side of design felt familiar from day one.</p>
+    <p>And the hardest skill in editing, removing something you like because the piece is better without it, transfers to interface design. Every element competes for attention. The temptation is always to add more. The instinct I trust most is the one that says "take it out."</p>
+  </section>
+
+  <section class="about-section">
+    <h2>Tools</h2>
+    <ul class="tools-grid" role="list">
+      {tools.map((tool) => (
+        <li class="tools-grid__item">
+          <img src={tool.icon} alt="" width="32" height="32" class="tools-grid__icon" />
+          <span class="tools-grid__name">{tool.name}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="about-section about-section--narrow">
+    <h2>Outside of Work</h2>
+    <p>I compose and produce music, mostly inspired by video games. I follow indie game development closely and I'm building my own puzzle game, Orbital Concierge. I also play way too many roguelikes, collect vinyl, and occasionally try to cook something that isn't pasta.</p>
+  </section>
+
+  <section class="about-contact">
+    <p class="about-contact__email"><a href="mailto:adampalencar25@gmail.com">adampalencar25@gmail.com</a></p>
+    <p class="about-contact__location mono-label">Toronto, ON, Canada</p>
+    <div class="about-contact__links">
+      <a href="https://www.linkedin.com/in/adampalencar/" class="about-contact__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="/resume.pdf" class="about-contact__link">Resume</a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  @layer components {
+
+    /* Hero */
+    .about-hero {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-7) var(--grid-gutter);
+      display: flex;
+      gap: var(--space-7);
+      align-items: flex-start;
+    }
+
+    .about-hero__photo {
+      flex-shrink: 0;
+    }
+
+    .about-hero__initials {
+      background: var(--bg-secondary);
+      aspect-ratio: 3 / 4;
+      max-width: 280px;
+      width: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: var(--size-3xl);
+      color: var(--text-tertiary);
+      font-weight: 700;
+    }
+
+    .about-hero__content {
+      flex: 1;
+    }
+
+    .about-hero__content h1 {
+      margin-bottom: var(--space-1);
+    }
+
+    .about-hero__subtitle {
+      margin-bottom: var(--space-4);
+    }
+
+    .about-hero__content p {
+      margin-bottom: var(--space-3);
+    }
+
+    .about-hero__content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-hero__availability {
+      margin-top: var(--space-4);
+    }
+
+    @media (max-width: 1199px) {
+      .about-hero {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .about-hero__initials {
+        width: 200px;
+        max-width: 200px;
+      }
+
+      .about-hero__content {
+        width: 100%;
+      }
+    }
+
+    /* Sections */
+    .about-section {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-6) var(--grid-gutter);
+    }
+
+    .about-section--narrow {
+      max-width: 720px;
+    }
+
+    .about-section h2 {
+      margin-bottom: var(--space-5);
+    }
+
+    .about-section--narrow p {
+      margin-bottom: var(--space-3);
+      color: var(--text-secondary);
+    }
+
+    .about-section--narrow p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Timeline */
+    .timeline {
+      list-style: none;
+      padding-left: var(--space-6);
+      position: relative;
+      margin: 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border-visible);
+    }
+
+    .timeline__entry {
+      position: relative;
+      margin-bottom: var(--space-6);
+    }
+
+    .timeline__entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline__entry::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * var(--space-6) + 3px);
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg-primary);
+    }
+
+    .timeline__entry time {
+      display: block;
+      margin-bottom: var(--space-1);
+    }
+
+    .timeline__role {
+      font-size: var(--size-lg);
+      margin: var(--space-1) 0;
+    }
+
+    .timeline__company {
+      font-size: var(--size-sm);
+      color: var(--text-secondary);
+      margin: 0 0 var(--space-2) 0;
+    }
+
+    .timeline__desc {
+      font-size: var(--size-base);
+      color: var(--text-secondary);
+      line-height: var(--leading-relaxed);
+      margin: 0;
+    }
+
+    /* Tools grid */
+    .tools-grid {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .tools-grid__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border-radius: var(--space-2);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .tools-grid__icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    [data-theme="dark"] .tools-grid__icon {
+      filter: invert(1) brightness(0.85);
+    }
+
+    .tools-grid__name {
+      font-size: var(--size-xs);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* Contact */
+    .about-contact {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-6) var(--grid-gutter) var(--space-8);
+    }
+
+    .about-contact__email {
+      font-size: var(--size-xl);
+      margin-bottom: var(--space-2);
+    }
+
+    .about-contact__email a {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .about-contact__email a:hover {
+      color: var(--accent);
+    }
+
+    .about-contact__location {
+      margin-bottom: var(--space-4);
+    }
+
+    .about-contact__links {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .about-contact__link {
+      font-family: var(--font-mono);
+      font-size: var(--size-sm);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+    }
+
+    .about-contact__link:hover {
+      color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+  }
+</style>
