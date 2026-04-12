@@ -63,6 +63,11 @@ const imageSizes = featured
       background: var(--bg-secondary);
     }
 
+    /* Featured card: wider crop so title is visible without scrolling */
+    .project-card[data-featured] .project-card__image-wrap {
+      aspect-ratio: 21 / 9;
+    }
+
     .project-card__image-wrap img {
       width: 100%;
       height: 100%;
