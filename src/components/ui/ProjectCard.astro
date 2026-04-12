@@ -63,9 +63,9 @@ const imageSizes = featured
       background: var(--bg-secondary);
     }
 
-    /* Featured card: wider crop so title is visible without scrolling */
+    /* Featured card: cap height so title stays visible without scrolling */
     .project-card[data-featured] .project-card__image-wrap {
-      aspect-ratio: 21 / 9;
+      max-height: 420px;
     }
 
     .project-card__image-wrap img {
