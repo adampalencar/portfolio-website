@@ -76,7 +76,12 @@ Plans:
   2. The Work page shows project cards in three distinct tier sizes (T1 large, T2 standard, T3 small thumbnail); hovering a card with a video asset plays the video inline with a static fallback when video is absent
   3. The About, Contact anchor, Accessibility Statement, and 404 pages all exist with correct content and navigation
   4. A visitor can reach the site via a live Netlify URL; the build succeeds with zero errors
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 04-01-PLAN.md — ProjectCard component and Krom/Pipeline MDX stubs with placeholder thumbnails
+- [ ] 04-02-PLAN.md — Homepage (hero, featured cards, intro, contact strip) and Work page (tiered grid)
+- [ ] 04-03-PLAN.md — About page (bio, experience timeline, tools grid, personality)
+- [ ] 04-04-PLAN.md — 404 page, accessibility statement, Netlify config, and visual verification checkpoint
 **UI hint**: yes
 
 ### Phase 5: Animations and Polish
@@ -113,6 +118,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 3/3 | Complete   | 2026-04-11 |
 | 3. Content Infrastructure | 2/2 | Complete   | 2026-04-12 |
-| 4. Pages | 0/TBD | Not started | - |
+| 4. Pages | 0/4 | Planning complete | - |
 | 5. Animations and Polish | 0/TBD | Not started | - |
 | 6. QA and Pre-Launch | 0/TBD | Not started | - |
