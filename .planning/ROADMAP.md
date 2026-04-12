@@ -13,7 +13,7 @@ Six phases that take the site from nothing to a launchable portfolio. The first 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Design System** - CSS tokens, typography, grid, dark mode infrastructure, Astro project scaffolding
-- [x] **Phase 2: Navigation Shell** - BaseLayout, sidebar nav, footer, responsive breakpoints (completed 2026-04-11)
+- [x] **Phase 2: Navigation Shell** - BaseLayout, sidebar nav, footer, responsive breakpoints (completed 2026-04-11)
 - [ ] **Phase 3: Content Infrastructure** - Case study schema, CaseStudyLayout, Orbital Concierge content
 - [ ] **Phase 4: Pages** - All site pages, project cards, tier layout, first Netlify deploy
 - [ ] **Phase 5: Animations and Polish** - Scroll reveals, View Transitions, grain texture, motion preferences
@@ -61,7 +61,10 @@ Plans:
   1. A `content.config.ts` Zod schema exists; adding an MDX file with valid frontmatter makes it appear in `getCollection()` without manual registration
   2. The Orbital Concierge case study is accessible at its URL, follows the Minto Pyramid section order (result, problem, key decisions, process, final design, reflection, CTA), and all screenshot images are served as optimized formats via Astro's image pipeline
   3. Prev/next navigation at the bottom of each case study links to adjacent projects by tier order
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 03-01-PLAN.md — MDX integration, content schema, CaseStudyLayout template, dynamic route
+- [ ] 03-02-PLAN.md — Orbital Concierge MDX content, asset pipeline, visual verification
 **UI hint**: yes
 
 ### Phase 4: Pages
@@ -109,7 +112,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 3/3 | Complete   | 2026-04-11 |
-| 3. Content Infrastructure | 0/TBD | Not started | - |
+| 3. Content Infrastructure | 0/2 | Planning complete | - |
 | 4. Pages | 0/TBD | Not started | - |
 | 5. Animations and Polish | 0/TBD | Not started | - |
 | 6. QA and Pre-Launch | 0/TBD | Not started | - |
