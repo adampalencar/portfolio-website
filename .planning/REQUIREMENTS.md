@@ -42,7 +42,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **PAGE-01**: Homepage with hero (name, role, statement, CTA), 3 featured Tier 1 project cards, intro section, contact strip
 - [ ] **PAGE-02**: Work page with Tier 1 (large cards), Tier 2 (standard cards), Tier 3 (small cards) project index
-- [ ] **PAGE-03**: About page with bio, experience, education, tools, personality section
+- [x] **PAGE-03**: About page with bio, experience, education, tools, personality section
 - [ ] **PAGE-04**: Contact section as anchor from nav (not separate page) with email, LinkedIn, resume download
 - [ ] **PAGE-05**: Accessibility statement page targeting WCAG 2.2 AA
 - [ ] **PAGE-06**: Custom 404 page with personality and navigation back to homepage/work
@@ -138,7 +138,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | CONT-05 | Phase 3 | Complete |
 | PAGE-01 | Phase 4 | Pending |
 | PAGE-02 | Phase 4 | Pending |
-| PAGE-03 | Phase 4 | Pending |
+| PAGE-03 | Phase 4 | Complete |
 | PAGE-04 | Phase 4 | Pending |
 | PAGE-05 | Phase 4 | Pending |
 | PAGE-06 | Phase 4 | Pending |

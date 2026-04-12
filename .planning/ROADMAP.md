@@ -80,7 +80,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — ProjectCard component and Krom/Pipeline MDX stubs with placeholder thumbnails
 - [ ] 04-02-PLAN.md — Homepage (hero, featured cards, intro, contact strip) and Work page (tiered grid)
-- [ ] 04-03-PLAN.md — About page (bio, experience timeline, tools grid, personality)
+- [x] 04-03-PLAN.md — About page (bio, experience timeline, tools grid, personality)
 - [ ] 04-04-PLAN.md — 404 page, accessibility statement, Netlify config, and visual verification checkpoint
 **UI hint**: yes
 
@@ -118,6 +118,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Design System | 0/2 | Planning complete | - |
 | 2. Navigation Shell | 3/3 | Complete   | 2026-04-11 |
 | 3. Content Infrastructure | 2/2 | Complete   | 2026-04-12 |
-| 4. Pages | 1/4 | In Progress|  |
+| 4. Pages | 2/4 | In Progress|  |
 | 5. Animations and Polish | 0/TBD | Not started | - |
 | 6. QA and Pre-Launch | 0/TBD | Not started | - |

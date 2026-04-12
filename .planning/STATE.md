@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-pages-01-PLAN.md
-last_updated: "2026-04-12T19:07:27.420Z"
+stopped_at: Completed 04-pages-03-PLAN.md
+last_updated: "2026-04-12T19:09:47.101Z"
 last_activity: 2026-04-12
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 11
-  completed_plans: 8
+  completed_plans: 9
   percent: 12
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-11)
 ## Current Position
 
 Phase: 04 (pages) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-12
 
@@ -59,6 +59,7 @@ Progress: [██░░░░░░░░] 12%
 | Phase 03-content-infrastructure P01 | 12min | 3 tasks | 7 files |
 | Phase 03-content-infrastructure P02 | 5min | 2 tasks | 11 files |
 | Phase 04-pages P01 | 2 | 2 tasks | 5 files |
+| Phase 04-pages P03 | 4min | 2 tasks | 18 files |
 
 ## Accumulated Context
 
@@ -90,6 +91,9 @@ Recent decisions affecting current work:
 - [Phase 04-pages]: 16:9 aspect ratio for ProjectCard (CARD-03): widescreen/cinematic matches game screenshots and field manual identity
 - [Phase 04-pages]: data-tier on article element: enables tier-based CSS sizing in parent layouts without component coupling
 - [Phase 04-pages]: Placeholder PNGs use #2E2D2A (dark bg-card token): looks intentional in both light and dark mode
+- [Phase 04-pages]: SVGs placed in public/ not src/assets/ to avoid asset pipeline hashing and enable predictable URL paths
+- [Phase 04-pages]: FL Studio, FigJam, FMOD not on Simple Icons: created minimal text-label SVG fallbacks
+- [Phase 04-pages]: Adobe SVG slugs fetched via jsDelivr CDN instead of simpleicons.org direct (404s)
 
 ### Pending Todos
 
@@ -101,6 +105,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-12T19:07:27.413Z
-Stopped at: Completed 04-pages-01-PLAN.md
+Last session: 2026-04-12T19:09:47.098Z
+Stopped at: Completed 04-pages-03-PLAN.md
 Resume file: None
