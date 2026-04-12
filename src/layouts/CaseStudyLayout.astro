@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import '../styles/case-study.css';
+
+interface Props {
+  entry: CollectionEntry<'case-studies'>;
+  prev: CollectionEntry<'case-studies'> | null;
+  next: CollectionEntry<'case-studies'> | null;
+}
+
+const { entry, prev, next } = Astro.props;
+const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
+---
+<BaseLayout title={`${title} - Adam Palencar`} description={oneliner}>
+  <article class="case-study">
+    <header class="case-study__hero">
+      <Image
+        src={thumbnail}
+        alt={`${title} hero image`}
+        class="case-study__hero-image"
+        widths={[600, 900, 1200]}
+        sizes="(max-width: 768px) 100vw, (max-width: 1199px) 100vw, 1200px"
+        loading="eager"
+      />
+      <h1 class="case-study__title">{title}</h1>
+      <p class="case-study__oneliner">{oneliner}</p>
+      <dl class="case-study__meta">
+        <div class="case-study__meta-item">
+          <dt>Role</dt>
+          <dd>{role}</dd>
+        </div>
+        <div class="case-study__meta-item">
+          <dt>Timeline</dt>
+          <dd>{timeline}</dd>
+        </div>
+        <div class="case-study__meta-item">
+          <dt>Tools</dt>
+          <dd>{tools.join(', ')}</dd>
+        </div>
+      </dl>
+    </header>
+    <div class="case-study__body">
+      <slot />
+    </div>
+    <section class="case-study__cta">
+      <h2 class="case-study__cta-heading">Want to work together?</h2>
+      <p class="case-study__cta-text">I design interfaces that communicate. Let's talk.</p>
+      <a href="/#contact" class="case-study__cta-link">Get in touch</a>
+    </section>
+    {(prev || next) && (
+      <nav class="case-study__nav" aria-label="Case study navigation">
+        {prev && <a href={`/work/${prev.id}`} class="case-study__nav-prev">{prev.data.title}</a>}
+        {next && <a href={`/work/${next.id}`} class="case-study__nav-next">{next.data.title}</a>}
+      </nav>
+    )}
+  </article>
+</BaseLayout>
