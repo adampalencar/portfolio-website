@@ -1,9 +1,90 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ui/ProjectCard.astro';
+
+const allStudies = await getCollection('case-studies');
+const sorted = allStudies.sort((a, b) =>
+  a.data.tier !== b.data.tier
+    ? a.data.tier - b.data.tier
+    : a.id.localeCompare(b.id)
+);
 ---
-<BaseLayout title="Work - Adam Palencar">
-  <div class="container">
-    <h1>Work</h1>
-    <p>Project index placeholder.</p>
+
+<BaseLayout title="Work - Adam Palencar" description="Selected projects in game UI, product design, and interactive tools.">
+
+  <div class="work-page">
+    <header class="work-page__header">
+      <h1>Work</h1>
+      <p class="work-page__subtitle mono-label">Selected projects</p>
+    </header>
+    <div class="work-grid">
+      {sorted.map(entry => (
+        <div id={entry.id} class={`work-grid__item work-grid__item--tier-${entry.data.tier}`}>
+          <ProjectCard entry={entry} />
+        </div>
+      ))}
+    </div>
   </div>
+
 </BaseLayout>
+
+<style>
+  @layer components {
+    .work-page {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-6) var(--grid-gutter) var(--space-8);
+    }
+
+    .work-page__header {
+      margin-bottom: var(--space-6);
+    }
+
+    .work-page__subtitle {
+      color: var(--text-secondary);
+      margin-top: var(--space-2);
+    }
+
+    /* --- Tiered grid --- */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--space-4);
+    }
+
+    .work-grid__item--tier-1 {
+      grid-column: span 12;
+    }
+
+    .work-grid__item--tier-2 {
+      grid-column: span 6;
+    }
+
+    .work-grid__item--tier-3 {
+      grid-column: span 4;
+    }
+
+    @media (max-width: 1199px) {
+      .work-grid__item--tier-1 {
+        grid-column: span 12;
+      }
+
+      .work-grid__item--tier-2 {
+        grid-column: span 6;
+      }
+
+      .work-grid__item--tier-3 {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .work-grid__item--tier-1,
+      .work-grid__item--tier-2,
+      .work-grid__item--tier-3 {
+        grid-column: span 12;
+      }
+    }
+  }
+</style>
