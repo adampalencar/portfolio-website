@@ -124,6 +124,37 @@
   a.btn-outline:hover {
     background: var(--bg-secondary);
   }
+
+  a.btn-primary:focus-visible,
+  a.btn-outline:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  /* Section marker (shared across pages) */
+  .section-marker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-marker__num,
+  .section-marker__slash,
+  .section-marker__title {
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+
+  .section-marker__num { letter-spacing: 0.05em; }
+  .section-marker__title { letter-spacing: 0.1em; }
+
+  .section-marker__line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-visible);
+  }
 }
 
 @layer utilities {

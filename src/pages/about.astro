@@ -108,7 +108,7 @@ const tools = [
     <p class="about-contact__location mono-label">Toronto, ON, Canada</p>
     <div class="about-contact__links">
       <a href="https://www.linkedin.com/in/adampalencar/" class="about-contact__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="/resume.pdf" class="about-contact__link">Resume</a>
+      <a href="/resume/adam-palencar-resume.pdf" class="about-contact__link">Resume</a>
     </div>
   </section>
 
@@ -119,9 +119,7 @@ const tools = [
 
     /* Hero */
     .about-hero {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-7) var(--grid-gutter);
+      padding: var(--space-7) 96px;
       display: flex;
       gap: var(--space-7);
       align-items: flex-start;
@@ -172,6 +170,14 @@ const tools = [
     }
 
     @media (max-width: 1199px) {
+      .about-hero,
+      .about-section,
+      .about-section--narrow,
+      .about-contact {
+        padding-left: var(--grid-gutter);
+        padding-right: var(--grid-gutter);
+      }
+
       .about-hero {
         flex-direction: column;
         align-items: center;
@@ -189,16 +195,20 @@ const tools = [
 
     /* Sections */
     .about-section {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-6) var(--grid-gutter);
+      padding: var(--space-6) 96px;
     }
 
     .about-section--narrow {
-      max-width: 720px;
+      padding: var(--space-6) 96px;
+    }
+
+    .about-section--narrow p,
+    .about-section--narrow h2 {
+      max-width: 680px;
     }
 
     .about-section h2 {
+      font-size: 28px;
       margin-bottom: var(--space-5);
     }
 
@@ -314,9 +324,7 @@ const tools = [
 
     /* Contact */
     .about-contact {
-      max-width: var(--content-max);
-      margin-inline: auto;
-      padding: var(--space-6) var(--grid-gutter) var(--space-8);
+      padding: var(--space-6) 96px var(--space-8);
     }
 
     .about-contact__email {

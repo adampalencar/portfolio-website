@@ -40,17 +40,20 @@ const imageSizes = featured
 <style>
   @layer components {
     .project-card {
-      transition: opacity 0.2s ease;
-    }
-
-    .project-card:hover {
-      opacity: 0.85;
+      border-top: 2px solid transparent;
+      transition: border-color 0.3s ease;
     }
 
     .project-card__link {
       display: block;
       text-decoration: none;
       color: inherit;
+    }
+
+    .project-card__link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: var(--space-2);
     }
 
     .project-card__image-wrap {
@@ -64,6 +67,7 @@ const imageSizes = featured
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .project-card__body {
@@ -103,6 +107,34 @@ const imageSizes = featured
       font-weight: 500;
       letter-spacing: 0.1em;
       color: var(--accent);
+    }
+
+    /* Hover: desktop with fine pointer only */
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover {
+        border-top-color: var(--accent);
+      }
+
+      .project-card:hover .project-card__image-wrap img {
+        transform: scale(1.03);
+      }
+
+      /* Focus parity */
+      .project-card:has(:focus-visible) {
+        border-top-color: var(--accent);
+      }
+
+      .project-card:has(:focus-visible) .project-card__image-wrap img {
+        transform: scale(1.03);
+      }
+    }
+
+    /* Mobile: tap feedback */
+    @media (hover: none) {
+      .project-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+      }
     }
   }
 </style>

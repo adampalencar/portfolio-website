@@ -21,6 +21,11 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
 <BaseLayout title="Work - Adam Palencar" description="Selected projects in game UI, product design, and interactive tools.">
 
   <div class="work-page">
+    <header class="work-page__header">
+      <h1 class="work-page__title">Work</h1>
+      <p class="work-page__subtitle">Selected projects in game UI, product design, and interactive tools.</p>
+    </header>
+
     <div class="section-marker">
       <span class="section-marker__num">01</span>
       <span class="section-marker__slash">/</span>
@@ -101,29 +106,22 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       gap: var(--space-5);
     }
 
-    /* --- Section Marker --- */
-    .section-marker {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
+    /* --- Header --- */
+    .work-page__header {
+      margin-bottom: var(--space-3);
     }
 
-    .section-marker__num,
-    .section-marker__slash,
-    .section-marker__title {
-      font-family: var(--font-mono);
-      font-size: var(--size-xs);
-      font-weight: 500;
-      color: var(--text-tertiary);
+    .work-page__title {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--space-2) 0;
     }
 
-    .section-marker__num { letter-spacing: 0.05em; }
-    .section-marker__title { letter-spacing: 0.1em; }
-
-    .section-marker__line {
-      flex: 1;
-      height: 1px;
-      background: var(--border-visible);
+    .work-page__subtitle {
+      font-size: var(--size-base);
+      color: var(--text-secondary);
+      margin: 0;
     }
 
     /* --- Grid --- */
@@ -342,7 +340,6 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
     cards.forEach(el => observer.observe(el));
   }
 
-  // Run on initial load and after View Transition swaps
-  initScrollReveal();
-  document.addEventListener('astro:after-swap', initScrollReveal);
+  // Run on initial load and after View Transition navigations
+  document.addEventListener('astro:page-load', initScrollReveal);
 </script>
