@@ -49,9 +49,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Project Cards
 
-- [ ] **CARD-01**: Project cards with tier-based sizing: T1 large, T2 standard, T3 small thumbnail + description
+- [x] **CARD-01**: Project cards with tier-based sizing: T1 large, T2 standard, T3 small thumbnail + description
 - [ ] **CARD-02**: Hover-to-video on project cards where video assets exist (CSS-only, muted, with static fallback)
-- [ ] **CARD-03**: Consistent aspect ratios across project grid (16:9 or 4:3)
+- [x] **CARD-03**: Consistent aspect ratios across project grid (16:9 or 4:3)
 
 ### Visual Polish
 
@@ -142,9 +142,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | PAGE-04 | Phase 4 | Pending |
 | PAGE-05 | Phase 4 | Pending |
 | PAGE-06 | Phase 4 | Pending |
-| CARD-01 | Phase 4 | Pending |
+| CARD-01 | Phase 4 | Complete |
 | CARD-02 | Phase 4 | Pending |
-| CARD-03 | Phase 4 | Pending |
+| CARD-03 | Phase 4 | Complete |
 | VISL-01 | Phase 5 | Pending |
 | VISL-02 | Phase 5 | Pending |
 | VISL-03 | Phase 5 | Pending |
