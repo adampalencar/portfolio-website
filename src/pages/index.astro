@@ -1,9 +1,213 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+
+const allStudies = await getCollection('case-studies');
+const tier1 = allStudies
+  .filter(s => s.data.tier === 1)
+  .sort((a, b) => {
+    const order = ['krom', 'pipeline', 'orbital-concierge'];
+    return order.indexOf(a.id) - order.indexOf(b.id);
+  });
 ---
-<BaseLayout title="Adam Palencar - UI/UX Designer">
-  <div class="container">
-    <h1>Portfolio</h1>
-    <p>Site under construction.</p>
-  </div>
+
+<BaseLayout title="Adam Palencar - UI/UX Designer" description="Portfolio of Adam Palencar, UI/UX Designer. Games, tools, and interactive products.">
+
+  <section class="hero">
+    <h1 class="hero__name">Adam Palencar</h1>
+    <p class="hero__role mono-label">UI/UX Designer, Toronto</p>
+    <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
+    <a href="/work" class="hero__cta">View my work</a>
+  </section>
+
+  <section class="featured-work">
+    {tier1[0] && <ProjectCard entry={tier1[0]} href="/work#krom" featured />}
+    {tier1[1] && <ProjectCard entry={tier1[1]} href="/work#pipeline" featured />}
+    {tier1[2] && <ProjectCard entry={tier1[2]} featured />}
+  </section>
+
+  <section class="intro">
+    <h2 class="intro__heading">Sound editor turned UI/UX designer.</h2>
+    <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
+    <p class="intro__body">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
+    <a href="/about" class="intro__cta">More about me</a>
+  </section>
+
+  <section id="contact" class="contact-strip">
+    <h2 class="contact-strip__heading">Looking for work.</h2>
+    <p class="contact-strip__body">I'm open to UI/UX roles in games, product design, and interactive tools. If you're hiring or want to talk, reach out.</p>
+    <a href="mailto:adampalencar25@gmail.com" class="contact-strip__email">adampalencar25@gmail.com</a>
+    <div class="contact-strip__links">
+      <a href="https://linkedin.com/in/adampalencar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <!-- TODO: Replace placeholder PDF with real resume -->
+      <a href="/resume/adam-palencar-resume.pdf" download>Resume</a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+  @layer components {
+    /* --- Hero --- */
+    .hero {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-8) var(--grid-gutter) var(--space-7);
+      text-align: left;
+    }
+
+    .hero__name {
+      /* h1 base handles size (64px), weight (700), tracking-tight */
+      margin-bottom: var(--space-2);
+    }
+
+    .hero__role {
+      font-family: var(--font-mono);
+      font-size: var(--size-sm);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    .hero__statement {
+      font-size: var(--size-xl);
+      max-width: 640px;
+      line-height: var(--leading-relaxed);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-5);
+    }
+
+    .hero__cta {
+      display: inline-block;
+      padding: var(--space-2) var(--space-4);
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--space-1);
+      font-family: var(--font-mono);
+      font-size: var(--size-sm);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+    }
+
+    .hero__cta:hover {
+      background: var(--accent-hover);
+    }
+
+    /* --- Featured Work --- */
+    .featured-work {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: 0 var(--grid-gutter) var(--space-7);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    @media (max-width: 1199px) {
+      .featured-work {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .featured-work > :last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .featured-work {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-work > :last-child {
+        grid-column: auto;
+      }
+    }
+
+    /* --- Intro --- */
+    .intro {
+      max-width: 720px;
+      margin-inline: auto;
+      padding: var(--space-7) var(--grid-gutter);
+    }
+
+    .intro__heading {
+      /* h2 base handles size (48px), weight (600), tracking-tight */
+      margin-bottom: var(--space-4);
+    }
+
+    .intro__body {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    .intro__cta {
+      display: inline-block;
+      padding: var(--space-2) var(--space-4);
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      text-decoration: none;
+      border-radius: var(--space-1);
+      font-family: var(--font-mono);
+      font-size: var(--size-sm);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      transition: background 0.2s ease, color 0.2s ease;
+      margin-top: var(--space-3);
+    }
+
+    .intro__cta:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* --- Contact Strip --- */
+    .contact-strip {
+      max-width: var(--content-max);
+      margin-inline: auto;
+      padding: var(--space-8) var(--grid-gutter);
+      border-top: 1px solid var(--border-visible);
+    }
+
+    .contact-strip__heading {
+      /* h2 base handles styling */
+      margin-bottom: var(--space-4);
+    }
+
+    .contact-strip__body {
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: var(--space-4);
+    }
+
+    .contact-strip__email {
+      font-size: var(--size-lg);
+      color: var(--accent);
+      text-decoration: underline;
+      display: block;
+      margin-bottom: var(--space-3);
+    }
+
+    .contact-strip__email:hover {
+      color: var(--accent-hover);
+    }
+
+    .contact-strip__links {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .contact-strip__links a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .contact-strip__links a:hover {
+      color: var(--accent-hover);
+    }
+  }
+</style>
