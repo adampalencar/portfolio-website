@@ -310,5 +310,26 @@ const isWorkSection = currentPath.startsWith('/work');
       (drawer as HTMLElement).dataset.open = 'false';
       document.body.style.overflow = '';
     }
+
+    // On homepage: swap active state to CONTACT when #contact section is in view
+    const contactSection = document.getElementById('contact');
+    if (contactSection && (currentPath.replace(/\/$/, '') || '/') === '/') {
+      const homeLink = document.querySelector('[data-nav-link][href="/"]');
+      const contactLink = document.querySelector('[data-nav-link][href="/#contact"]');
+      if (homeLink && contactLink) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              homeLink.removeAttribute('aria-current');
+              contactLink.setAttribute('aria-current', 'page');
+            } else {
+              contactLink.removeAttribute('aria-current');
+              homeLink.setAttribute('aria-current', 'page');
+            }
+          });
+        }, { threshold: 0.4 });
+        observer.observe(contactSection);
+      }
+    }
   });
 </script>

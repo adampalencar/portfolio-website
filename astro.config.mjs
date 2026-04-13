@@ -24,5 +24,14 @@ export default defineConfig({
       styles: ['normal'],
       fallbacks: ['Courier New', 'monospace'],
     },
+    {
+      provider: fontProviders.fontsource(),
+      name: 'Geist',
+      cssVariable: '--font-display',
+      weights: ['500 800'],
+      subsets: ['latin', 'latin-ext'],
+      styles: ['normal'],
+      fallbacks: ['Inter', 'system-ui', 'sans-serif'],
+    },
   ],
 });
