@@ -217,11 +217,13 @@ const tier1 = allStudies
       text-decoration-thickness: 2px;
       text-underline-offset: 4px;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                  opacity 0.15s ease;
     }
 
     .hero__surname:hover::after {
       opacity: 0;
+      transform: translateY(-100%);
     }
 
     /* Slot machine container */
