@@ -14,6 +14,7 @@ const { entry, prev, next } = Astro.props;
 const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
 ---
 <BaseLayout title={`${title} - Adam Palencar`} description={oneliner}>
+  <div class="case-study__progress" aria-hidden="true"></div>
   <article class="case-study">
     <header class="case-study__hero">
       <Image
@@ -56,4 +57,31 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
       </nav>
     )}
   </article>
+
+  <script>
+    let progressHandler: (() => void) | null = null;
+
+    document.addEventListener('astro:page-load', () => {
+      const bar = document.querySelector('.case-study__progress') as HTMLElement;
+      if (!bar) return;
+
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return;
+        bar.style.width = `${(scrollTop / docHeight) * 100}%`;
+      }
+
+      progressHandler = updateProgress;
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      if (progressHandler) {
+        window.removeEventListener('scroll', progressHandler);
+        progressHandler = null;
+      }
+    });
+  </script>
 </BaseLayout>

@@ -37,7 +37,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
         <Icon name="close" size={24} />
       </button>
     </div>
-    <nav aria-label="Main navigation">
+    <nav aria-label="Mobile navigation">
       <ul class="mobile-drawer__nav">
         {navItems.map((item) => (
           <li class={item.children ? 'mobile-drawer__folder' : ''}>
@@ -316,15 +316,36 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 
     if (!drawer || !hamburger) return;
 
+    function trapFocus(e: KeyboardEvent) {
+      if (e.key !== 'Tab') return;
+      const panel = drawer!.querySelector('.mobile-drawer__panel');
+      if (!panel) return;
+      const focusable = panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
     function openDrawer() {
       drawer!.dataset.open = 'true';
       drawer!.setAttribute('aria-hidden', 'false');
       hamburger!.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', trapFocus);
       (closeBtn as HTMLElement)?.focus();
     }
 
     function closeDrawer() {
+      document.removeEventListener('keydown', trapFocus);
       drawer!.dataset.open = 'false';
       drawer!.setAttribute('aria-hidden', 'true');
       hamburger!.setAttribute('aria-expanded', 'false');
@@ -371,6 +392,10 @@ const isWorkSubpage = currentPath.startsWith('/work/');
     drawer.querySelectorAll('[data-nav-link]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
+      if (href.includes('#')) {
+        link.removeAttribute('aria-current');
+        return;
+      }
       const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
       const normalizedHref = href.replace(/\/$/, '') || '/';
       const isActive = normalizedCurrent === normalizedHref;

@@ -4,17 +4,24 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const allStudies = await getCollection('case-studies');
-const sorted = allStudies.sort((a, b) => {
-  const order = ['orbital-concierge', 'krom', 'pipeline'];
-  const aIdx = order.indexOf(a.id);
-  const bIdx = order.indexOf(b.id);
-  if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-  if (aIdx !== -1) return -1;
-  if (bIdx !== -1) return 1;
-  return a.data.tier - b.data.tier || a.id.localeCompare(b.id);
-});
 
-const hasFullStudy = (entry: typeof sorted[0]) =>
+// Separate by tier
+const tier1 = allStudies
+  .filter(s => s.data.tier === 1)
+  .sort((a, b) => {
+    const order = ['orbital-concierge', 'krom', 'pipeline'];
+    return order.indexOf(a.id) - order.indexOf(b.id);
+  });
+
+const tier2 = allStudies
+  .filter(s => s.data.tier === 2)
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+const tier3 = allStudies
+  .filter(s => s.data.tier === 3)
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+const hasFullStudy = (entry: typeof allStudies[0]) =>
   entry.body && entry.body.trim().length > 50;
 ---
 
@@ -26,73 +33,188 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       <p class="work-page__subtitle">Selected projects in game UI, product design, and interactive tools.</p>
     </header>
 
-    <div class="section-marker">
-      <span class="section-marker__num">01</span>
-      <span class="section-marker__slash">/</span>
-      <span class="section-marker__title">ALL PROJECTS</span>
-      <span class="section-marker__line"></span>
-    </div>
+    <!-- Tier 1: Featured -->
+    <section class="work-tier work-tier--featured">
+      <div class="section-marker">
+        <span class="section-marker__num">01</span>
+        <span class="section-marker__slash">/</span>
+        <span class="section-marker__title">FEATURED</span>
+        <span class="section-marker__line"></span>
+      </div>
+      <div class="tier1-grid">
+        {tier1.map((entry, i) => {
+          const ready = hasFullStudy(entry);
+          const tagLabel = `${entry.data.category} / ${entry.data.discipline}`.toUpperCase();
+          const isEven = i % 2 === 0;
 
-    <div class="work-grid">
-      {sorted.map((entry, i) => {
-        const ready = hasFullStudy(entry);
-        const tagLabel = `${entry.data.category} / ${entry.data.discipline}`.toUpperCase();
-
-        return ready ? (
-          <a
-            href={`/work/${entry.id}`}
-            class="work-card"
-            id={entry.id}
-            data-reveal
-            style={`--reveal-delay: ${i}`}
-          >
-            <div class="work-card__image-wrap">
-              <Image
-                src={entry.data.thumbnail}
-                alt={entry.data.title}
-                widths={[400, 800, 1200, 1600]}
-                sizes="(max-width: 767px) 100vw, 50vw"
-              />
-            </div>
-            <div class="work-card__body">
-              <span class="work-card__code">{entry.data.code}</span>
-              <h3 class="work-card__title">{entry.data.title}</h3>
-              <p class="work-card__desc">{entry.data.oneliner}</p>
-              <div class="work-card__footer">
-                <span class="work-card__tag">{tagLabel}</span>
-                <span class="work-card__cta">View case study &rarr;</span>
+          return ready ? (
+            <a
+              href={`/work/${entry.id}`}
+              class:list={['tier1-card', { 'tier1-card--reversed': !isEven }]}
+              id={entry.id}
+              data-reveal
+              style={`--reveal-delay: ${i}`}
+            >
+              <div class="tier1-card__image-wrap">
+                <Image
+                  src={entry.data.thumbnail}
+                  alt={entry.data.title}
+                  widths={[400, 800, 1200, 1600]}
+                  sizes="(max-width: 767px) 100vw, 55vw"
+                />
+              </div>
+              <div class="tier1-card__body">
+                <span class="tier1-card__code">{entry.data.code}</span>
+                <h3 class="tier1-card__title">{entry.data.title}</h3>
+                <p class="tier1-card__desc">{entry.data.oneliner}</p>
+                <div class="tier1-card__footer">
+                  <span class="tier1-card__tag">{tagLabel}</span>
+                  <span class="tier1-card__cta">View case study &rarr;</span>
+                </div>
+              </div>
+            </a>
+          ) : (
+            <div
+              class:list={['tier1-card', { 'tier1-card--reversed': !isEven }]}
+              id={entry.id}
+              data-status="upcoming"
+              data-reveal
+              style={`--reveal-delay: ${i}`}
+            >
+              <div class="tier1-card__image-wrap">
+                <Image
+                  src={entry.data.thumbnail}
+                  alt={entry.data.title}
+                  widths={[400, 800, 1200, 1600]}
+                  sizes="(max-width: 767px) 100vw, 55vw"
+                />
+              </div>
+              <div class="tier1-card__body">
+                <span class="tier1-card__code">{entry.data.code}</span>
+                <h3 class="tier1-card__title">{entry.data.title}</h3>
+                <p class="tier1-card__desc">{entry.data.oneliner}</p>
+                <div class="tier1-card__footer">
+                  <span class="tier1-card__tag">{tagLabel}</span>
+                  <span class="tier1-card__status">CASE STUDY IN PROGRESS</span>
+                </div>
               </div>
             </div>
-          </a>
-        ) : (
-          <div
-            class="work-card"
-            id={entry.id}
-            data-status="upcoming"
-            data-reveal
-            style={`--reveal-delay: ${i}`}
-          >
-            <div class="work-card__image-wrap">
-              <Image
-                src={entry.data.thumbnail}
-                alt={entry.data.title}
-                widths={[400, 800, 1200]}
-                sizes="(max-width: 767px) 100vw, 50vw"
-              />
-            </div>
-            <div class="work-card__body">
-              <span class="work-card__code">{entry.data.code}</span>
-              <h3 class="work-card__title">{entry.data.title}</h3>
-              <p class="work-card__desc">{entry.data.oneliner}</p>
-              <div class="work-card__footer">
-                <span class="work-card__tag">{tagLabel}</span>
-                <span class="work-card__status">CASE STUDY IN PROGRESS</span>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Tier 2: Case Studies (if any exist) -->
+    {tier2.length > 0 && (
+      <section class="work-tier work-tier--studies">
+        <div class="section-marker">
+          <span class="section-marker__num">02</span>
+          <span class="section-marker__slash">/</span>
+          <span class="section-marker__title">CASE STUDIES</span>
+          <span class="section-marker__line"></span>
+        </div>
+        <div class="tier2-grid">
+          {tier2.map((entry, i) => {
+            const ready = hasFullStudy(entry);
+            const tagLabel = `${entry.data.category} / ${entry.data.discipline}`.toUpperCase();
+
+            return ready ? (
+              <a
+                href={`/work/${entry.id}`}
+                class="work-card"
+                id={entry.id}
+                data-reveal
+                style={`--reveal-delay: ${i}`}
+              >
+                <div class="work-card__image-wrap">
+                  <Image
+                    src={entry.data.thumbnail}
+                    alt={entry.data.title}
+                    widths={[400, 800, 1200]}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                </div>
+                <div class="work-card__body">
+                  <span class="work-card__code">{entry.data.code}</span>
+                  <h3 class="work-card__title">{entry.data.title}</h3>
+                  <p class="work-card__desc">{entry.data.oneliner}</p>
+                  <div class="work-card__footer">
+                    <span class="work-card__tag">{tagLabel}</span>
+                    <span class="work-card__cta">View case study &rarr;</span>
+                  </div>
+                </div>
+              </a>
+            ) : (
+              <div
+                class="work-card"
+                id={entry.id}
+                data-status="upcoming"
+                data-reveal
+                style={`--reveal-delay: ${i}`}
+              >
+                <div class="work-card__image-wrap">
+                  <Image
+                    src={entry.data.thumbnail}
+                    alt={entry.data.title}
+                    widths={[400, 800, 1200]}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                </div>
+                <div class="work-card__body">
+                  <span class="work-card__code">{entry.data.code}</span>
+                  <h3 class="work-card__title">{entry.data.title}</h3>
+                  <p class="work-card__desc">{entry.data.oneliner}</p>
+                  <div class="work-card__footer">
+                    <span class="work-card__tag">{tagLabel}</span>
+                    <span class="work-card__status">CASE STUDY IN PROGRESS</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    <!-- Tier 3: Explorations (if any exist) -->
+    {tier3.length > 0 && (
+      <section class="work-tier work-tier--explorations">
+        <div class="section-marker">
+          <span class="section-marker__num">03</span>
+          <span class="section-marker__slash">/</span>
+          <span class="section-marker__title">EXPLORATIONS</span>
+          <span class="section-marker__line"></span>
+        </div>
+        <div class="tier3-grid">
+          {tier3.map((entry, i) => {
+            const tagLabel = `${entry.data.category} / ${entry.data.discipline}`.toUpperCase();
+
+            return (
+              <div
+                class="tier3-card"
+                id={entry.id}
+                data-reveal
+                style={`--reveal-delay: ${i}`}
+              >
+                <div class="tier3-card__image-wrap">
+                  <Image
+                    src={entry.data.thumbnail}
+                    alt={entry.data.title}
+                    widths={[300, 600]}
+                    sizes="(max-width: 767px) 50vw, 33vw"
+                  />
+                </div>
+                <div class="tier3-card__body">
+                  <span class="tier3-card__code">{entry.data.code}</span>
+                  <h3 class="tier3-card__title">{entry.data.title}</h3>
+                  <span class="tier3-card__tag">{tagLabel}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
   </div>
 
 </BaseLayout>
@@ -103,41 +225,190 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       padding: var(--space-7) 96px var(--space-8);
       display: flex;
       flex-direction: column;
-      gap: var(--space-5);
+      gap: var(--space-7);
     }
 
     /* --- Header --- */
     .work-page__header {
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-2);
     }
 
     .work-page__title {
-      font-size: 48px;
+      font-size: 64px;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 0 0 var(--space-2) 0;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin: 0 0 var(--space-3) 0;
+      view-transition-name: page-title;
     }
 
     .work-page__subtitle {
-      font-size: var(--size-base);
+      font-size: var(--size-lg);
       color: var(--text-secondary);
+      margin: 0;
+      max-width: 520px;
+    }
+
+    /* --- Tier sections --- */
+    .work-tier {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    /* --- Tier 1: Featured (full-width asymmetric) --- */
+    .tier1-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-7);
+    }
+
+    .tier1-card {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: var(--space-6);
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      padding-bottom: var(--space-7);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tier1-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    /* Alternate image/info side for rhythm */
+    .tier1-card--reversed {
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .tier1-card--reversed .tier1-card__image-wrap {
+      order: 2;
+    }
+
+    .tier1-card--reversed .tier1-card__body {
+      order: 1;
+    }
+
+    /* Expanding accent bar on hover */
+    a.tier1-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tier1-card__image-wrap {
+      overflow: hidden;
+      border-radius: var(--space-2);
+      background: var(--bg-secondary);
+      aspect-ratio: 16 / 9;
+    }
+
+    .tier1-card__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .tier1-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .tier1-card__code {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent-text);
+    }
+
+    .tier1-card__title {
+      font-family: var(--font-body);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
       margin: 0;
     }
 
-    /* --- Grid --- */
-    .work-grid {
+    .tier1-card__desc {
+      font-size: var(--size-base);
+      line-height: var(--leading-relaxed);
+      color: var(--text-secondary);
+      max-width: 440px;
+      margin: 0;
+    }
+
+    .tier1-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--space-2);
+    }
+
+    .tier1-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent-text);
+    }
+
+    .tier1-card__cta {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+    }
+
+    .tier1-card__status {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Tier 2: Standard 2-column --- */
+    .tier2-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-5);
     }
 
-    /* --- Card base --- */
     .work-card {
       display: block;
       text-decoration: none;
       color: inherit;
-      border-top: 2px solid transparent;
-      transition: border-color 0.3s ease;
+      position: relative;
+    }
+
+    /* Expanding accent bar */
+    a.work-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     a.work-card:focus-visible {
@@ -146,7 +417,6 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       border-radius: var(--space-2);
     }
 
-    /* --- Card image --- */
     .work-card__image-wrap {
       overflow: hidden;
       border-radius: var(--space-2);
@@ -161,7 +431,6 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    /* --- Card body --- */
     .work-card__body {
       padding-top: var(--space-3);
     }
@@ -225,10 +494,102 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       color: var(--text-tertiary);
     }
 
-    /* --- Hover: desktop with fine pointer only --- */
+    /* --- Tier 3: Compact 3-column --- */
+    .tier3-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    .tier3-card {
+      display: block;
+      color: inherit;
+    }
+
+    .tier3-card__image-wrap {
+      overflow: hidden;
+      border-radius: var(--space-2);
+      background: var(--bg-secondary);
+      aspect-ratio: 16 / 9;
+    }
+
+    .tier3-card__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tier3-card__body {
+      padding-top: var(--space-2);
+    }
+
+    .tier3-card__code {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .tier3-card__title {
+      font-family: var(--font-body);
+      font-size: var(--size-base);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 4px 0;
+    }
+
+    .tier3-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Hover states: desktop with fine pointer only --- */
     @media (hover: hover) and (pointer: fine) {
-      a.work-card:hover {
-        border-top-color: var(--accent);
+      a.tier1-card:hover::before {
+        width: 100%;
+      }
+
+      a.tier1-card:hover .tier1-card__image-wrap img {
+        transform: scale(1.03);
+      }
+
+      a.tier1-card:hover .tier1-card__cta {
+        opacity: 1;
+        transform: translateX(0);
+        color: var(--accent);
+      }
+
+      a.tier1-card:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-radius: var(--space-2);
+      }
+
+      a.tier1-card:focus-visible::before {
+        width: 100%;
+      }
+
+      a.tier1-card:focus-visible .tier1-card__cta {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .tier1-card[data-status="upcoming"]:hover::before {
+        width: 0;
+      }
+
+      .tier1-card[data-status="upcoming"]:hover .tier1-card__image-wrap img {
+        transform: none;
+      }
+
+      a.work-card:hover::before {
+        width: 100%;
       }
 
       a.work-card:hover .work-card__image-wrap img {
@@ -241,13 +602,8 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
         color: var(--accent);
       }
 
-      /* Focus parity */
-      a.work-card:focus-visible {
-        border-top-color: var(--accent);
-      }
-
-      a.work-card:focus-visible .work-card__image-wrap img {
-        transform: scale(1.03);
+      a.work-card:focus-visible::before {
+        width: 100%;
       }
 
       a.work-card:focus-visible .work-card__cta {
@@ -255,9 +611,8 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
         transform: translateY(0);
       }
 
-      /* Upcoming cards: no hover effects */
-      .work-card[data-status="upcoming"]:hover {
-        border-top-color: transparent;
+      .work-card[data-status="upcoming"]:hover::before {
+        width: 0;
       }
 
       .work-card[data-status="upcoming"]:hover .work-card__image-wrap img {
@@ -267,30 +622,17 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
 
     /* --- Mobile: CTA always visible, tap feedback --- */
     @media (hover: none) {
+      .tier1-card__cta,
       .work-card__cta {
         opacity: 1;
         transform: none;
       }
 
+      a.tier1-card:active,
       a.work-card:active {
         transform: scale(0.98);
         transition: transform 0.1s ease;
       }
-    }
-
-    /* --- Scroll reveal --- */
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(20px);
-      transition:
-        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      transition-delay: calc(var(--reveal-delay, 0) * 100ms);
-    }
-
-    [data-reveal].is-visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* --- Responsive --- */
@@ -298,12 +640,43 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
       .work-page {
         padding: var(--space-6) var(--grid-gutter) var(--space-8);
       }
+
+      .tier1-card {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .tier1-card--reversed .tier1-card__image-wrap,
+      .tier1-card--reversed .tier1-card__body {
+        order: unset;
+      }
+
+      .tier1-card__title {
+        font-size: 28px;
+      }
     }
 
     @media (max-width: 767px) {
-      .work-grid {
+      .work-page__title {
+        font-size: 48px;
+      }
+
+      .tier1-card__title {
+        font-size: 24px;
+      }
+
+      .tier1-card__desc {
+        font-size: 14px;
+      }
+
+      .tier2-grid {
         grid-template-columns: 1fr;
         gap: var(--space-6);
+      }
+
+      .tier3-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4);
       }
 
       .work-card__footer {
@@ -311,35 +684,12 @@ const hasFullStudy = (entry: typeof sorted[0]) =>
         align-items: flex-start;
         gap: 6px;
       }
+
+      .tier1-card__footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
     }
   }
 </style>
-
-<script>
-  function initScrollReveal() {
-    const cards = document.querySelectorAll('[data-reveal]');
-    if (!cards.length) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      cards.forEach(el => el.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -60px 0px'
-    });
-
-    cards.forEach(el => observer.observe(el));
-  }
-
-  // Run on initial load and after View Transition navigations
-  document.addEventListener('astro:page-load', initScrollReveal);
-</script>

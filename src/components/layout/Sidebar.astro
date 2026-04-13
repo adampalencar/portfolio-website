@@ -32,7 +32,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 const isWorkSection = currentPath.startsWith('/work');
 ---
 <aside class="sidebar">
-  <nav aria-label="Main navigation">
+  <nav aria-label="Site navigation">
     <ul class="sidebar__nav">
       {navItems.map((item) => (
         <li class={item.children ? 'nav-folder' : ''}>
@@ -280,6 +280,11 @@ const isWorkSection = currentPath.startsWith('/work');
     document.querySelectorAll('[data-nav-link]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
+      // Skip hash-only links (Contact is an anchor, not a page)
+      if (href.includes('#')) {
+        link.removeAttribute('aria-current');
+        return;
+      }
       const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
       const normalizedHref = href.replace(/\/$/, '') || '/';
       const isActive = normalizedCurrent === normalizedHref;

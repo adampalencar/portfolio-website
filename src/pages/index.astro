@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ui/ProjectCard.astro';
 
 const allStudies = await getCollection('case-studies');
 const tier1 = allStudies
@@ -15,7 +15,7 @@ const tier1 = allStudies
 <BaseLayout title="Adam Palencar - UI/UX Designer" description="Portfolio of Adam Palencar, UI/UX Designer. Games, tools, and interactive products.">
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" data-reveal>
     <span class="hero__mark hero__mark--tl">+</span>
     <span class="hero__mark hero__mark--tr">+</span>
     <span class="hero__mark hero__mark--br">+</span>
@@ -25,50 +25,100 @@ const tier1 = allStudies
       <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
       <a href="/work" class="btn-primary" style="color:#fff">View my work</a>
     </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-label">SCROLL</span>
+      <span class="hero__scroll-arrow">&darr;</span>
+    </div>
   </section>
 
   <!-- Featured Work -->
-  <section class="featured">
+  <section class="featured" data-reveal style="--reveal-delay: 1">
     <div class="section-marker">
       <span class="section-marker__num">01</span>
       <span class="section-marker__slash">/</span>
-      <span class="section-marker__title">FEATURED WORK</span>
+      <span class="section-marker__title">SELECTED WORK</span>
       <span class="section-marker__line"></span>
     </div>
 
-    {tier1[0] && <ProjectCard entry={tier1[0]} featured />}
+    <div class="carousel" aria-label="Featured projects" role="region">
+      <div class="carousel__stage">
+        {tier1.map((entry, i) => {
+          const { title, thumbnail, code } = entry.data;
+          const pos = i === 0 ? 'center' : i === 1 ? 'right' : 'left';
+          return (
+            <a
+              href={`/work/${entry.id}`}
+              class="carousel__card"
+              data-position={pos}
+              data-index={i}
+              aria-label={title}
+            >
+              <Image
+                src={thumbnail}
+                alt={title}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 767px) 90vw, 600px"
+              />
+            </a>
+          );
+        })}
+      </div>
 
-    <div class="featured__row">
-      {tier1[1] && <ProjectCard entry={tier1[1]} href="/work#krom" />}
-      {tier1[2] && <ProjectCard entry={tier1[2]} href="/work#pipeline" />}
+      <div class="carousel__info" aria-live="polite">
+        {tier1.map((entry, i) => {
+          const { title, oneliner, category, discipline, code } = entry.data;
+          return (
+            <div class:list={['carousel__info-slide', { 'carousel__info-slide--active': i === 0 }]} data-info-index={i}>
+              <span class="carousel__info-code">{code}</span>
+              <h3 class="carousel__info-title">{title}</h3>
+              <p class="carousel__info-desc">{oneliner}</p>
+              <span class="carousel__info-tag">{`${category} / ${discipline}`.toUpperCase()}</span>
+              <a href={`/work/${entry.id}`} class="carousel__info-cta">VIEW PROJECT &rarr;</a>
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="carousel__nav">
+        <div class="carousel__nav-left">
+          <span class="carousel__counter"><span class="carousel__counter-current">01</span> / <span class="carousel__counter-total">03</span></span>
+          <div class="carousel__progress">
+            <div class="carousel__progress-fill"></div>
+          </div>
+        </div>
+        <a href="/work" class="carousel__all-link">SEE ALL PROJECTS</a>
+        <div class="carousel__arrows">
+          <button class="carousel__arrow carousel__arrow--prev" aria-label="Previous project">&larr;</button>
+          <button class="carousel__arrow carousel__arrow--next" aria-label="Next project">&rarr;</button>
+        </div>
+      </div>
     </div>
-
-    <a href="/work" class="featured__cta">
-      <span>SEE ALL PROJECTS</span>
-      <span class="featured__cta-arrow">&rarr;</span>
-    </a>
   </section>
 
   <!-- Intro / About -->
-  <section class="intro">
+  <section class="intro" data-reveal style="--reveal-delay: 0">
     <div class="intro__inner">
-      <div class="section-marker">
+      <div class="section-marker intro__marker">
         <span class="section-marker__num">02</span>
         <span class="section-marker__slash">/</span>
         <span class="section-marker__title">ABOUT</span>
         <span class="section-marker__line"></span>
       </div>
 
-      <h2 class="intro__heading">Sound editor turned UI/UX designer.</h2>
-      <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
-      <p class="intro__exp">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
-      <a href="/about" class="btn-outline">More about me</a>
+      <div class="intro__left">
+        <h2 class="intro__heading"><span class="intro__accent">Sound</span> editor turned UI/UX designer.</h2>
+        <p class="intro__body">I edited audio and video for years. The part that stuck with me wasn't the media, it was the structure: how information gets organized, how timing changes whether someone follows along or checks out. Now I design interfaces where those instincts matter.</p>
+      </div>
+      <div class="intro__right">
+        <p class="intro__exp">Currently based in Toronto. Previously at Floppy Goat (game UI), freelance (audio/video), and Lotus Pictures (NYC).</p>
+        <a href="/about" class="btn-outline">More about me</a>
+      </div>
     </div>
   </section>
 
   <!-- Contact Strip -->
-  <section id="contact" class="contact-wrap">
-    <div class="contact-strip">
+  <section id="contact" class="contact-strip" data-reveal style="--reveal-delay: 0">
+    <div class="contact-strip__inner">
       <h2 class="contact-strip__heading">Looking for work.</h2>
       <p class="contact-strip__body">I'm open to UI/UX roles in games, product design, and interactive tools. If you're hiring or want to talk, reach out.</p>
       <div class="contact-strip__links">
@@ -89,14 +139,18 @@ const tier1 = allStudies
     /* --- Hero --- */
     .hero {
       position: relative;
-      padding: var(--space-7) 96px var(--space-6) 96px;
+      padding: var(--space-9) 96px var(--space-8) 96px;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .hero__mark {
       position: absolute;
       font-family: var(--font-mono);
-      font-size: 14px;
-      color: rgba(26, 26, 26, 0.05);
+      font-size: 20px;
+      color: rgba(26, 26, 26, 0.08);
       user-select: none;
     }
 
@@ -105,7 +159,7 @@ const tier1 = allStudies
     .hero__mark--br { bottom: 48px; right: 48px; }
 
     [data-theme="dark"] .hero__mark {
-      color: rgba(240, 237, 230, 0.05);
+      color: rgba(240, 237, 230, 0.06);
     }
 
     .hero__content {
@@ -131,6 +185,7 @@ const tier1 = allStudies
       line-height: 0.9;
       color: var(--text-primary);
       margin: 0;
+      view-transition-name: page-title;
     }
 
     .hero__name--first {
@@ -152,50 +207,304 @@ const tier1 = allStudies
 
     /* --- Featured Work --- */
     .featured {
-      padding: var(--space-7) 96px;
+      padding: var(--space-5) 96px var(--space-8);
       display: flex;
       flex-direction: column;
       gap: var(--space-5);
     }
 
-    .featured__row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
+    /* --- Carousel --- */
+    .carousel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
     }
 
-    .featured__cta {
+    .carousel__stage {
+      position: relative;
+      height: 440px;
+      overflow: hidden;
+    }
+
+    .carousel__card {
+      position: absolute;
+      display: block;
+      width: 680px;
+      height: 383px;
+      top: 50%;
+      left: 50%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-card);
+      text-decoration: none;
+      will-change: transform, opacity;
+      transition:
+        transform 500ms cubic-bezier(0.23, 1, 0.32, 1),
+        opacity 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .carousel__card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel__card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
+
+    /* Center (active) */
+    .carousel__card[data-position="center"] {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 3;
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .carousel__card[data-position="center"]:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    /* Right peek */
+    .carousel__card[data-position="right"] {
+      transform: translate(-50%, -50%) translateX(62%) scale(0.82);
+      opacity: 0.5;
+      z-index: 1;
+      box-shadow: none;
+    }
+
+    /* Left peek */
+    .carousel__card[data-position="left"] {
+      transform: translate(-50%, -50%) translateX(-62%) scale(0.82);
+      opacity: 0.5;
+      z-index: 1;
+      box-shadow: none;
+    }
+
+    /* Hidden (off-screen for > 3 cards) */
+    .carousel__card[data-position="hidden"] {
+      transform: translate(-50%, -50%) scale(0.7);
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* --- Carousel Info --- */
+    .carousel__info {
+      position: relative;
+      min-height: 160px;
+    }
+
+    .carousel__info-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .carousel__info-slide--active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+    }
+
+    .carousel__info-code {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+    }
+
+    .carousel__info-title {
+      font-family: var(--font-body);
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .carousel__info-desc {
+      font-size: 14px;
+      line-height: var(--leading-relaxed);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0;
+    }
+
+    .carousel__info-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent-text);
+    }
+
+    .carousel__info-cta {
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .carousel__info-cta:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* --- Carousel Nav (unified bar) --- */
+    .carousel__nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      text-decoration: none;
-      color: var(--text-secondary);
+      padding-top: var(--space-2);
+    }
+
+    .carousel__nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .carousel__counter {
+      font-family: var(--font-mono);
+      font-size: var(--size-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+
+    .carousel__counter-current {
+      color: var(--text-primary);
+    }
+
+    .carousel__progress {
+      width: 120px;
+      height: 2px;
+      background: var(--border-visible);
+      border-radius: 1px;
+    }
+
+    .carousel__progress-fill {
+      height: 100%;
+      width: 33.33%;
+      background: var(--accent);
+      border-radius: 1px;
+      transition: width 0.4s ease;
+    }
+
+    .carousel__all-link {
       font-family: var(--font-mono);
       font-size: var(--size-xs);
       font-weight: 500;
       letter-spacing: 0.1em;
-      padding-top: var(--space-3);
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s ease;
     }
 
-    .featured__cta:hover {
+    .carousel__all-link:hover {
       color: var(--text-primary);
     }
 
-    .featured__cta-arrow {
+    .carousel__arrows {
+      display: flex;
+      gap: 8px;
+    }
+
+    .carousel__arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      border: 1px solid var(--border-visible);
+      background: transparent;
+      color: var(--text-tertiary);
       font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+
+    .carousel__arrow:hover {
+      border-color: var(--text-secondary);
+      color: var(--text-primary);
+    }
+
+    .carousel__arrow:active {
+      transform: scale(0.95);
+    }
+
+    .carousel__arrow:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .carousel__all-link:focus-visible,
+    .carousel__info-cta:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .carousel__arrow--next {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .carousel__arrow--next:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #fff;
     }
 
     /* --- Intro --- */
     .intro {
       background: var(--bg-secondary);
-      padding: var(--space-7) 96px;
+      padding: var(--space-9) 96px;
     }
 
     .intro__inner {
-      max-width: 680px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--space-7);
+      align-items: start;
+    }
+
+    .intro__marker {
+      grid-column: 1 / -1;
+    }
+
+    .intro__left {
       display: flex;
       flex-direction: column;
       gap: 20px;
+    }
+
+    .intro__right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: var(--space-2);
     }
 
     .intro__heading {
@@ -206,6 +515,10 @@ const tier1 = allStudies
       line-height: var(--leading-tight);
       color: var(--text-primary);
       margin: 0;
+    }
+
+    .intro__accent {
+      color: var(--accent-text);
     }
 
     .intro__body {
@@ -222,15 +535,13 @@ const tier1 = allStudies
       margin: 0;
     }
 
-    /* --- Contact Strip (always dark, theme-independent) --- */
-    .contact-wrap {
-      padding: var(--space-6) 96px var(--space-5) 96px;
-    }
-
+    /* --- Contact Strip (full-width dark section, theme-independent) --- */
     .contact-strip {
       background: #1A1A1A;
-      border-radius: var(--space-2);
-      padding: var(--space-6) var(--space-6);
+      padding: var(--space-8) 96px;
+    }
+
+    .contact-strip__inner {
       display: flex;
       flex-direction: column;
       gap: var(--space-3);
@@ -238,9 +549,9 @@ const tier1 = allStudies
 
     .contact-strip__heading {
       font-family: var(--font-body);
-      font-size: 28px;
+      font-size: 36px;
       font-weight: 600;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
       color: #FFFFFF;
       margin: 0;
     }
@@ -260,17 +571,18 @@ const tier1 = allStudies
       font-family: var(--font-mono);
       font-size: 12px;
       font-weight: 500;
+      margin-top: var(--space-2);
     }
 
     .contact-strip__email {
-      color: #1B7A3D;
+      color: #3DA566;
       text-decoration: none;
       letter-spacing: 0.05em;
     }
 
     .contact-strip__email:hover {
       text-decoration: underline;
-      color: #1B7A3D;
+      color: #3DA566;
     }
 
     .contact-strip__dot {
@@ -287,10 +599,49 @@ const tier1 = allStudies
       color: #FFFFFF;
     }
 
+    /* --- Scroll indicator: monospace label + bouncing arrow --- */
+    .hero__scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .hero__scroll.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hero__scroll-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: var(--text-tertiary);
+    }
+
+    .hero__scroll-arrow {
+      font-size: 16px;
+      color: var(--text-tertiary);
+      animation: scroll-bounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
     /* --- Responsive --- */
     @media (max-width: 1199px) {
       .hero {
-        padding: var(--space-6) var(--grid-gutter);
+        padding: var(--space-7) var(--grid-gutter);
+        min-height: 70vh;
       }
 
       .hero__name {
@@ -300,15 +651,28 @@ const tier1 = allStudies
       .hero__mark { display: none; }
 
       .featured {
-        padding: var(--space-6) var(--grid-gutter);
+        padding: var(--space-5) var(--grid-gutter) var(--space-6);
+      }
+
+      .carousel__stage {
+        height: 300px;
+      }
+
+      .carousel__card {
+        width: 460px;
+        height: 259px;
+      }
+
+      .carousel__info-title {
+        font-size: 36px;
       }
 
       .intro {
-        padding: var(--space-6) var(--grid-gutter);
+        padding: var(--space-7) var(--grid-gutter);
       }
 
-      .contact-wrap {
-        padding: var(--space-6) var(--grid-gutter);
+      .contact-strip {
+        padding: var(--space-7) var(--grid-gutter);
       }
     }
 
@@ -321,8 +685,34 @@ const tier1 = allStudies
         font-size: var(--size-base);
       }
 
-      .featured__row {
+      .intro__inner {
         grid-template-columns: 1fr;
+        gap: var(--space-4);
+      }
+
+      .intro__right {
+        padding-top: 0;
+      }
+
+      .carousel__stage {
+        height: 220px;
+      }
+
+      .carousel__card {
+        width: 300px;
+        height: 169px;
+      }
+
+      .carousel__info-title {
+        font-size: 28px;
+      }
+
+      .carousel__info-desc {
+        font-size: 14px;
+      }
+
+      .carousel__progress {
+        display: none;
       }
 
       .intro__heading {
@@ -330,7 +720,11 @@ const tier1 = allStudies
       }
 
       .contact-strip {
-        padding: var(--space-4);
+        padding: var(--space-6) var(--grid-gutter);
+      }
+
+      .contact-strip__heading {
+        font-size: 28px;
       }
 
       .contact-strip__links {
@@ -339,3 +733,93 @@ const tier1 = allStudies
     }
   }
 </style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const cards = [...document.querySelectorAll('.carousel__card')];
+    const infoSlides = [...document.querySelectorAll('.carousel__info-slide')];
+    const counterCurrent = document.querySelector('.carousel__counter-current');
+    const progressFill = document.querySelector('.carousel__progress-fill');
+    const prevBtn = document.querySelector('.carousel__arrow--prev');
+    const nextBtn = document.querySelector('.carousel__arrow--next');
+    const carousel = document.querySelector('.carousel');
+
+    // Scroll indicator: hide once user scrolls past hero
+    const scrollIndicator = document.querySelector('.hero__scroll');
+    if (scrollIndicator) {
+      const onScroll = () => {
+        if (window.scrollY > 80) {
+          scrollIndicator.classList.add('is-hidden');
+          window.removeEventListener('scroll', onScroll);
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    if (!cards.length || !carousel) return;
+
+    const total = cards.length;
+    let active = 0;
+    let isAnimating = false;
+
+    function update() {
+      const prev = (active - 1 + total) % total;
+      const next = (active + 1) % total;
+
+      cards.forEach((card, i) => {
+        if (i === active) card.dataset.position = 'center';
+        else if (i === next) card.dataset.position = 'right';
+        else if (i === prev) card.dataset.position = 'left';
+        else card.dataset.position = 'hidden';
+      });
+
+      infoSlides.forEach((slide, i) => {
+        slide.classList.toggle('carousel__info-slide--active', i === active);
+      });
+
+      counterCurrent.textContent = String(active + 1).padStart(2, '0');
+      progressFill.style.width = `${((active + 1) / total) * 100}%`;
+
+      // Debounce rapid clicks
+      isAnimating = true;
+      setTimeout(() => { isAnimating = false; }, 500);
+    }
+
+    // Set initial state
+    update();
+
+    function goNext() { if (!isAnimating) { active = (active + 1) % total; update(); } }
+    function goPrev() { if (!isAnimating) { active = (active - 1 + total) % total; update(); } }
+
+    nextBtn.addEventListener('click', goNext);
+    prevBtn.addEventListener('click', goPrev);
+
+    // Keyboard nav
+    carousel.setAttribute('tabindex', '0');
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    const stage = document.querySelector('.carousel__stage');
+    stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goNext();
+        else goPrev();
+      }
+    });
+
+    // Click side cards to navigate
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        const pos = card.dataset.position;
+        if (pos === 'left') { e.preventDefault(); goPrev(); }
+        else if (pos === 'right') { e.preventDefault(); goNext(); }
+      });
+    });
+  });
+</script>

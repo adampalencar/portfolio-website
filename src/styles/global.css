@@ -70,21 +70,31 @@
     color: #FFFFFF;
   }
 
+  /* Grain texture: subtle paper feel */
   .grain-overlay {
     position: fixed;
     inset: 0;
+    pointer-events: none;
+    z-index: var(--z-grain);
+    opacity: 0.035;
     background-image: url('/textures/grain.png');
     background-repeat: repeat;
-    background-size: 200px 200px;
-    opacity: 0.04;
-    pointer-events: none;
-    z-index: var(--z-overlay);
+    mix-blend-mode: multiply;
+  }
+
+  [data-theme="dark"] .grain-overlay {
+    opacity: 0.03;
+    mix-blend-mode: soft-light;
+  }
+
+  /* Dark mode smooth transition on key surfaces */
+  body {
+    transition: background-color 0.3s ease, color 0.2s ease;
   }
 }
 
 @layer components {
-  /* Global button styles — must not be page-scoped or View Transitions
-     drops them during swap, letting `a { color: var(--accent) }` win. */
+  /* Global button styles */
   a.btn-primary,
   a.btn-primary:visited,
   a.btn-primary:hover {
@@ -103,6 +113,16 @@
 
   a.btn-primary:hover {
     background: var(--accent-hover);
+  }
+
+  [data-theme="dark"] a.btn-primary,
+  [data-theme="dark"] a.btn-primary:visited {
+    background: #1B7A3D;
+    color: #fff;
+  }
+
+  [data-theme="dark"] a.btn-primary:hover {
+    background: #227A3D;
   }
 
   a.btn-outline,
@@ -125,10 +145,37 @@
     background: var(--bg-secondary);
   }
 
+  a.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: transform 0.05s ease, box-shadow 0.05s ease;
+  }
+
+  a.btn-outline:active {
+    transform: translateY(1px);
+    background: var(--bg-secondary);
+    transition: transform 0.05s ease;
+  }
+
   a.btn-primary:focus-visible,
   a.btn-outline:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
+  }
+
+  /* Link underline draw-on animation */
+  .link-draw {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 1px;
+  }
+
+  .link-draw:hover {
+    background-size: 100% 1px;
   }
 
   /* Section marker (shared across pages) */
@@ -136,6 +183,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
   }
 
   .section-marker__num,
@@ -170,6 +218,13 @@
     white-space: nowrap;
     border-width: 0;
   }
+}
+
+/* View Transition: page title morph */
+::view-transition-old(page-title),
+::view-transition-new(page-title) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {

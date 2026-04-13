@@ -1,4 +1,17 @@
 @layer components {
+  /* Scroll progress bar */
+  .case-study__progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: var(--z-toast);
+    width: 0%;
+    will-change: width;
+    pointer-events: none;
+  }
+
   .case-study {
     max-width: var(--content-max);
     margin: 0 auto;
@@ -217,7 +230,7 @@
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .case-study {
       padding: var(--space-5) var(--space-3);
     }

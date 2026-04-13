@@ -3,27 +3,34 @@ import { Icon } from 'astro-icon/components';
 ---
 <footer class="site-footer">
   <div class="site-footer__content">
-    <a href="mailto:adam@palencar.com" class="site-footer__item">
-      <Icon name="mail" size={14} />
-      <span>adam@palencar.com</span>
-    </a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <a href="https://linkedin.com/in/adampalencar" class="site-footer__item" target="_blank" rel="noopener noreferrer">
-      <Icon name="link" size={14} />
-      <span>LinkedIn</span>
-    </a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <a href="/resume.pdf" class="site-footer__item" download>
-      <Icon name="download" size={14} />
-      <span>Resume</span>
-    </a>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <span class="site-footer__item">
-      <Icon name="map-pin" size={14} />
-      <span>Based in Toronto, ON</span>
-    </span>
-    <span class="site-footer__separator" aria-hidden="true">|</span>
-    <span class="site-footer__item">v0.1</span>
+    <div class="site-footer__row">
+      <a href="mailto:adampalencar25@gmail.com" class="site-footer__item site-footer__email">
+        <Icon name="mail" size={14} />
+        <span>adampalencar25@gmail.com</span>
+      </a>
+      <span class="site-footer__dot" aria-hidden="true">&middot;</span>
+      <a href="https://linkedin.com/in/adampalencar" class="site-footer__item" target="_blank" rel="noopener noreferrer">
+        <Icon name="link" size={14} />
+        <span>LinkedIn</span>
+      </a>
+      <span class="site-footer__dot" aria-hidden="true">&middot;</span>
+      <a href="/resume/adam-palencar-resume.pdf" class="site-footer__item" download>
+        <Icon name="download" size={14} />
+        <span>Resume</span>
+      </a>
+    </div>
+    <div class="site-footer__row site-footer__row--meta">
+      <span class="site-footer__item">&copy; {new Date().getFullYear()} Adam Palencar</span>
+      <span class="site-footer__dot" aria-hidden="true">&middot;</span>
+      <span class="site-footer__item">
+        <Icon name="map-pin" size={14} />
+        <span>Toronto, ON</span>
+      </span>
+      <span class="site-footer__dot" aria-hidden="true">&middot;</span>
+      <a href="/accessibility" class="site-footer__item">Accessibility</a>
+      <span class="site-footer__dot" aria-hidden="true">&middot;</span>
+      <span class="site-footer__item">v0.1</span>
+    </div>
   </div>
 </footer>
 
@@ -36,15 +43,20 @@ import { Icon } from 'astro-icon/components';
 
     .site-footer__content {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       gap: var(--space-2);
-      flex-wrap: wrap;
       font-family: var(--font-mono);
       font-size: var(--size-xs);
       text-transform: uppercase;
       letter-spacing: var(--tracking-wide);
       color: var(--text-tertiary);
+    }
+
+    .site-footer__row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
     }
 
     .site-footer__item {
@@ -69,17 +81,26 @@ import { Icon } from 'astro-icon/components';
       outline-offset: 2px;
     }
 
-    .site-footer__separator {
+    .site-footer__email {
+      color: var(--accent-text);
+    }
+
+    a.site-footer__email:hover {
+      color: var(--accent-hover);
+    }
+
+    .site-footer__dot {
       color: var(--border-visible);
     }
 
     @media (max-width: 767px) {
-      .site-footer__content {
+      .site-footer__row {
         flex-direction: column;
-        gap: var(--space-2);
+        align-items: flex-start;
+        gap: var(--space-1);
       }
 
-      .site-footer__separator {
+      .site-footer__dot {
         display: none;
       }
     }

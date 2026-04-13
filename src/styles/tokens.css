@@ -11,6 +11,7 @@
 
     --accent: #1B7A3D;
     --accent-hover: #145C2E;
+    --accent-text: var(--accent);
 
     /* Tint scale (backgrounds, tags) */
     --accent-5: #F0F7F2;
@@ -62,6 +63,7 @@
     --z-overlay: 100;
     --z-modal: 200;
     --z-toast: 300;
+    --z-grain: 400;
 
     /* --- Grid --- */
     --grid-cols: 12;
@@ -83,6 +85,10 @@
 
     --border-subtle: rgba(255, 255, 255, 0.06);
     --border-visible: #3A3935;
-    /* accent, accent-hover, accent tints, spacing, type — unchanged */
+
+    --accent: #4A9E68;
+    --accent-hover: #5BB87C;
+    --accent-text: var(--accent);
+    /* spacing, type, tints — unchanged */
   }
 }
