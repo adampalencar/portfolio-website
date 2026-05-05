@@ -60,27 +60,72 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
 
   <script>
     let progressHandler: (() => void) | null = null;
+    let carouselTimer: ReturnType<typeof setInterval> | null = null;
 
     document.addEventListener('astro:page-load', () => {
       const bar = document.querySelector('.case-study__progress') as HTMLElement;
-      if (!bar) return;
-
-      function updateProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight <= 0) return;
-        bar.style.width = `${(scrollTop / docHeight) * 100}%`;
+      if (bar) {
+        function updateProgress() {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (docHeight <= 0) return;
+          bar.style.width = `${(scrollTop / docHeight) * 100}%`;
+        }
+        progressHandler = updateProgress;
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
       }
 
-      progressHandler = updateProgress;
-      window.addEventListener('scroll', updateProgress, { passive: true });
-      updateProgress();
+      const carousel = document.querySelector('.cs-carousel') as HTMLElement;
+      if (carousel) {
+        const track = carousel.querySelector('.cs-carousel__track') as HTMLElement;
+        const slides = track.querySelectorAll('.cs-carousel__slide');
+        const count = slides.length;
+        let current = 0;
+
+        const dotsContainer = carousel.querySelector('.cs-carousel__dots') as HTMLElement;
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+          const dot = document.createElement('button');
+          dot.className = 'cs-carousel__dot' + (i === 0 ? ' cs-carousel__dot--active' : '');
+          dot.setAttribute('aria-label', `Slide ${i + 1}`);
+          dot.addEventListener('click', () => { goTo(i); resetTimer(); });
+          dotsContainer.appendChild(dot);
+        }
+
+        const dots = dotsContainer.querySelectorAll('.cs-carousel__dot');
+        const prevBtn = carousel.querySelector('.cs-carousel__prev') as HTMLElement;
+        const nextBtn = carousel.querySelector('.cs-carousel__next') as HTMLElement;
+
+        function goTo(index: number) {
+          current = ((index % count) + count) % count;
+          track.style.transform = `translateX(-${current * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('cs-carousel__dot--active', i === current));
+        }
+
+        prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+        nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+        function resetTimer() {
+          if (carouselTimer) clearInterval(carouselTimer);
+          carouselTimer = setInterval(() => goTo(current + 1), 5000);
+        }
+
+        carousel.addEventListener('mouseenter', () => { if (carouselTimer) clearInterval(carouselTimer); });
+        carousel.addEventListener('mouseleave', () => resetTimer());
+
+        resetTimer();
+      }
     });
 
     document.addEventListener('astro:before-swap', () => {
       if (progressHandler) {
         window.removeEventListener('scroll', progressHandler);
         progressHandler = null;
+      }
+      if (carouselTimer) {
+        clearInterval(carouselTimer);
+        carouselTimer = null;
       }
     });
   </script>

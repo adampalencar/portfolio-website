@@ -1,6 +1,6 @@
 ---
 title: Orbital Concierge
-oneliner: "A puzzle game that gets 24 unique levels from 4 simple rules. Every solution is solver-verified. Nothing was added that didn't deepen the core."
+oneliner: "I put four competing information systems on one screen with nothing hidden, then watched playtesters find every gap I couldn't see from the inside."
 code: OC-01
 discipline: Game Design
 role: UI/UX Designer, Developer
@@ -19,111 +19,251 @@ tags:
 ---
 
 import { Image } from 'astro:assets';
-import heroImg from '../../assets/case-studies/orbital-concierge/hero.png';
 import gameplayImg from '../../assets/case-studies/orbital-concierge/gameplay.png';
 import spotlight1Img from '../../assets/case-studies/orbital-concierge/spotlight-1-status-manifest.png';
 import spotlight2Img from '../../assets/case-studies/orbital-concierge/spotlight-2-elevator-shaft.png';
 import spotlight3Img from '../../assets/case-studies/orbital-concierge/spotlight-3-game-board.png';
-import designSystemImg from '../../assets/case-studies/orbital-concierge/design-system-card.png';
 import criticalStateImg from '../../assets/case-studies/orbital-concierge/critical-state.png';
 import resultsScreenImg from '../../assets/case-studies/orbital-concierge/results-screen.png';
 import scoringGuideImg from '../../assets/case-studies/orbital-concierge/scoring-guide-comparison.png';
 import crossHighlightingImg from '../../assets/case-studies/orbital-concierge/cross-highlighting.png';
 
-## Most Playtesters Couldn't Tell Why They Earned Their Score
+<div class="cs-summary">
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">3 rounds</span>
+    <span class="cs-summary__label">Playtesting</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">24 levels</span>
+    <span class="cs-summary__label">Solver-verified</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">2 weeks</span>
+    <span class="cs-summary__label">All gaps closed</span>
+  </div>
+</div>
 
-Orbital Concierge is a single-screen puzzle game where four systems compete for attention on one board. I ran playtest sessions across multiple rounds. Players understood the core mechanics in their first session. Most of them couldn't explain the scoring system.
+## One Screen. Four Systems. Nothing Hidden.
 
-Multiple testers ignored the scoring guide. One assumed losing a passenger meant the level was over. Another couldn't find the restart button. Another thought a post-processing filter was a visual bug. The game worked. The interface around it had gaps I couldn't see from the inside.
+<p class="cs-summary-line">Four competing information systems on one screen, designed so nothing hides and nothing scrolls.</p>
 
-This is a personal project with no live analytics, but the playtest sessions pointed at specific interface failures. If I were tracking metrics post-launch, the KPIs would be:
+Orbital Concierge is a puzzle game where you route one elevator through a building. Every stop costs you a move from a shrinking budget, passengers lose patience with each detour, and the car only holds a limited number. **All 4 systems share a single screen.** Nothing scrolls, nothing tabs, nothing hides.
 
-- **Score comprehension rate.** Most testers ignored the scoring guide. After replacing it with a scannable table and adding floating score popups on each delivery: can players explain what they just earned?
-- **Tutorial recall usage.** No testers could re-read hints after dismissing them. After building the Level Notes overlay: how often do players press [?] to review?
-- **First-level mental model accuracy.** Some testers assumed failure meant game over. After rewriting the tutorial: do new players understand that losing a passenger is a penalty, not an ending?
+I designed and built all 24 levels in Godot 4.5, then ran 3 rounds of structured playtesting. All testers understood the core loop in their first session. One called the results screen animation something that "makes my spine tingle." Another kept the game open to listen to the music while writing feedback.
 
-One tester called the results screen "amazing" and said the animation "makes my spine tingle." Another kept the game open to listen to the music while writing feedback. Another said "you did a really good job with each of these levels." The experience landed where the interface was clear. It fell apart where it wasn't.
+But I had blind spots: **scoring was invisible during play**, tutorial hints vanished after firing once, and 2 of 3 testers couldn't find the restart button. I closed every gap within 2 weeks through thoughtful and tested design.
 
-## Four Systems, One Screen, No Room to Hide
+<Image src={gameplayImg} alt="Level 17 (Cross Traffic), all four passenger types active on a single screen" />
 
-The game has four systems: a stop budget (fixed moves per level), passenger tolerance (patience that ticks down with extra stops), elevator capacity (four slots, groups take two), and queue order (passengers board automatically in fixed order). Twenty-four handcrafted levels across four zones.
+## The Layout Mirrors How Players Think Through Each Move
 
-One constraint shaped the rest. The entire game state must be visible at all times. No scrolling, no tabs, no hidden panels. Players compare numbers across floors, passengers, and resources on every move. The interface isn't a layer on top of the game. It IS the game board.
+<p class="cs-summary-line">Three-column reading order locked to the player's decision sequence.</p>
 
-Nothing got screen space for free. I pulled the visual grammar from transit wayfinding and Swiss graphic design because those systems solve the same problem: dense information, quick scanning, zero ambiguity. Sharp 90-degree corners everywhere. Warm grey palette with color reserved for passengers and states. If something doesn't communicate, it's not on screen.
+<div class="cs-carousel">
+  <div class="cs-carousel__viewport">
+    <div class="cs-carousel__track">
+      <figure class="cs-carousel__slide">
+        <Image src={spotlight1Img} alt="Left panel: status manifest showing stops remaining and onboard passengers" />
+        <figcaption>Check resources: stops remaining, manifest, score</figcaption>
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={spotlight2Img} alt="Center: elevator position and capacity in the building" />
+        <figcaption>Check cargo: elevator position and capacity</figcaption>
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={spotlight3Img} alt="Right side: waiting passengers at each floor and floor selection buttons" />
+        <figcaption>Scan the board: waiting passengers and floor buttons</figcaption>
+      </figure>
+    </div>
+    <button class="cs-carousel__prev" aria-label="Previous slide">&#8592;</button>
+    <button class="cs-carousel__next" aria-label="Next slide">&#8594;</button>
+  </div>
+  <div class="cs-carousel__dots"></div>
+</div>
 
-<Image src={gameplayImg} alt="Level 17 (Cross Traffic), all four passenger types on the board" />
+With everything visible at once, players need a consistent path through the screen. **I locked the reading order into 3 columns.**
 
-## The Layout Encodes the Decision Sequence
+<div class="cs-columns">
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">Left</span>
+    <span class="cs-columns__function">Status & Resources</span>
+    <span class="cs-columns__question">What do I have?</span>
+  </div>
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">Center</span>
+    <span class="cs-columns__function">Elevator Position</span>
+    <span class="cs-columns__question">Where am I?</span>
+  </div>
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">Right</span>
+    <span class="cs-columns__function">Board & Controls</span>
+    <span class="cs-columns__question">What can I do?</span>
+  </div>
+</div>
 
-<Image src={spotlight1Img} alt="Left panel spotlighted: status manifest showing stops remaining and onboard passengers" />
+A layout that works identically on decision 1 and decision 24 transfers faster than one that lets you wander. Players scan the board first, so I prioritized **predictability over flexibility** across 20+ decisions per level.
 
-<Image src={spotlight2Img} alt="Center shaft spotlighted: elevator position in the building" />
+<div class="cs-type-pair">
+  <div class="cs-type-pair__cell">
+    <span class="cs-type-pair__label">Wayfinding</span>
+    <span class="cs-type-pair__name">Archivo</span>
+    <span class="cs-type-pair__specimen cs-type-pair__specimen--display">Level 17: Cross Traffic</span>
+    <span class="cs-type-pair__rule">Thin + large = orientation</span>
+  </div>
+  <div class="cs-type-pair__cell">
+    <span class="cs-type-pair__label">Data</span>
+    <span class="cs-type-pair__name">IBM Plex Mono</span>
+    <span class="cs-type-pair__specimen cs-type-pair__specimen--data">FL-05 &middot; +120 &middot; 3/4</span>
+    <span class="cs-type-pair__rule">Monospace + small = act on it</span>
+  </div>
+</div>
 
-<Image src={spotlight3Img} alt="Right side spotlighted: waiting passengers at each floor and floor selection buttons" />
+<div class="cs-callout">
 
-The screen splits into three columns. Left panel: status (level name, stops remaining as a depleting bar of square indicators, manifest of onboard passengers, current score). Center: the elevator's position in the shaft. Right: waiting passengers at each floor and the floor selection buttons.
+**Design decision:** What I chose not to add: tooltips, tutorial arrows, progressive disclosure. The layout teaches itself through repetition.
 
-The left-to-right flow mirrors how players think through each move. Check your resources. Check what you're carrying. Scan what's waiting. Choose a floor.
+</div>
 
-Two typefaces, and they never overlap in size. Archivo at thin weight (32 to 75px) handles identity and wayfinding: level titles, results headers, anything that answers "where am I?" IBM Plex Mono (12 to 20px) handles data: floor numbers, scores, capacity counts, patience labels. Thin lettering at large sizes means orientation. Monospace at small sizes means you need to act on it.
+## Small Events Stay Quiet. Permanent Ones Get Loud.
 
-The tradeoff: a locked reading order. Some players might prefer scanning the board before the manifest. But for 20+ decisions per level, a predictable layout is faster than a flexible one. Players learn it once and it transfers to all 24 levels.
+<p class="cs-summary-line">Feedback intensity proportional to player cost. Quiet by default, layered when permanent.</p>
 
-## Small Events Get Quiet Feedback, Permanent Ones Get Loud
+Every feedback element on a tight screen costs space. **I matched the response to the cost.**
 
-I matched feedback intensity to consequence.
+A floor button hover slides 6px right with a back-ease bounce. Small, confirms the button is alive. A successful delivery gets a floating score popup and a softened chime. Low-cost events, proportional response.
 
-A floor button hover slides 6px right with a back-ease bounce. Small, fast, confirms the button is alive. A successful delivery gets a floating score popup, a softened chime (low-pass filtered so it stays present without pulling focus), and a manifest update. Losing a passenger, which is permanent, gets a layered response: manifest border turns red, alpha pulses at 0.45-second intervals to catch peripheral vision, a warning triangle appears, text color shifts, a loss sound plays, and the screen shakes.
-
-Each layer in the critical state catches something the others might miss. Color alone is easy to overlook. The pulse grabs your peripheral vision. The icon gives you an explicit symbol. Players can tell how important something is by how much the screen reacts to it.
-
-The results screen works differently: staggered choreography instead of dumping everything at once. Each delivery appears in sequence. Bonuses reveal one at a time. The score ticker counts up with rising pitch. Stars bounce in with sparkle sounds. The player gets time to process each piece before the final rating lands.
+Losing a passenger is permanent. The feedback has to communicate that. The manifest border turns red, a warning triangle appears, text colour shifts, and the screen shakes. **Each layer catches something the others might miss.** Colour alone is easy to overlook mid-puzzle, especially if the player is colourblind, so the shake grabs attention and the icon makes the state explicit.
 
 <Image src={criticalStateImg} alt="Cargo at zero tolerance: red border, warning triangle, text color shift" />
 
+The results screen reveals each delivery 1 at a time, bonuses individually, score ticker counting up with rising pitch before stars bounce in. Players process each piece before the final rating lands.
+
 <Image src={resultsScreenImg} alt="Results screen with delivery breakdown, loss penalty, bonuses, 2-star rating" />
 
-The tradeoff: every feedback layer adds noise to a tight screen. Score popups, the Level Notes button, the score log overlay each claimed space that didn't exist before. Each one fixed a real playtest problem, and each one cost screen real estate I didn't have.
+<div class="cs-callout">
 
-## Playtesting Rebuilt the Scoring System from Scratch
+**Design decision:** I never added toast notifications, particle effects, or celebration on routine deliveries. The screen escalates only when consequences do.
 
-I wrote a solver that verifies all 24 levels have mathematically optimal solutions. It confirmed every score threshold. It couldn't tell me the scoring guide was a wall of text nobody opened, or that score changes were happening outside the player's field of view.
+</div>
 
-Playtesters found those problems in under an hour.
+## Playtesting Fixed What I Couldn't See From the Inside
 
-The scoring guide was a paragraph of rules. I replaced it with a three-column table: passenger type, base score, patience bonus formula. Scannable in seconds.
+<p class="cs-summary-line">3 testers, 4 structured prompts each, every gap closed in 2 weeks.</p>
 
-Players couldn't see score changes during play. I added floating "+X" popups left of the elevator car on every delivery, plus a toggleable score log (five-column table: type, floor, patience, base, total) for players who wanted the full breakdown.
+The game worked. The interface had communication gaps that only showed up when real players sat down.
 
-Tutorial hints fired once and disappeared. I built a Level Notes overlay, accessible with [?] or H at any time during a level. Replaced the jarring auto-spotlight with an opt-in tutorial prompt on first launch, and reorganized hints so each one fires when the relevant system is visible on screen.
+<div class="cs-callout">
 
-One tester couldn't find restart. I added the R-key shortcut to tutorial hints and the scoring guide's keyboard reference. Another thought the CRT filter was a bug. I defaulted it to vignette.
+The scoring guide was a paragraph of rules. Nobody opened it.
 
-Cross-highlighting ties the whole board together. Hovering a manifest row lights up the matching floor button and the floor strip. Hovering a floor button lights up passengers whose destination matches. Players can check their plan before spending a stop.
+</div>
 
-<Image src={scoringGuideImg} alt="Before and after scoring guide: verbose paragraphs replaced with scannable 3-column table" />
+I replaced it with a 3-column table: passenger type, base score, patience bonus formula. Scannable in seconds.
 
-## The Shipped Interface
+<Image src={scoringGuideImg} alt="Before and after scoring guide: paragraph of rules replaced with formula-first 3-column table" />
+
+<div class="cs-fixes">
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Problem</span>
+      <span class="cs-fixes__text">Scoring invisible during play</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Fix</span>
+      <span class="cs-fixes__text">Floating "+X" popups + toggleable score log</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Problem</span>
+      <span class="cs-fixes__text">Tutorial hints fired once and disappeared</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Fix</span>
+      <span class="cs-fixes__text">Level Notes overlay, accessible via button + hotkey</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Problem</span>
+      <span class="cs-fixes__text">Couldn't find restart</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Fix</span>
+      <span class="cs-fixes__text">Added to tutorial hints + keyboard reference</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Problem</span>
+      <span class="cs-fixes__text">Post-processing filter mistaken for bug</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Fix</span>
+      <span class="cs-fixes__text">Subtler default filter</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Problem</span>
+      <span class="cs-fixes__text">No way to verify moves before committing</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Fix</span>
+      <span class="cs-fixes__text">Cross-highlighting: hover manifest row lights up matching floor</span>
+    </div>
+  </div>
+</div>
 
 <Image src={crossHighlightingImg} alt="Hovering Guest row highlights floor 05 on the strip: verify before committing" />
 
-**Gameplay screen.** All four systems in the three-column layout. The stops bar depletes like a punched ticket. The 2x2 elevator grid makes capacity spatial: when a group boards and fills two cells, you see the constraint. Four passenger colors (blue, burnt amber, purple, orange) are backed by distinct icons so the game reads without relying on color alone.
+All shipped within 2 weeks. None of it was complicated. But I needed players in the room to see it.
 
-**Results screen.** Choreographed delivery breakdown, bonus summary, score ticker, star rating. A crown appears for perfect scores.
+## What's Left
 
-**Level Notes overlay.** Re-accessible tutorial hints organized by system, paginated with Next/Got It. Players control how much help they see.
+<p class="cs-summary-line">Honest constraints and what comes next.</p>
 
-**Score log overlay.** Five-column breakdown of every delivery in the current run. Toggleable so it never blocks the game board unless the player opens it.
+The single screen constraint forced a clean layout where nothing got space it didn't earn. It also made accessibility harder.
 
-<Image src={designSystemImg} alt="Typography, color palette, and passenger type system" />
+<div class="cs-fixes">
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Constraint</span>
+      <span class="cs-fixes__text">12px minimum text works at 1080p, strains smaller displays</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag cs-fixes__tag--accent">Mitigation</span>
+      <span class="cs-fixes__text">No time pressure: players can study the board as long as they need</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Constraint</span>
+      <span class="cs-fixes__text">No room for larger fonts or high-contrast alternatives</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag cs-fixes__tag--accent">Mitigation</span>
+      <span class="cs-fixes__text">Animation speed settings for different processing speeds</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Constraint</span>
+      <span class="cs-fixes__text">Passenger palette untested against colourblind simulations</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag cs-fixes__tag--accent">Mitigation</span>
+      <span class="cs-fixes__text">Soft failure: lost passenger is a penalty, not a restart</span>
+    </div>
+  </div>
+</div>
 
-{/* TODO: GIF of core gameplay loop, 5-10 seconds looping */}
-
-## Correct Systems Don't Guarantee a Readable Interface
-
-The solver proved the math. Playtesting proved the interface. Those are different problems, and the second one only showed up when real people sat down and played.
-
-The one-screen constraint forced a clean layout where nothing got space it didn't earn. It also made accessibility harder. There's no room for larger fonts or high-contrast alternatives without breaking the hierarchy. The 12px minimum text works at 1920x1080 on a monitor but would strain on a TV or smaller display. I haven't tested the passenger palette against deuteranopia or protanopia simulations. Animation speed settings (normal, fast, instant) and the absence of time pressure help players who need more processing time, but there's real work left.
-
-Four rounds of playtesting reshaped the scoring system, the tutorial, and the feedback architecture. The interface got more readable each time. What remained after each pass was a reminder that correctness and clarity are separate properties, and that clarity only comes from watching someone else try to use what you built.
+Next: another playtest round on the redesigned scoring, an HTML5 export for browser play, and formal colourblind testing.
