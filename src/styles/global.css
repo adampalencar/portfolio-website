@@ -74,9 +74,9 @@
     display: none;
   }
 
-  /* Dark mode smooth transition on key surfaces */
+  /* Dark mode smooth transition on background only (color would cascade to every element) */
   body {
-    transition: background-color 0.3s ease, color 0.2s ease;
+    transition: background-color 0.3s ease;
   }
 }
 

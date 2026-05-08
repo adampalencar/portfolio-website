@@ -320,7 +320,6 @@ const tier1 = allStudies
       overflow: hidden;
       background: var(--bg-card);
       text-decoration: none;
-      will-change: transform, opacity;
       transition:
         transform 500ms cubic-bezier(0.23, 1, 0.32, 1),
         opacity 400ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -488,10 +487,12 @@ const tier1 = allStudies
 
     .carousel__progress-fill {
       height: 100%;
-      width: 33.33%;
+      width: 100%;
       background: var(--accent);
       border-radius: 1px;
-      transition: width 0.4s ease;
+      transform: scaleX(0.3333);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
 
     .carousel__all-link {
@@ -825,14 +826,18 @@ const tier1 = allStudies
 </style>
 
 <script>
+  let homepageCleanup: (() => void) | null = null;
+
   document.addEventListener('astro:page-load', () => {
     const cards = [...document.querySelectorAll('.carousel__card')];
     const infoSlides = [...document.querySelectorAll('.carousel__info-slide')];
     const counterCurrent = document.querySelector('.carousel__counter-current');
-    const progressFill = document.querySelector('.carousel__progress-fill');
+    const progressFill = document.querySelector('.carousel__progress-fill') as HTMLElement | null;
     const prevBtn = document.querySelector('.carousel__arrow--prev');
     const nextBtn = document.querySelector('.carousel__arrow--next');
     const carousel = document.querySelector('.carousel');
+
+    const cleanups: (() => void)[] = [];
 
     // Scroll indicator: show at top, hide when scrolled
     const scrollIndicator = document.querySelector('.hero__scroll');
@@ -842,13 +847,18 @@ const tier1 = allStudies
       };
       updateScroll();
       window.addEventListener('scroll', updateScroll, { passive: true });
+      cleanups.push(() => window.removeEventListener('scroll', updateScroll));
     }
 
-    if (!cards.length || !carousel) return;
+    if (!cards.length || !carousel) {
+      homepageCleanup = cleanups.length ? () => cleanups.forEach(fn => fn()) : null;
+      return;
+    }
 
     const total = cards.length;
     let active = 0;
     let isAnimating = false;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
     function update() {
       const prev = (active - 1 + total) % total;
@@ -865,12 +875,14 @@ const tier1 = allStudies
         slide.classList.toggle('carousel__info-slide--active', i === active);
       });
 
-      counterCurrent.textContent = String(active + 1).padStart(2, '0');
-      progressFill.style.width = `${((active + 1) / total) * 100}%`;
+      counterCurrent!.textContent = String(active + 1).padStart(2, '0');
+      if (progressFill) {
+        progressFill.style.transform = `scaleX(${(active + 1) / total})`;
+      }
 
-      // Debounce rapid clicks
       isAnimating = true;
-      setTimeout(() => { isAnimating = false; }, 500);
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => { isAnimating = false; }, 500);
     }
 
     // Set initial state
@@ -879,22 +891,22 @@ const tier1 = allStudies
     function goNext() { if (!isAnimating) { active = (active + 1) % total; update(); } }
     function goPrev() { if (!isAnimating) { active = (active - 1 + total) % total; update(); } }
 
-    nextBtn.addEventListener('click', goNext);
-    prevBtn.addEventListener('click', goPrev);
+    nextBtn!.addEventListener('click', goNext);
+    prevBtn!.addEventListener('click', goPrev);
 
     // Keyboard nav
     carousel.setAttribute('tabindex', '0');
     carousel.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+      if ((e as KeyboardEvent).key === 'ArrowRight') { e.preventDefault(); goNext(); }
+      if ((e as KeyboardEvent).key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
     });
 
     // Touch swipe
     let touchStartX = 0;
     const stage = document.querySelector('.carousel__stage');
-    stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    stage.addEventListener('touchend', (e) => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
+    stage!.addEventListener('touchstart', (e) => { touchStartX = (e as TouchEvent).touches[0].clientX; }, { passive: true });
+    stage!.addEventListener('touchend', (e) => {
+      const diff = touchStartX - (e as TouchEvent).changedTouches[0].clientX;
       if (Math.abs(diff) > 50) {
         if (diff > 0) goNext();
         else goPrev();
@@ -909,10 +921,25 @@ const tier1 = allStudies
         else if (pos === 'right') { e.preventDefault(); goNext(); }
       });
     });
+
+    cleanups.push(() => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+    });
+
+    homepageCleanup = () => cleanups.forEach(fn => fn());
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    if (homepageCleanup) {
+      homepageCleanup();
+      homepageCleanup = null;
+    }
   });
 </script>
 
 <script>
+  let dotsCleanup: (() => void) | null = null;
+
   document.addEventListener('astro:page-load', () => {
     const canvas = document.querySelector('.hero__dots');
     if (!canvas || !(canvas instanceof HTMLCanvasElement)) return;
@@ -998,22 +1025,38 @@ const tier1 = allStudies
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!reducedMotion) {
-      container.addEventListener('mousemove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-        scheduleDraw();
-      });
+    function onMouseMove(e: MouseEvent) {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      scheduleDraw();
+    }
 
-      container.addEventListener('mouseleave', () => {
-        mouse.x = -1000;
-        mouse.y = -1000;
-        scheduleDraw();
-      });
+    function onMouseLeave() {
+      mouse.x = -1000;
+      mouse.y = -1000;
+      scheduleDraw();
+    }
+
+    if (!reducedMotion) {
+      container.addEventListener('mousemove', onMouseMove);
+      container.addEventListener('mouseleave', onMouseLeave);
     }
 
     resize();
     window.addEventListener('resize', resize);
+
+    dotsCleanup = () => {
+      window.removeEventListener('resize', resize);
+      container.removeEventListener('mousemove', onMouseMove);
+      container.removeEventListener('mouseleave', onMouseLeave);
+    };
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    if (dotsCleanup) {
+      dotsCleanup();
+      dotsCleanup = null;
+    }
   });
 </script>

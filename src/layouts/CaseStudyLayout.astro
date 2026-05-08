@@ -69,7 +69,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
           const scrollTop = window.scrollY;
           const docHeight = document.documentElement.scrollHeight - window.innerHeight;
           if (docHeight <= 0) return;
-          bar.style.width = `${(scrollTop / docHeight) * 100}%`;
+          bar.style.transform = `scaleX(${scrollTop / docHeight})`;
         }
         progressHandler = updateProgress;
         window.addEventListener('scroll', updateProgress, { passive: true });

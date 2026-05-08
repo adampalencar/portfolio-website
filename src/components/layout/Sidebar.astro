@@ -102,6 +102,15 @@ const isWorkSection = currentPath.startsWith('/work');
 
 
 <script>
+  let sidebarContactObserver: IntersectionObserver | null = null;
+
+  document.addEventListener('astro:before-swap', () => {
+    if (sidebarContactObserver) {
+      sidebarContactObserver.disconnect();
+      sidebarContactObserver = null;
+    }
+  });
+
   // Bind click handlers once, not on every page-load (prevents duplicate listeners)
   document.addEventListener('click', (e) => {
     const trigger = (e.target as Element).closest('.nav-folder__trigger');
@@ -175,7 +184,8 @@ const isWorkSection = currentPath.startsWith('/work');
       const homeLink = document.querySelector('[data-nav-link][href="/"]');
       const contactLink = document.querySelector('[data-nav-link][href="/#contact"]');
       if (homeLink && contactLink) {
-        const observer = new IntersectionObserver((entries) => {
+        if (sidebarContactObserver) sidebarContactObserver.disconnect();
+        sidebarContactObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               homeLink.removeAttribute('aria-current');
@@ -186,7 +196,7 @@ const isWorkSection = currentPath.startsWith('/work');
             }
           });
         }, { threshold: 0.4 });
-        observer.observe(contactSection);
+        sidebarContactObserver.observe(contactSection);
       }
     }
   });
