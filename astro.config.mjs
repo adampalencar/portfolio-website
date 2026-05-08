@@ -32,6 +32,8 @@ export default defineConfig({
       weights: ['500 800'],
       subsets: ['latin', 'latin-ext'],
       styles: ['normal'],
+      display: 'block',
+      optimizedFallbacks: false,
       fallbacks: ['Inter', 'system-ui', 'sans-serif'],
     },
   ],
