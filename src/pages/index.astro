@@ -25,6 +25,9 @@ const tier1 = allStudies
       <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
       <a href="/work" class="btn-primary" style="color:#fff">View my work</a>
     </div>
+    <div class="hero__visual" aria-hidden="true">
+      <canvas class="hero__dots"></canvas>
+    </div>
     <div class="hero__scroll" aria-hidden="true">
       <span class="hero__scroll-label">SCROLL</span>
       <span class="hero__scroll-arrow">&darr;</span>
@@ -34,8 +37,6 @@ const tier1 = allStudies
   <!-- Featured Work -->
   <section class="featured" data-reveal style="--reveal-delay: 1">
     <div class="section-marker">
-      <span class="section-marker__num">01</span>
-      <span class="section-marker__slash">/</span>
       <span class="section-marker__title">SELECTED WORK</span>
       <span class="section-marker__line"></span>
     </div>
@@ -99,8 +100,6 @@ const tier1 = allStudies
   <section class="intro" data-reveal style="--reveal-delay: 0">
     <div class="intro__inner">
       <div class="section-marker intro__marker">
-        <span class="section-marker__num">02</span>
-        <span class="section-marker__slash">/</span>
         <span class="section-marker__title">ABOUT</span>
         <span class="section-marker__line"></span>
       </div>
@@ -141,9 +140,9 @@ const tier1 = allStudies
       position: relative;
       padding: var(--space-9) 96px var(--space-8) 96px;
       min-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
     }
 
     .hero__mark {
@@ -271,6 +270,19 @@ const tier1 = allStudies
       margin: 0;
     }
 
+    .hero__visual {
+      align-self: stretch;
+      position: relative;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+
+    .hero__dots {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     /* Section marker spacing (structure in global.css) */
     .section-marker {
       margin-bottom: var(--space-5);
@@ -278,7 +290,7 @@ const tier1 = allStudies
 
     /* --- Featured Work --- */
     .featured {
-      padding: var(--space-5) 96px var(--space-8);
+      padding: var(--space-6) 96px var(--space-9);
       display: flex;
       flex-direction: column;
       gap: var(--space-5);
@@ -367,7 +379,7 @@ const tier1 = allStudies
     /* --- Carousel Info --- */
     .carousel__info {
       position: relative;
-      min-height: 160px;
+      min-height: 220px;
     }
 
     .carousel__info-slide {
@@ -379,7 +391,7 @@ const tier1 = allStudies
       pointer-events: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--space-3);
     }
 
     .carousel__info-slide--active {
@@ -551,13 +563,14 @@ const tier1 = allStudies
     /* --- Intro --- */
     .intro {
       background: var(--bg-secondary);
-      padding: var(--space-9) 96px;
+      padding: var(--space-7) 96px var(--space-9);
     }
 
     .intro__inner {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: var(--space-7);
+      column-gap: var(--space-7);
+      row-gap: var(--space-4);
       align-items: start;
     }
 
@@ -580,7 +593,7 @@ const tier1 = allStudies
 
     .intro__heading {
       font-family: var(--font-body);
-      font-size: 36px;
+      font-size: 48px;
       font-weight: 600;
       letter-spacing: -0.02em;
       line-height: var(--leading-tight);
@@ -608,8 +621,9 @@ const tier1 = allStudies
 
     /* --- Contact Strip (full-width dark section, theme-independent) --- */
     .contact-strip {
-      background: #1A1A1A;
-      padding: var(--space-8) 96px;
+      background: var(--bg-primary);
+      padding: var(--space-7) 96px;
+      border-top: 1px solid var(--border-subtle);
     }
 
     .contact-strip__inner {
@@ -620,17 +634,17 @@ const tier1 = allStudies
 
     .contact-strip__heading {
       font-family: var(--font-body);
-      font-size: 36px;
-      font-weight: 600;
+      font-size: 28px;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      color: #FFFFFF;
+      color: var(--text-primary);
       margin: 0;
     }
 
     .contact-strip__body {
       font-size: var(--size-base);
       line-height: var(--leading-relaxed);
-      color: #999999;
+      color: var(--text-secondary);
       max-width: 600px;
       margin: 0;
     }
@@ -646,28 +660,28 @@ const tier1 = allStudies
     }
 
     .contact-strip__email {
-      color: #3DA566;
+      color: var(--accent-text);
       text-decoration: none;
       letter-spacing: 0.05em;
     }
 
     .contact-strip__email:hover {
       text-decoration: underline;
-      color: #3DA566;
+      color: var(--accent-hover);
     }
 
     .contact-strip__dot {
-      color: #666666;
+      color: var(--text-tertiary);
     }
 
     .contact-strip__link {
-      color: #999999;
+      color: var(--text-tertiary);
       text-decoration: none;
       letter-spacing: 0.1em;
     }
 
     .contact-strip__link:hover {
-      color: #FFFFFF;
+      color: var(--text-primary);
     }
 
     /* --- Scroll indicator: monospace label + bouncing arrow --- */
@@ -713,6 +727,11 @@ const tier1 = allStudies
       .hero {
         padding: var(--space-7) var(--grid-gutter);
         min-height: 70vh;
+        grid-template-columns: 1fr;
+      }
+
+      .hero__visual {
+        display: none;
       }
 
       .hero__name {
@@ -787,7 +806,7 @@ const tier1 = allStudies
       }
 
       .intro__heading {
-        font-size: 28px;
+        font-size: 32px;
       }
 
       .contact-strip {
@@ -795,7 +814,7 @@ const tier1 = allStudies
       }
 
       .contact-strip__heading {
-        font-size: 28px;
+        font-size: 24px;
       }
 
       .contact-strip__links {
@@ -815,16 +834,14 @@ const tier1 = allStudies
     const nextBtn = document.querySelector('.carousel__arrow--next');
     const carousel = document.querySelector('.carousel');
 
-    // Scroll indicator: hide once user scrolls past hero
+    // Scroll indicator: show at top, hide when scrolled
     const scrollIndicator = document.querySelector('.hero__scroll');
     if (scrollIndicator) {
-      const onScroll = () => {
-        if (window.scrollY > 80) {
-          scrollIndicator.classList.add('is-hidden');
-          window.removeEventListener('scroll', onScroll);
-        }
+      const updateScroll = () => {
+        scrollIndicator.classList.toggle('is-hidden', window.scrollY > 80);
       };
-      window.addEventListener('scroll', onScroll, { passive: true });
+      updateScroll();
+      window.addEventListener('scroll', updateScroll, { passive: true });
     }
 
     if (!cards.length || !carousel) return;
@@ -892,5 +909,111 @@ const tier1 = allStudies
         else if (pos === 'right') { e.preventDefault(); goNext(); }
       });
     });
+  });
+</script>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const canvas = document.querySelector('.hero__dots');
+    if (!canvas || !(canvas instanceof HTMLCanvasElement)) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const container = canvas.parentElement!;
+    const SPACING = 28;
+    const BASE_R = 1.2;
+    const PROXIMITY = 120;
+
+    let mouse = { x: -1000, y: -1000 };
+    let dots: { x: number; y: number }[] = [];
+    let pending = false;
+    let dpr = window.devicePixelRatio || 1;
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildGrid(rect.width, rect.height);
+      draw();
+    }
+
+    function buildGrid(w: number, h: number) {
+      dots = [];
+      const cols = Math.floor(w / SPACING);
+      const rows = Math.floor(h / SPACING);
+      const ox = (w - (cols - 1) * SPACING) / 2;
+      const oy = (h - (rows - 1) * SPACING) / 2;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          dots.push({ x: ox + c * SPACING, y: oy + r * SPACING });
+        }
+      }
+    }
+
+    function draw() {
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx!.clearRect(0, 0, w, h);
+
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      const baseRgb = isDark ? '240,237,230' : '26,26,26';
+      const accentRgb = isDark ? '74,158,104' : '27,122,61';
+      const baseAlpha = isDark ? 0.07 : 0.05;
+
+      for (const dot of dots) {
+        const dx = dot.x - mouse.x;
+        const dy = dot.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        let alpha = baseAlpha;
+        let radius = BASE_R;
+        let rgb = baseRgb;
+
+        if (dist < PROXIMITY) {
+          const t = 1 - dist / PROXIMITY;
+          const ease = t * t;
+          alpha = baseAlpha + ease * 0.3;
+          radius = BASE_R + ease * 2;
+          if (ease > 0.5) rgb = accentRgb;
+        }
+
+        ctx!.beginPath();
+        ctx!.arc(dot.x, dot.y, radius, 0, 6.2832);
+        ctx!.fillStyle = `rgba(${rgb},${alpha})`;
+        ctx!.fill();
+      }
+      pending = false;
+    }
+
+    function scheduleDraw() {
+      if (!pending) {
+        pending = true;
+        requestAnimationFrame(draw);
+      }
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!reducedMotion) {
+      container.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+        scheduleDraw();
+      });
+
+      container.addEventListener('mouseleave', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+        scheduleDraw();
+      });
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
   });
 </script>

@@ -184,7 +184,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
       display: flex;
       align-items: center;
       gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
+      padding: var(--space-3) var(--space-4);
       color: var(--text-secondary);
       text-decoration: none;
       transition: color 150ms ease, background 150ms ease;
@@ -404,6 +404,22 @@ const isWorkSubpage = currentPath.startsWith('/work/');
       } else {
         link.removeAttribute('aria-current');
       }
+    });
+
+    // Contact link: smooth scroll on homepage, clean URL
+    drawer.querySelectorAll('[href="/#contact"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const onHomepage = (window.location.pathname.replace(/\/$/, '') || '/') === '/';
+        if (onHomepage) {
+          e.preventDefault();
+          closeDrawer();
+          const target = document.getElementById('contact');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            history.replaceState(null, '', '/');
+          }
+        }
+      });
     });
   });
 </script>

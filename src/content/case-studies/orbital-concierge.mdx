@@ -45,8 +45,6 @@ import crossHighlightingImg from '../../assets/case-studies/orbital-concierge/cr
 
 ## One Screen. Four Systems. Nothing Hidden.
 
-<p class="cs-summary-line">Four competing information systems on one screen, designed so nothing hides and nothing scrolls.</p>
-
 Orbital Concierge is a puzzle game where you route one elevator through a building. Every stop costs you a move from a shrinking budget, passengers lose patience with each detour, and the car only holds a limited number. **All 4 systems share a single screen.** Nothing scrolls, nothing tabs, nothing hides.
 
 I designed and built all 24 levels in Godot 4.5, then ran 3 rounds of structured playtesting. All testers understood the core loop in their first session. One called the results screen animation something that "makes my spine tingle." Another kept the game open to listen to the music while writing feedback.
@@ -56,8 +54,6 @@ But I had blind spots: **scoring was invisible during play**, tutorial hints van
 <Image src={gameplayImg} alt="Level 17 (Cross Traffic), all four passenger types active on a single screen" />
 
 ## The Layout Mirrors How Players Think Through Each Move
-
-<p class="cs-summary-line">Three-column reading order locked to the player's decision sequence.</p>
 
 <div class="cs-carousel">
   <div class="cs-carousel__viewport">
@@ -103,6 +99,8 @@ With everything visible at once, players need a consistent path through the scre
 
 A layout that works identically on decision 1 and decision 24 transfers faster than one that lets you wander. Players scan the board first, so I prioritized **predictability over flexibility** across 20+ decisions per level.
 
+### Two type roles reinforce the split
+
 <div class="cs-type-pair">
   <div class="cs-type-pair__cell">
     <span class="cs-type-pair__label">Wayfinding</span>
@@ -124,9 +122,7 @@ A layout that works identically on decision 1 and decision 24 transfers faster t
 
 </div>
 
-## Small Events Stay Quiet. Permanent Ones Get Loud.
-
-<p class="cs-summary-line">Feedback intensity proportional to player cost. Quiet by default, layered when permanent.</p>
+## Every Response Earns Its Weight
 
 Every feedback element on a tight screen costs space. **I matched the response to the cost.**
 
@@ -147,8 +143,6 @@ The results screen reveals each delivery 1 at a time, bonuses individually, scor
 </div>
 
 ## Playtesting Fixed What I Couldn't See From the Inside
-
-<p class="cs-summary-line">3 testers, 4 structured prompts each, every gap closed in 2 weeks.</p>
 
 The game worked. The interface had communication gaps that only showed up when real players sat down.
 
@@ -225,8 +219,6 @@ I replaced it with a 3-column table: passenger type, base score, patience bonus 
 All shipped within 2 weeks. None of it was complicated. But I needed players in the room to see it.
 
 ## What's Left
-
-<p class="cs-summary-line">Honest constraints and what comes next.</p>
 
 The single screen constraint forced a clean layout where nothing got space it didn't earn. It also made accessibility harder.
 

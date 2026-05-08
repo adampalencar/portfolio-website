@@ -29,6 +29,10 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
   <div class="work-page">
     <header class="work-page__header">
+      <div class="section-marker">
+        <span class="section-marker__title">PROJECTS</span>
+        <span class="section-marker__line"></span>
+      </div>
       <h1 class="work-page__title">Work</h1>
       <p class="work-page__subtitle">Selected projects in game UI, product design, and interactive tools.</p>
     </header>
@@ -36,8 +40,6 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     <!-- Tier 1: Featured -->
     <section class="work-tier work-tier--featured">
       <div class="section-marker">
-        <span class="section-marker__num">01</span>
-        <span class="section-marker__slash">/</span>
         <span class="section-marker__title">FEATURED</span>
         <span class="section-marker__line"></span>
       </div>
@@ -108,8 +110,6 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     {tier2.length > 0 && (
       <section class="work-tier work-tier--studies">
         <div class="section-marker">
-          <span class="section-marker__num">02</span>
-          <span class="section-marker__slash">/</span>
           <span class="section-marker__title">CASE STUDIES</span>
           <span class="section-marker__line"></span>
         </div>
@@ -180,8 +180,6 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     {tier3.length > 0 && (
       <section class="work-tier work-tier--explorations">
         <div class="section-marker">
-          <span class="section-marker__num">03</span>
-          <span class="section-marker__slash">/</span>
           <span class="section-marker__title">EXPLORATIONS</span>
           <span class="section-marker__line"></span>
         </div>
@@ -231,6 +229,11 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     /* --- Header --- */
     .work-page__header {
       margin-bottom: var(--space-2);
+      padding-bottom: var(--space-4);
+    }
+
+    .work-page__header .section-marker {
+      margin-bottom: var(--space-4);
     }
 
     .work-page__title {
@@ -254,6 +257,11 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
       display: flex;
       flex-direction: column;
       gap: var(--space-6);
+      margin-bottom: var(--space-9);
+    }
+
+    .work-tier:last-child {
+      margin-bottom: 0;
     }
 
     /* --- Tier 1: Featured (full-width asymmetric) --- */
@@ -265,9 +273,9 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
     .tier1-card {
       display: grid;
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1.4fr 1fr;
       gap: var(--space-6);
-      align-items: center;
+      align-items: start;
       text-decoration: none;
       color: inherit;
       position: relative;
@@ -282,7 +290,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
     /* Alternate image/info side for rhythm */
     .tier1-card--reversed {
-      grid-template-columns: 1fr 1.15fr;
+      grid-template-columns: 1fr 1.4fr;
     }
 
     .tier1-card--reversed .tier1-card__image-wrap {
@@ -291,18 +299,6 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
     .tier1-card--reversed .tier1-card__body {
       order: 1;
-    }
-
-    /* Expanding accent bar on hover */
-    a.tier1-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .tier1-card__image-wrap {
@@ -323,6 +319,19 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
       display: flex;
       flex-direction: column;
       gap: var(--space-3);
+      position: relative;
+      padding-top: var(--space-4);
+    }
+
+    a.tier1-card .tier1-card__body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .tier1-card__code {
@@ -335,7 +344,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
     .tier1-card__title {
       font-family: var(--font-body);
-      font-size: 36px;
+      font-size: 42px;
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: var(--leading-tight);
@@ -388,7 +397,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     /* --- Tier 2: Standard 2-column --- */
     .tier2-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: var(--space-5);
     }
 
@@ -497,7 +506,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
     /* --- Tier 3: Compact 3-column --- */
     .tier3-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.1fr 0.9fr 1fr;
       gap: var(--space-4);
     }
 
@@ -551,7 +560,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
 
     /* --- Hover states: desktop with fine pointer only --- */
     @media (hover: hover) and (pointer: fine) {
-      a.tier1-card:hover::before {
+      a.tier1-card:hover .tier1-card__body::before {
         width: 100%;
       }
 
@@ -571,7 +580,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
         border-radius: var(--space-2);
       }
 
-      a.tier1-card:focus-visible::before {
+      a.tier1-card:focus-visible .tier1-card__body::before {
         width: 100%;
       }
 
@@ -580,7 +589,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
         transform: translateX(0);
       }
 
-      .tier1-card[data-status="upcoming"]:hover::before {
+      .tier1-card[data-status="upcoming"]:hover .tier1-card__body::before {
         width: 0;
       }
 

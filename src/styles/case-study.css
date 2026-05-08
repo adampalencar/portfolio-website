@@ -158,20 +158,26 @@
     margin: var(--space-5) 0;
   }
 
+  .cs-placeholder {
+    background: #333;
+    border: 1px dashed #666;
+    border-radius: 4px;
+    padding: var(--space-5) var(--space-4);
+    margin: var(--space-5) 0;
+    color: #999;
+    font-family: var(--font-mono);
+    font-size: var(--size-sm);
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .case-study__body hr {
     border: none;
     border-top: 1px solid var(--border-subtle);
     margin: var(--space-7) 0;
-  }
-
-  /* Section summary line (one-liner under h2) */
-  .cs-summary-line {
-    font-family: var(--font-body);
-    font-size: var(--size-lg);
-    line-height: var(--leading-relaxed);
-    color: var(--text-secondary);
-    max-width: 640px;
-    margin-bottom: var(--space-5);
   }
 
   /* Summary block */
@@ -249,19 +255,18 @@
 
   .cs-carousel__slide figcaption {
     position: absolute;
-    bottom: var(--space-3);
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    right: 0;
     font-family: var(--font-mono);
-    font-size: var(--size-xs);
-    color: var(--text-tertiary);
+    font-size: var(--size-sm);
+    color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
     text-align: center;
-    background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
-    padding: var(--space-1) var(--space-3);
-    border-radius: 4px;
-    white-space: nowrap;
+    background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
+    padding: var(--space-2) var(--space-3);
+    z-index: 1;
   }
 
   .cs-carousel__prev,

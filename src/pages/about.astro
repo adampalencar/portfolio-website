@@ -1,34 +1,58 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const tools = [
-  { name: 'Figma', icon: '/icons/tools/figma.svg', group: 'Design' },
-  { name: 'FigJam', icon: '/icons/tools/figjam.svg', group: 'Design' },
-  { name: 'Miro', icon: '/icons/tools/miro.svg', group: 'Design' },
-  { name: 'Photoshop', icon: '/icons/tools/photoshop.svg', group: 'Adobe' },
-  { name: 'Illustrator', icon: '/icons/tools/illustrator.svg', group: 'Adobe' },
-  { name: 'InDesign', icon: '/icons/tools/indesign.svg', group: 'Adobe' },
-  { name: 'Premiere Pro', icon: '/icons/tools/premierepro.svg', group: 'Adobe' },
-  { name: 'After Effects', icon: '/icons/tools/aftereffects.svg', group: 'Adobe' },
-  { name: 'Pro Tools', icon: '/icons/tools/protools.svg', group: 'Audio' },
-  { name: 'FL Studio', icon: '/icons/tools/flstudio.svg', group: 'Audio' },
-  { name: 'FMOD', icon: '/icons/tools/fmod.svg', group: 'Audio' },
-  { name: 'HTML', icon: '/icons/tools/html5.svg', group: 'Code' },
-  { name: 'CSS', icon: '/icons/tools/css3.svg', group: 'Code' },
-  { name: 'Python', icon: '/icons/tools/python.svg', group: 'Code' },
-  { name: 'Godot', icon: '/icons/tools/godot.svg', group: 'Code' },
-  { name: 'Unreal Engine 5', icon: '/icons/tools/unrealengine.svg', group: 'Code' },
+const toolGroups = [
+  {
+    label: 'Design',
+    tools: [
+      { name: 'Figma', icon: '/icons/tools/figma.svg' },
+      { name: 'FigJam', icon: '/icons/tools/figjam.svg' },
+      { name: 'Miro', icon: '/icons/tools/miro.svg' },
+    ],
+  },
+  {
+    label: 'Adobe',
+    tools: [
+      { name: 'Photoshop', icon: '/icons/tools/photoshop.svg' },
+      { name: 'Illustrator', icon: '/icons/tools/illustrator.svg' },
+      { name: 'InDesign', icon: '/icons/tools/indesign.svg' },
+      { name: 'Premiere Pro', icon: '/icons/tools/premierepro.svg' },
+      { name: 'After Effects', icon: '/icons/tools/aftereffects.svg' },
+    ],
+  },
+  {
+    label: 'Audio',
+    tools: [
+      { name: 'Pro Tools', icon: '/icons/tools/protools.svg' },
+      { name: 'FL Studio', icon: '/icons/tools/flstudio.svg' },
+      { name: 'FMOD', icon: '/icons/tools/fmod.svg' },
+    ],
+  },
+  {
+    label: 'Code',
+    tools: [
+      { name: 'HTML', icon: '/icons/tools/html5.svg' },
+      { name: 'CSS', icon: '/icons/tools/css3.svg' },
+      { name: 'Python', icon: '/icons/tools/python.svg' },
+      { name: 'Godot', icon: '/icons/tools/godot.svg' },
+      { name: 'Unreal Engine', icon: '/icons/tools/unrealengine.svg' },
+    ],
+  },
 ];
 ---
 
 <BaseLayout title="About - Adam Palencar" description="UI/UX Designer based in Toronto with a background in sound production and video editing.">
 
-  <section class="about-hero">
+  <section class="about-hero" data-reveal>
     <div class="about-hero__photo">
-      <div class="about-hero__initials">AP</div>
+      <div class="about-hero__initials">
+        <span class="about-hero__mark about-hero__mark--tl">+</span>
+        <span class="about-hero__mark about-hero__mark--br">+</span>
+        AP
+      </div>
     </div>
     <div class="about-hero__content">
-      <h1>Adam Palencar</h1>
+      <h1>Adam Palenčár</h1>
       <p class="about-hero__subtitle mono-label">UI/UX Designer, Toronto</p>
       <p>I design interfaces for games and interactive products. I used to edit video and produce audio. The throughline is the same problem in different formats: how do you get someone's attention, hold it, and make sure they understand what to do next?</p>
       <p>I came to UX through sound production and video editing. Along the way I realized the thing I kept gravitating toward wasn't the media itself, it was the structure underneath: how information gets organized, how timing shapes comprehension, and at what point you've cut so much that the thing falls apart.</p>
@@ -37,8 +61,11 @@ const tools = [
     </div>
   </section>
 
-  <section class="about-section">
-    <h2>Experience</h2>
+  <section class="about-section about-section--experience" data-reveal style="--reveal-delay: 1">
+    <div class="section-marker">
+      <span class="section-marker__title">EXPERIENCE</span>
+      <span class="section-marker__line"></span>
+    </div>
     <ol class="timeline" role="list">
       <li class="timeline__entry">
         <time class="mono-label" datetime="2025-06">2025.06 to 2025.12</time>
@@ -61,8 +88,11 @@ const tools = [
     </ol>
   </section>
 
-  <section class="about-section">
-    <h2>Education</h2>
+  <section class="about-section about-section--education" data-reveal style="--reveal-delay: 0">
+    <div class="section-marker">
+      <span class="section-marker__title">EDUCATION</span>
+      <span class="section-marker__line"></span>
+    </div>
     <ol class="timeline" role="list">
       <li class="timeline__entry">
         <time class="mono-label" datetime="2025-01">2025.01 to 2025.12</time>
@@ -78,32 +108,50 @@ const tools = [
     </ol>
   </section>
 
-  <section class="about-section about-section--narrow">
-    <h2>What Makes Me Different</h2>
+  <section class="about-section about-section--approach about-section--narrow" data-reveal style="--reveal-delay: 0">
+    <div class="section-marker">
+      <span class="section-marker__title">APPROACH</span>
+      <span class="section-marker__line"></span>
+    </div>
     <p>Most UI/UX designers came to the field through graphic design or computer science. I came through sound and video production. That background shaped how I think about design:</p>
     <p>Years of editing taught me that when information appears matters as much as what the information is. A transition that's 200ms too slow feels sluggish. A tooltip that shows up before the player is ready creates noise. I think about UI pacing the way an editor thinks about a cut.</p>
     <p>Audio production is revision on revision on revision. You mix, listen back, adjust, listen again. I had thousands of hours of that cycle before I ever opened Figma, so the iteration side of design felt familiar from day one.</p>
     <p>And the hardest skill in editing, removing something you like because the piece is better without it, transfers to interface design. Every element competes for attention. The temptation is always to add more. The instinct I trust most is the one that says "take it out."</p>
   </section>
 
-  <section class="about-section">
-    <h2>Tools</h2>
-    <ul class="tools-grid" role="list">
-      {tools.map((tool) => (
-        <li class="tools-grid__item">
-          <img src={tool.icon} alt="" width="32" height="32" class="tools-grid__icon" />
-          <span class="tools-grid__name">{tool.name}</span>
-        </li>
-      ))}
-    </ul>
+  <section class="about-section about-section--tools" data-reveal style="--reveal-delay: 0">
+    <div class="section-marker">
+      <span class="section-marker__title">TOOLS</span>
+      <span class="section-marker__line"></span>
+    </div>
+    {toolGroups.map((group) => (
+      <div class="tools-group">
+        <span class="tools-group__label mono-label">{group.label}</span>
+        <ul class="tools-grid" role="list">
+          {group.tools.map((tool) => (
+            <li class="tools-grid__item">
+              <img src={tool.icon} alt="" width="32" height="32" class="tools-grid__icon" />
+              <span class="tools-grid__name">{tool.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
   </section>
 
-  <section class="about-section about-section--narrow">
-    <h2>Outside of Work</h2>
+  <section class="about-section about-section--personal about-section--narrow" data-reveal style="--reveal-delay: 0">
+    <div class="section-marker">
+      <span class="section-marker__title">PERSONAL</span>
+      <span class="section-marker__line"></span>
+    </div>
     <p>I compose and produce music, mostly inspired by video games. I follow indie game development closely and I'm building my own puzzle game, Orbital Concierge. I also play way too many roguelikes, collect vinyl, and occasionally try to cook something that isn't pasta.</p>
   </section>
 
-  <section class="about-contact">
+  <section class="about-contact" data-reveal style="--reveal-delay: 0">
+    <div class="section-marker">
+      <span class="section-marker__title">CONTACT</span>
+      <span class="section-marker__line"></span>
+    </div>
     <p class="about-contact__email"><a href="mailto:adampalencar25@gmail.com">adampalencar25@gmail.com</a></p>
     <p class="about-contact__location mono-label">Toronto, ON, Canada</p>
     <div class="about-contact__links">
@@ -119,7 +167,7 @@ const tools = [
 
     /* Hero */
     .about-hero {
-      padding: var(--space-7) 96px;
+      padding: var(--space-7) 96px var(--space-8) 96px;
       display: flex;
       gap: var(--space-7);
       align-items: flex-start;
@@ -138,18 +186,36 @@ const tools = [
       align-items: center;
       justify-content: center;
       border-radius: var(--space-2);
-      font-family: var(--font-mono);
-      font-size: var(--size-3xl);
-      color: var(--text-tertiary);
+      font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+      font-size: 80px;
       font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--border-visible);
+      position: relative;
+      overflow: hidden;
     }
+
+    .about-hero__mark {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: rgba(26, 26, 26, 0.08);
+    }
+
+    [data-theme="dark"] .about-hero__mark {
+      color: rgba(240, 237, 230, 0.06);
+    }
+
+    .about-hero__mark--tl { top: 16px; left: 16px; }
+    .about-hero__mark--br { bottom: 16px; right: 16px; }
 
     .about-hero__content {
       flex: 1;
     }
 
     .about-hero__content h1 {
-      margin-top: -4px; /* compensate for half-leading above glyphs */
+      font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
+      margin-top: -4px;
       margin-bottom: var(--space-1);
     }
 
@@ -193,22 +259,46 @@ const tools = [
       }
     }
 
-    /* Sections */
+    /* Sections with varied rhythm */
     .about-section {
-      padding: var(--space-6) 96px;
+      padding: var(--space-7) 96px;
     }
 
-    .about-section--narrow {
-      padding: var(--space-6) 96px;
+    .about-section--experience {
+      padding-top: var(--space-7);
+      padding-bottom: var(--space-7);
     }
 
-    .about-section--narrow p,
-    .about-section--narrow h2 {
+    .about-section--education {
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-5);
+    }
+
+    .about-section--approach {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-8);
+    }
+
+    .about-section--tools {
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-6);
+    }
+
+    .about-section--personal {
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-5);
+    }
+
+    .about-section--narrow p {
       max-width: 680px;
     }
 
     .about-section h2 {
-      font-size: 28px;
+      font-size: 36px;
+      margin-bottom: var(--space-5);
+    }
+
+    .about-section .section-marker {
       margin-bottom: var(--space-5);
     }
 
@@ -283,7 +373,21 @@ const tools = [
       margin: 0;
     }
 
-    /* Tools grid */
+    /* Tools: grouped by category */
+    .tools-group {
+      margin-bottom: var(--space-5);
+    }
+
+    .tools-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .tools-group__label {
+      display: block;
+      margin-bottom: var(--space-3);
+      color: var(--accent-text);
+    }
+
     .tools-grid {
       list-style: none;
       padding: 0;
@@ -310,7 +414,7 @@ const tools = [
     }
 
     [data-theme="dark"] .tools-grid__icon {
-      filter: invert(1) brightness(0.85);
+      filter: none;
     }
 
     .tools-grid__name {
@@ -324,7 +428,11 @@ const tools = [
 
     /* Contact */
     .about-contact {
-      padding: var(--space-6) 96px var(--space-8);
+      padding: var(--space-7) 96px var(--space-8);
+    }
+
+    .about-contact .section-marker {
+      margin-bottom: var(--space-5);
     }
 
     .about-contact__email {

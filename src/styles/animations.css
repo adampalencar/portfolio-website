@@ -1,4 +1,26 @@
 @layer components {
-  /* Animation keyframes added in Phase 5 */
-  /* All animations must respect prefers-reduced-motion (see global.css) */
+  /* Scroll reveal: JS adds .reveal-ready to html, then observer adds .is-visible per element.
+     Without JS, all content stays visible (progressive enhancement). */
+  html.reveal-ready [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  [data-reveal] {
+    transition:
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--reveal-delay, 0) * 120ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      transition: none;
+    }
+
+    html.reveal-ready [data-reveal]:not(.is-visible) {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
