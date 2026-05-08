@@ -47,6 +47,10 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
     <Font cssVariable="--font-jetbrains-mono" />
     <Font cssVariable="--font-display" />
 
+    <!-- Preload Geist display font (latin + latin-ext for diacritics) -->
+    <link rel="preload" href="/_astro/fonts/0976180ba0e36444.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/_astro/fonts/29f454a3cffd33cb.woff2" as="font" type="font/woff2" crossorigin />
+
     <!-- Critical styles: prevent FOUC on links and theme -->
     <style is:inline>
       a { color: #1B7A3D; }
