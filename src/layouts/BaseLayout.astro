@@ -51,6 +51,29 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
     <link rel="preload" href="/_astro/fonts/0976180ba0e36444.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/_astro/fonts/29f454a3cffd33cb.woff2" as="font" type="font/woff2" crossorigin />
 
+    <!-- Hide hero name until display font loads (prevents FOUT at 96px) -->
+    <style is:inline>
+      .hero__name { opacity: 0; }
+      .fonts-ready .hero__name { opacity: 1; transition: opacity 0.15s ease; }
+    </style>
+    <script is:inline>
+      (function(){
+        function check() {
+          if (document.fonts.status === 'loaded') {
+            document.documentElement.classList.add('fonts-ready');
+          } else {
+            requestAnimationFrame(function(){
+              document.fonts.ready.then(function(){
+                document.documentElement.classList.add('fonts-ready');
+              });
+            });
+          }
+        }
+        check();
+        document.addEventListener('astro:page-load', check);
+      })();
+    </script>
+
     <!-- Critical styles: prevent FOUC on links and theme -->
     <style is:inline>
       a { color: #1B7A3D; }
