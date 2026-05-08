@@ -14,6 +14,8 @@ const tier1 = allStudies
 
 <BaseLayout title="Adam Palencar - UI/UX Designer" description="Portfolio of Adam Palencar, UI/UX Designer. Games, tools, and interactive products.">
 
+  <script is:inline>document.fonts.ready.then(function(){document.documentElement.classList.add('fonts-ready')});</script>
+
   <!-- Hero -->
   <section class="hero" data-reveal>
     <span class="hero__mark hero__mark--tl">+</span>
@@ -188,6 +190,12 @@ const tier1 = allStudies
       /* Force GPU rendering: switches Windows from ClearType (subpixel) to
          grayscale antialiasing, fixing color fringing on thin diacritical marks */
       backface-visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    .fonts-ready .hero__name {
+      opacity: 1;
     }
 
     .hero__name--first {
