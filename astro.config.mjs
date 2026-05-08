@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   site: 'https://adampalencar.netlify.app',
+  build: { inlineStylesheets: 'always' },
   image: { quality: 80 },
   integrations: [icon(), mdx(), sitemap()],
   fonts: [
