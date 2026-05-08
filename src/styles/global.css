@@ -70,22 +70,8 @@
     color: #FFFFFF;
   }
 
-  /* Grain texture: subtle paper feel */
   .grain-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: var(--z-grain);
-    opacity: 0.035;
-    background-image: url('/textures/grain.png');
-    background-repeat: repeat;
-    mix-blend-mode: multiply;
-    will-change: transform;
-  }
-
-  [data-theme="dark"] .grain-overlay {
-    opacity: 0.03;
-    mix-blend-mode: soft-light;
+    display: none;
   }
 
   /* Dark mode smooth transition on key surfaces */
