@@ -80,6 +80,7 @@
     background-image: url('/textures/grain.png');
     background-repeat: repeat;
     mix-blend-mode: multiply;
+    will-change: transform;
   }
 
   [data-theme="dark"] .grain-overlay {
