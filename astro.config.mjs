@@ -33,6 +33,7 @@ export default defineConfig({
       subsets: ['latin', 'latin-ext'],
       styles: ['normal'],
       fallbacks: ['Inter', 'system-ui', 'sans-serif'],
+      display: 'block',
     },
   ],
 });
