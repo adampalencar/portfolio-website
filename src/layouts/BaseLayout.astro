@@ -45,7 +45,7 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
     <!-- Astro Font API: injects @font-face + preload links -->
     <Font cssVariable="--font-inter" />
     <Font cssVariable="--font-jetbrains-mono" />
-    <Font cssVariable="--font-display" />
+    <Font cssVariable="--font-display" preload />
 
     <!-- Critical styles: prevent FOUC on links and theme -->
     <style is:inline>
