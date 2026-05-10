@@ -15,10 +15,12 @@ const navItems = [
   { label: 'Contact', href: '/#contact', icon: 'mail' },
 ];
 
-function isActive(href: string, current: string): boolean {
+function getActiveCurrent(href: string, current: string): string | undefined {
   const normalizedCurrent = current.replace(/\/$/, '') || '/';
   const normalizedHref = href.replace(/\/$/, '') || '/';
-  return normalizedCurrent === normalizedHref;
+  if (normalizedCurrent === normalizedHref) return 'page';
+  if (normalizedHref !== '/' && normalizedCurrent.startsWith(normalizedHref + '/')) return 'true';
+  return undefined;
 }
 ---
 <header class="top-bar">
@@ -32,7 +34,7 @@ function isActive(href: string, current: string): boolean {
             href={item.href}
             class="top-bar__link"
             data-nav-link
-            aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+            aria-current={getActiveCurrent(item.href, currentPath)}
           >
             <Icon name={item.icon} size={20} />
             <span class="top-bar__label mono-label">{item.label}</span>
@@ -114,6 +116,10 @@ function isActive(href: string, current: string): boolean {
 
     .top-bar__link[aria-current="page"] {
       color: var(--accent);
+    }
+
+    .top-bar__link[aria-current="true"] {
+      color: var(--text-primary);
     }
 
     .top-bar__link:focus-visible {

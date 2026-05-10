@@ -23,10 +23,12 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-4) var(--space-4);
-    color: var(--text-secondary);
+    padding: var(--space-3) var(--space-4);
+    color: var(--text-tertiary);
     text-decoration: none;
     transition: color 150ms ease, background 150ms ease;
+    border-left: 3px solid transparent;
+    padding-left: calc(var(--space-4) - 3px);
   }
 
   .sidebar__link:hover {
@@ -36,8 +38,17 @@
 
   .sidebar__link[aria-current="page"] {
     color: var(--accent);
-    border-left: 3px solid var(--accent);
-    padding-left: calc(var(--space-4) - 3px);
+    border-left-color: var(--accent);
+    background: var(--accent-5);
+  }
+
+  [data-theme="dark"] .sidebar__link[aria-current="page"] {
+    background: rgba(74, 158, 104, 0.08);
+  }
+
+  .sidebar__link[aria-current="true"] {
+    color: var(--text-primary);
+    border-left-color: var(--border-visible);
   }
 
   .sidebar__link:focus-visible {
@@ -47,6 +58,8 @@
 
   .sidebar__label {
     color: inherit;
+    font-size: var(--size-sm);
+    font-weight: 500;
   }
 
   /* --- Nav folder (Work section) --- */
@@ -69,7 +82,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--space-2);
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     transition: color 150ms ease, background 150ms ease;
     border-radius: 4px;
     margin-right: var(--space-2);
@@ -110,11 +123,13 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    margin-left: calc(var(--space-4) + 11px);
+    border-left: 1px solid var(--border-subtle);
   }
 
   .nav-folder__child {
     display: block;
-    padding: var(--space-2) var(--space-4) var(--space-2) calc(var(--space-4) + 32px);
+    padding: 6px var(--space-4) 6px var(--space-3);
     font-family: var(--font-mono);
     font-size: var(--size-sm);
     text-transform: uppercase;
@@ -131,6 +146,14 @@
 
   .nav-folder__child[aria-current="page"] {
     color: var(--accent);
+    border-left: 2px solid var(--accent);
+    margin-left: -1px;
+    padding-left: calc(var(--space-3) - 1px);
+    background: var(--accent-5);
+  }
+
+  [data-theme="dark"] .nav-folder__child[aria-current="page"] {
+    background: rgba(74, 158, 104, 0.08);
   }
 
   .nav-folder__child:focus-visible {

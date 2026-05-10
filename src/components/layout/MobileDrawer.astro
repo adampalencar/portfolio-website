@@ -15,16 +15,19 @@ const navItems = [
     icon: 'briefcase',
     children: [
       { label: 'Orbital Concierge', href: '/work/orbital-concierge' },
+      { label: 'Isles of Krom', href: '/work/krom' },
     ],
   },
   { label: 'About', href: '/about', icon: 'user' },
   { label: 'Contact', href: '/#contact', icon: 'mail' },
 ];
 
-function isActive(href: string, current: string): boolean {
+function getActiveCurrent(href: string, current: string): string | undefined {
   const normalizedCurrent = current.replace(/\/$/, '') || '/';
   const normalizedHref = href.replace(/\/$/, '') || '/';
-  return normalizedCurrent === normalizedHref;
+  if (normalizedCurrent === normalizedHref) return 'page';
+  if (normalizedHref !== '/' && normalizedCurrent.startsWith(normalizedHref + '/')) return 'true';
+  return undefined;
 }
 
 const isWorkSubpage = currentPath.startsWith('/work/');
@@ -48,7 +51,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
                     href={item.href}
                     class="mobile-drawer__link"
                     data-nav-link
-                    aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+                    aria-current={getActiveCurrent(item.href, currentPath)}
                   >
                     <Icon name={item.icon} size={24} />
                     <span class="mobile-drawer__label mono-label">{item.label}</span>
@@ -75,7 +78,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
                           href={child.href}
                           class="mobile-drawer__child"
                           data-nav-link
-                          aria-current={isActive(child.href, currentPath) ? 'page' : undefined}
+                          aria-current={getActiveCurrent(child.href, currentPath)}
                         >
                           {child.label}
                         </a>
@@ -89,7 +92,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
                 href={item.href}
                 class="mobile-drawer__link"
                 data-nav-link
-                aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+                aria-current={getActiveCurrent(item.href, currentPath)}
               >
                 <Icon name={item.icon} size={24} />
                 <span class="mobile-drawer__label mono-label">{item.label}</span>
@@ -200,6 +203,10 @@ const isWorkSubpage = currentPath.startsWith('/work/');
       padding-left: calc(var(--space-4) - 3px);
     }
 
+    .mobile-drawer__link[aria-current="true"] {
+      color: var(--text-primary);
+    }
+
     .mobile-drawer__link:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
@@ -207,6 +214,8 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 
     .mobile-drawer__label {
       color: inherit;
+      font-size: var(--size-sm);
+      font-weight: 500;
     }
 
     /* --- Folder (Work section with accordion) --- */
@@ -274,9 +283,9 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 
     .mobile-drawer__child {
       display: block;
-      padding: var(--space-1) var(--space-4) var(--space-1) calc(var(--space-4) + 32px);
+      padding: 6px var(--space-4) 6px calc(var(--space-4) + 32px);
       font-family: var(--font-mono);
-      font-size: 10px;
+      font-size: var(--size-sm);
       text-transform: uppercase;
       letter-spacing: var(--tracking-wide);
       color: var(--text-tertiary);
@@ -414,6 +423,7 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 
     // Update aria-current in drawer based on current path (must run each navigation)
     const currentPath = window.location.pathname;
+    const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
     drawer.querySelectorAll('[data-nav-link]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
@@ -421,11 +431,11 @@ const isWorkSubpage = currentPath.startsWith('/work/');
         link.removeAttribute('aria-current');
         return;
       }
-      const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
       const normalizedHref = href.replace(/\/$/, '') || '/';
-      const isActive = normalizedCurrent === normalizedHref;
-      if (isActive) {
-        link.setAttribute('aria-current', 'page');
+      const isExact = normalizedCurrent === normalizedHref;
+      const isSection = normalizedHref !== '/' && normalizedCurrent.startsWith(normalizedHref + '/');
+      if (isExact || isSection) {
+        link.setAttribute('aria-current', isExact ? 'page' : 'true');
       } else {
         link.removeAttribute('aria-current');
       }

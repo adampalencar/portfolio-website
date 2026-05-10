@@ -16,16 +16,19 @@ const navItems = [
     icon: 'briefcase',
     children: [
       { label: 'Orbital Concierge', href: '/work/orbital-concierge' },
+      { label: 'Isles of Krom', href: '/work/krom' },
     ],
   },
   { label: 'About', href: '/about', icon: 'user' },
   { label: 'Contact', href: '/#contact', icon: 'mail' },
 ];
 
-function isActive(href: string, current: string): boolean {
+function getActiveCurrent(href: string, current: string): string | undefined {
   const normalizedCurrent = current.replace(/\/$/, '') || '/';
   const normalizedHref = href.replace(/\/$/, '') || '/';
-  return normalizedCurrent === normalizedHref;
+  if (normalizedCurrent === normalizedHref) return 'page';
+  if (normalizedHref !== '/' && normalizedCurrent.startsWith(normalizedHref + '/')) return 'true';
+  return undefined;
 }
 
 const isWorkSubpage = currentPath.startsWith('/work/');
@@ -43,7 +46,7 @@ const isWorkSection = currentPath.startsWith('/work');
                   href={item.href}
                   class="sidebar__link"
                   data-nav-link
-                  aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+                  aria-current={getActiveCurrent(item.href, currentPath)}
                 >
                   <Icon name={item.icon} size={24} />
                   <span class="sidebar__label mono-label">{item.label}</span>
@@ -70,7 +73,7 @@ const isWorkSection = currentPath.startsWith('/work');
                         href={child.href}
                         class="nav-folder__child"
                         data-nav-link
-                        aria-current={isActive(child.href, currentPath) ? 'page' : undefined}
+                        aria-current={getActiveCurrent(child.href, currentPath)}
                       >
                         {child.label}
                       </a>
@@ -84,7 +87,7 @@ const isWorkSection = currentPath.startsWith('/work');
               href={item.href}
               class="sidebar__link"
               data-nav-link
-              aria-current={isActive(item.href, currentPath) ? 'page' : undefined}
+              aria-current={getActiveCurrent(item.href, currentPath)}
             >
               <Icon name={item.icon} size={24} />
               <span class="sidebar__label mono-label">{item.label}</span>
@@ -129,19 +132,19 @@ const isWorkSection = currentPath.startsWith('/work');
     const currentPath = window.location.pathname;
 
     // Update aria-current on all nav links
+    const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
     document.querySelectorAll('[data-nav-link]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
-      // Skip hash-only links (Contact is an anchor, not a page)
       if (href.includes('#')) {
         link.removeAttribute('aria-current');
         return;
       }
-      const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
       const normalizedHref = href.replace(/\/$/, '') || '/';
-      const isActive = normalizedCurrent === normalizedHref;
-      if (isActive) {
-        link.setAttribute('aria-current', 'page');
+      const isExact = normalizedCurrent === normalizedHref;
+      const isSection = normalizedHref !== '/' && normalizedCurrent.startsWith(normalizedHref + '/');
+      if (isExact || isSection) {
+        link.setAttribute('aria-current', isExact ? 'page' : 'true');
       } else {
         link.removeAttribute('aria-current');
       }
