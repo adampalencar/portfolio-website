@@ -17,4 +17,147 @@ tags:
   - roguelike
 ---
 
-Full case study coming soon.
+import { Image } from 'astro:assets';
+import craftingImg from '../../assets/case-studies/krom/crafting.png';
+import merchantImg from '../../assets/case-studies/krom/merchant.png';
+import dovecoteImg from '../../assets/case-studies/krom/dovecote.png';
+import outcomeImg from '../../assets/case-studies/krom/outcome.png';
+import chestTooltipsImg from '../../assets/case-studies/krom/chest-tooltips.png';
+
+<div class="cs-summary">
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">24+</span>
+    <span class="cs-summary__label">Hi-fi screens</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">15</span>
+    <span class="cs-summary__label">Reusable components</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">6 months</span>
+    <span class="cs-summary__label">Design to handoff</span>
+  </div>
+</div>
+
+## Atmosphere and Clarity Want Opposite Things
+
+How do you make a UI that looks like it belongs in an old D&D manual without burying the numbers that keep players alive?
+
+Isles of Krom is a dark fantasy extraction roguelike. Players guide disposable characters called Wards through hostile, shifting islands, looting gear to strengthen future runs. The loop is fast, and **every screen competes for the player's limited attention.**
+
+<div class="cs-tension">
+  <div class="cs-tension__side">
+    <span class="cs-tension__label">Art direction demanded</span>
+    <span class="cs-tension__item">Textured, weathered surfaces</span>
+    <span class="cs-tension__item">Ornamental frames</span>
+    <span class="cs-tension__item">Parchment tones, low contrast</span>
+  </div>
+  <span class="cs-tension__vs">vs.</span>
+  <div class="cs-tension__side">
+    <span class="cs-tension__label">Players needed</span>
+    <span class="cs-tension__item">Readable stats at a glance</span>
+    <span class="cs-tension__item">Space for comparing items</span>
+    <span class="cs-tension__item">High contrast on critical numbers</span>
+  </div>
+</div>
+
+If the UI buries stats in texture, **a player sends an underequipped Ward into a run and loses 20 minutes of progress.**
+
+The design system was tight enough that **developers could implement screens after handoff without guessing.** Playtesters in the studio's Discord started calling out the UI unprompted, commenting on the visual identity and how readable the screens felt during play.
+
+## Atmosphere Lives in Structure, Not Texture
+
+Early on I established a framing system built around rounded, two-tone panels. They group related information the same way a well-designed book uses page layout and margins to guide your eye.
+
+The panels create consistent spatial rhythm across every screen. **Players learn the visual grammar once, and it transfers everywhere:** inventory, crafting, merchant, character prep. The "book" feeling comes from this structural choice. Parchment tones and weathered edges help, but the panels carry it.
+
+<div class="cs-carousel">
+  <div class="cs-carousel__viewport">
+    <div class="cs-carousel__track">
+      <figure class="cs-carousel__slide">
+        <Image src={craftingImg} alt="Crafting station screen using the rounded two-tone panel system to group recipes, materials, and outcomes" />
+        <figcaption>Crafting station: panels group recipes, costs, and outcomes</figcaption>
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={merchantImg} alt="Merchant screen with buy and sell modes using the same panel framing as every other screen" />
+        <figcaption>Merchant: same panel grammar, different content</figcaption>
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={dovecoteImg} alt="Dovecote screen showing the panel system applied to a hub area" />
+        <figcaption>Dovecote: the framing holds across every screen type</figcaption>
+      </figure>
+    </div>
+    <button class="cs-carousel__prev" aria-label="Previous slide">&#8592;</button>
+    <button class="cs-carousel__next" aria-label="Next slide">&#8594;</button>
+  </div>
+  <div class="cs-carousel__dots"></div>
+</div>
+
+The cost was rigidity. A strict panel system means less freedom for one-off layouts. Some screens would have been more visually striking with a bespoke composition. But in a roguelike where players cycle through screens quickly between runs, **predictability is a feature.** A player who just lost a Ward and is prepping the next one should not have to relearn the layout.
+
+<div class="cs-callout">
+
+**Design decision:** I chose rigidity over flexibility. Every screen uses the same framing system. The atmosphere comes from the structure repeating, not from any individual screen being visually unique.
+
+</div>
+
+## The Ward Screen Answers One Question: Is This Character Ready?
+
+The Ward preparation screen is the commitment moment. The player is about to send a character into danger, and this is the last chance to evaluate whether they will survive. The layout needed to answer one question instantly: *Is this Ward ready?*
+
+I structured the hierarchy so survivability stats and risk modifiers sit at the top of the visual stack. Equipment and secondary details live below, accessible but never competing for first attention. **The go/no-go read happens in under two seconds.**
+
+This meant deprioritizing information that felt important in isolation: loadout details and lore flavor. **If it does not affect the decision to launch, it waits.** Players who want depth can drill into secondary states, but the survival read comes first.
+
+<Image src={outcomeImg} alt="Outcome screen showing the panel hierarchy with primary information elevated and secondary details in lower visual states" />
+
+The 10 tooltip variants exist because of this screen. Different stats need different levels of explanation: a quick hover for a familiar modifier, a richer tooltip for an unfamiliar debuff. The tooltip system is how the hierarchy works without hiding information.
+
+## Safe Screens Earn Complexity. Run Screens Do Not.
+
+During a run, the player is exploring and fighting. Any UI that appears mid-run is an interruption. The chest interaction screen shows inventory capacity and immediate actions.
+
+This was a bet against information density. Other extraction games surface more data during loot moments: item comparison overlays, detailed stat breakdowns, loot history. I went minimal because **the game's tempo rewards quick decisions, and every extra element on screen is a reason to hesitate.**
+
+<Image src={chestTooltipsImg} alt="In-run chest interaction screen stripped to essentials: inventory capacity and immediate actions only" />
+
+The merchant and crafting screens can afford complexity because the player is in a safe state. Browse without losing context, compare items side by side. The run UI cannot afford any of that.
+
+<div class="cs-callout">
+
+**Design decision:** No item comparison overlays, no detailed stat breakdowns, no loot history in the run UI. Those belong in the safe state. The run is for deciding, not studying.
+
+</div>
+
+## The Book Metaphor Holds. The System Is Still Evolving.
+
+The panel system outlasted everything else. Every time the art team added a new environment or the design team changed a mechanic, the framing held. Screens got redesigned multiple times as systems evolved during development. **A solid kit of reusable pieces meant those redesigns took hours instead of days.**
+
+<div class="cs-fixes">
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Constraint</span>
+      <span class="cs-fixes__text">No interactive prototyping for tooltip behavior across 10 variants</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag cs-fixes__tag--accent">Mitigation</span>
+      <span class="cs-fixes__text">Detailed component specs and developer communication closed the gap</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Constraint</span>
+      <span class="cs-fixes__text">Project still active, designs continue evolving</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag cs-fixes__tag--accent">Mitigation</span>
+      <span class="cs-fixes__text">Component system absorbs changes without full redesigns</span>
+    </div>
+  </div>
+</div>
+
+If I could go back, I would have pushed for interactive prototyping earlier. Static mockups communicated layout and hierarchy well, but some interaction flows would have been clearer with clickable prototypes sooner in the process.
+
+The project is still active. New screens still get built from the same kit, and nothing so far has broken the system.
