@@ -29,6 +29,8 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Layer order must be declared before any external CSS to prevent production reordering -->
     <style is:inline>@layer reset, tokens, base, components, utilities;</style>
+    <!-- Add reveal-ready before paint so [data-reveal] elements start hidden (no flash) -->
+    <script is:inline>document.documentElement.classList.add('reveal-ready')</script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
@@ -154,7 +156,6 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
       return;
     }
 
-    let ready = false;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -162,10 +163,6 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
           observer.unobserve(entry.target);
         }
       });
-      if (!ready) {
-        ready = true;
-        document.documentElement.classList.add('reveal-ready');
-      }
     }, {
       threshold: 0.1,
       rootMargin: '0px 0px -60px 0px'
