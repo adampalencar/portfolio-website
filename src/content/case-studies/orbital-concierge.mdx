@@ -20,13 +20,13 @@ tags:
 
 import { Image } from 'astro:assets';
 import gameplayImg from '../../assets/case-studies/orbital-concierge/gameplay.png';
+import levelSelectImg from '../../assets/case-studies/orbital-concierge/level-select.png';
 import spotlight1Img from '../../assets/case-studies/orbital-concierge/spotlight-1-status-manifest.png';
 import spotlight2Img from '../../assets/case-studies/orbital-concierge/spotlight-2-elevator-shaft.png';
 import spotlight3Img from '../../assets/case-studies/orbital-concierge/spotlight-3-game-board.png';
 import criticalStateImg from '../../assets/case-studies/orbital-concierge/critical-state.png';
 import resultsScreenImg from '../../assets/case-studies/orbital-concierge/results-screen.png';
 import scoringGuideImg from '../../assets/case-studies/orbital-concierge/scoring-guide-comparison.png';
-import crossHighlightingImg from '../../assets/case-studies/orbital-concierge/cross-highlighting.png';
 
 <div class="cs-summary">
   <div class="cs-summary__stat">
@@ -53,7 +53,7 @@ But I had blind spots: **scoring was invisible during play**, tutorial hints van
 
 <Image src={gameplayImg} alt="Level 17 (Cross Traffic), all four passenger types active on a single screen" />
 
-## The Layout Mirrors How Players Think Through Each Move
+## The Layout Mirrors How Players Think
 
 <div class="cs-carousel">
   <div class="cs-carousel__viewport">
@@ -98,6 +98,8 @@ With everything visible at once, players need a consistent path through the scre
 </div>
 
 A layout that works identically on decision 1 and decision 24 transfers faster than one that lets you wander. Players scan the board first, so I prioritized **predictability over flexibility** across 20+ decisions per level.
+
+<Image src={levelSelectImg} alt="Level select screen showing all 24 levels with star ratings and difficulty progression" />
 
 ### Two type roles reinforce the split
 
@@ -213,8 +215,6 @@ I replaced it with a 3-column table: passenger type, base score, patience bonus 
     </div>
   </div>
 </div>
-
-<Image src={crossHighlightingImg} alt="Hovering Guest row highlights floor 05 on the strip: verify before committing" />
 
 All shipped within 2 weeks. None of it was complicated. But I needed players in the room to see it.
 

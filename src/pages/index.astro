@@ -768,12 +768,27 @@ const tier1 = allStudies
     }
 
     @media (max-width: 767px) {
+      .hero {
+        min-height: auto;
+        padding: var(--space-6) var(--grid-gutter) var(--space-5);
+      }
+
+      .hero__eyebrow {
+        font-size: 10px;
+      }
+
       .hero__name {
         font-size: 48px;
       }
 
       .hero__statement {
         font-size: var(--size-base);
+      }
+
+      .hero__scroll {
+        position: static;
+        transform: none;
+        margin-top: var(--space-4);
       }
 
       .intro__inner {
