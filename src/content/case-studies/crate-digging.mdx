@@ -1,0 +1,136 @@
+---
+title: Crate Digging
+oneliner: "We brought the rhythm of a record store to a phone screen, then documented every animation curve to prove the metaphor wasn't a gimmick."
+code: CD-01
+discipline: Interaction Design
+role: UI/UX Designer, Interaction Designer
+timeline: "Jul 2025"
+tools:
+  - Figma
+  - Illustrator
+  - Photoshop
+category: Academic
+tier: 1
+thumbnail: ../../assets/case-studies/crate-digging/hero.png
+tags:
+  - interaction-design
+  - motion-design
+  - mobile
+---
+
+import { Image } from 'astro:assets';
+import moodboard1Img from '../../assets/case-studies/crate-digging/moodboard-1.png';
+import moodboard2Img from '../../assets/case-studies/crate-digging/moodboard-2.png';
+import moodboard3Img from '../../assets/case-studies/crate-digging/moodboard-3.png';
+import sketches1Img from '../../assets/case-studies/crate-digging/sketches-1.png';
+import sketches2Img from '../../assets/case-studies/crate-digging/sketches-2.png';
+import sketches3Img from '../../assets/case-studies/crate-digging/sketches-3.png';
+import keyframesImg from '../../assets/case-studies/crate-digging/keyframes.png';
+
+<div class="cs-summary">
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">3 directions</span>
+    <span class="cs-summary__label">Explored early</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">1 gesture set</span>
+    <span class="cs-summary__label">Every gesture earned</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">Full curve docs</span>
+    <span class="cs-summary__label">Animation as spec</span>
+  </div>
+</div>
+
+## There's a Moment in a Record Store That No Music App Has Figured Out
+
+There's a thing that happens in a record store where someone pulls a sleeve halfway out, reads the tracklist on the back, and pushes it back in. No commitment, just sampling an album with your hands. No music app has figured out how to do that.
+
+On a phone, album covers blur past in a grid. Tap play, hear two seconds, tap the next. Efficient and forgettable. **Browsing becomes scrolling, and scrolling is not the same thing as choosing.**
+
+Crate Digging is a mobile music discovery concept built around that missing moment. We designed an interaction model where users pull records from illustrated crates, preview tracks mid-gesture, and flip albums over for details. The visual language is warm and deliberately slow.
+
+<figure class="cs-video">
+  <video autoPlay loop muted playsInline src="/videos/crate-digging-demo.mp4" />
+  <figcaption class="cs-video__caption">Prototype walkthrough: browsing a crate, pulling a record, and playing a track.</figcaption>
+</figure>
+
+This was an academic project for a Product Design class. We explored three directions early on: Crate Digging (pulling records from crates), a Jukebox randomizer, and a Crate Swapping genre filter. Crate Digging went to high fidelity because the gesture mapping was the tightest. **Every gesture maps to a physical action you'd actually perform in a store.**
+
+If shipped, we'd measure discovery depth (albums explored per session versus a standard grid), preview-to-save conversion, and session length against a scroll-based control.
+
+## The Store Comes First, Then the Crates
+
+The first screen is a storefront. Not a home feed, not a search bar. **A door you walk through.**
+
+We started the visual exploration in 1960s through 1980s design. Moodboards pulled from record sleeves, vintage signage, and the warm interiors of real shops. The direction we landed on: warm oranges, illustrated woodgrain crates, hand-drawn genre labels, and records that look like objects you could grab. We called it "Retro Groovy."
+
+<div class="cs-carousel">
+  <div class="cs-carousel__viewport">
+    <div class="cs-carousel__track">
+      <figure class="cs-carousel__slide">
+        <Image src={moodboard1Img} alt="Design exploration moodboard: 1960s through 1980s references including jukeboxes, record sleeves, vintage signage, and warm shop interiors" />
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={moodboard2Img} alt="Retro Tactility direction: boomboxes, turntables, cassette collections, reel-to-reel players" />
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={moodboard3Img} alt="Groovy Flow direction: psychedelic patterns, warm color palettes, retro illustrations and icons" />
+      </figure>
+    </div>
+    <button class="cs-carousel__prev" aria-label="Previous slide">&#8592;</button>
+    <button class="cs-carousel__next" aria-label="Next slide">&#8594;</button>
+  </div>
+  <div class="cs-carousel__dots"></div>
+</div>
+
+The alternative was a cleaner, more conventional music UI. Flat cards, standard player chrome, maybe a subtle vinyl texture as decoration. We rejected it because **the metaphor needs to be spatial, not cosmetic.** A decorative nod to records layered on a standard grid doesn't change how browsing feels. We needed the crate, the store, the physical depth.
+
+The tradeoff: the illustrated style limits scalability. A production app with thousands of albums would need to reconcile this warm, hand-crafted aesthetic with a content pipeline built for volume. We accepted that tension because the concept is about proving the interaction model, not shipping a catalog.
+
+<div class="cs-callout">
+
+**Design decision:** We used a real record store photograph as the reference for the storefront screen, then illustrated over it. Starting from a real place kept proportions and spatial relationships grounded. The store isn't a fantasy. It's a simplified version of somewhere you could walk into.
+
+</div>
+
+## The Animation Is the Interaction
+
+This was a motion design project, so we didn't just design screens. We animated the entire browsing experience as a sequence of keyframed transitions. The storefront opens into a genre selection. A crate lid lifts. Records rise out. One pulls forward for a closer look. **Each of those moments is an animated transition, triggered by a gesture, with a documented motion curve defining how it feels.**
+
+<Image src={keyframesImg} alt="Crate Digging keyframes: 4 hi-fi states showing crate closed, record rising, vinyl leaving cover, and full record reveal with playback controls" />
+
+We started with more gestures than we needed. The early sketches included separate interactions for randomizing, long-pressing, pinching to filter, and swiping between crates. We cut until **each gesture earned a single, clear outcome.** Pull a record: browse. Tap: select. Swipe: next crate. No hidden modifiers, no timing-dependent variations.
+
+<div class="cs-carousel">
+  <div class="cs-carousel__viewport">
+    <div class="cs-carousel__track">
+      <figure class="cs-carousel__slide">
+        <Image src={sketches1Img} alt="Crate Digging concept sketches: 5 interaction states from default to vinyl preview" />
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={sketches2Img} alt="Jukebox concept sketches: randomize button triggers vinyl selection and song text" />
+      </figure>
+      <figure class="cs-carousel__slide">
+        <Image src={sketches3Img} alt="Crate Swapping concept sketches: swipe between genre crates, tap to open lid" />
+      </figure>
+    </div>
+    <button class="cs-carousel__prev" aria-label="Previous slide">&#8592;</button>
+    <button class="cs-carousel__next" aria-label="Next slide">&#8594;</button>
+  </div>
+  <div class="cs-carousel__dots"></div>
+</div>
+
+Motion is where tactile metaphors live or die on a flat screen. A record that slides out with a linear ease feels like a UI element. A record that resists slightly before releasing with a spring curve **feels like something you pulled from a tight sleeve.**
+
+<div class="cs-callout">
+
+**Design decision:** We designed the animation behavior alongside the screens, not after. The motion curves were part of the spec from the start because the project lives or dies on whether interactions feel physical.
+
+</div>
+
+## What Designing Motion Taught Us
+
+We usually add animation after the screens are approved. On this project, **changing a curve changed how the interaction worked.** A slower ease on the record pull made browsing feel more deliberate. A snappier spring on the lid made the crate feel lighter. Those weren't aesthetic calls, they were interaction design calls.
+
+The curve sheets forced us to make decisions about feel at the same time as layout and hierarchy. If we could keep going, we'd want to put real audio behind the gestures and test whether haptic feedback on the pull makes a flat screen feel closer to the physical weight we were designing for.

@@ -30,7 +30,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
       <dl class="case-study__meta">
         <div class="case-study__meta-item">
           <dt>Role</dt>
-          <dd>{role}</dd>
+          {role.split(', ').map(r => <dd>{r}</dd>)}
         </div>
         <div class="case-study__meta-item">
           <dt>Timeline</dt>
@@ -38,7 +38,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         </div>
         <div class="case-study__meta-item">
           <dt>Tools</dt>
-          <dd>{tools.join(', ')}</dd>
+          {tools.map(t => <dd>{t}</dd>)}
         </div>
       </dl>
     </header>
@@ -61,6 +61,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
   <script>
     let progressHandler: (() => void) | null = null;
     let carouselTimer: ReturnType<typeof setInterval> | null = null;
+    let carouselTimers: ReturnType<typeof setInterval>[] = [];
 
     document.addEventListener('astro:page-load', () => {
       const bar = document.querySelector('.case-study__progress') as HTMLElement;
@@ -76,8 +77,9 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         updateProgress();
       }
 
-      const carousel = document.querySelector('.cs-carousel') as HTMLElement;
-      if (carousel) {
+      const carousels = document.querySelectorAll('.cs-carousel');
+      carouselTimers = [];
+      carousels.forEach((carousel) => {
         const track = carousel.querySelector('.cs-carousel__track') as HTMLElement;
         const slides = track.querySelectorAll('.cs-carousel__slide');
         const count = slides.length;
@@ -109,13 +111,14 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         function resetTimer() {
           if (carouselTimer) clearInterval(carouselTimer);
           carouselTimer = setInterval(() => goTo(current + 1), 5000);
+          carouselTimers.push(carouselTimer);
         }
 
         carousel.addEventListener('mouseenter', () => { if (carouselTimer) clearInterval(carouselTimer); });
         carousel.addEventListener('mouseleave', () => resetTimer());
 
         resetTimer();
-      }
+      });
     });
 
     document.addEventListener('astro:before-swap', () => {
@@ -127,6 +130,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         clearInterval(carouselTimer);
         carouselTimer = null;
       }
+      carouselTimers?.forEach(t => clearInterval(t));
     });
   </script>
 </BaseLayout>

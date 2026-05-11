@@ -9,7 +9,7 @@ const allStudies = await getCollection('case-studies');
 const tier1 = allStudies
   .filter(s => s.data.tier === 1)
   .sort((a, b) => {
-    const order = ['orbital-concierge', 'krom', 'pipeline'];
+    const order = ['orbital-concierge', 'krom', 'crate-digging'];
     return order.indexOf(a.id) - order.indexOf(b.id);
   });
 
@@ -25,7 +25,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
   entry.body && entry.body.trim().length > 50;
 ---
 
-<BaseLayout title="Work - Adam Palencar" description="Selected projects in game UI, product design, and interactive tools.">
+<BaseLayout title="Work - Adam Palencar" description="Selected projects in product design, interactive experiences, and digital interfaces.">
 
   <div class="work-page">
     <header class="work-page__header">
@@ -34,7 +34,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
         <span class="section-marker__line"></span>
       </div>
       <h1 class="work-page__title">Work</h1>
-      <p class="work-page__subtitle">Selected projects in game UI, product design, and interactive tools.</p>
+      <p class="work-page__subtitle">Selected projects in product design, interactive experiences, and digital interfaces.</p>
     </header>
 
     <!-- Tier 1: Featured -->

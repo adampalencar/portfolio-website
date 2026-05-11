@@ -72,12 +72,22 @@
 
   .case-study__meta dt {
     font-weight: 600;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     margin-bottom: var(--space-1);
   }
 
   .case-study__meta dd {
     margin: 0;
+    color: var(--text-primary);
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .case-study__meta dd::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
   }
 
   .case-study__meta-item {
@@ -344,6 +354,25 @@
 
   .cs-callout p {
     margin: 0;
+  }
+
+  /* Video embed */
+  .cs-video {
+    margin: var(--space-6) 0;
+  }
+
+  .cs-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .cs-video__caption {
+    margin-top: var(--space-2);
+    font-size: var(--size-sm);
+    color: var(--text-tertiary);
+    text-align: center;
   }
 
   /* Blockquote (playtest quotes) */
