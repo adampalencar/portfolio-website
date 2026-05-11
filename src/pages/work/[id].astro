@@ -14,11 +14,13 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const allStudies = await getCollection('case-studies');
-const sorted = allStudies.sort((a, b) =>
-  a.data.tier !== b.data.tier
-    ? a.data.tier - b.data.tier
-    : a.id.localeCompare(b.id)
-);
+const sorted = allStudies
+  .filter(s => s.body && s.body.trim().length > 50)
+  .sort((a, b) =>
+    a.data.tier !== b.data.tier
+      ? a.data.tier - b.data.tier
+      : a.id.localeCompare(b.id)
+  );
 const idx = sorted.findIndex(s => s.id === entry.id);
 const prev = idx > 0 ? sorted[idx - 1] : null;
 const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;

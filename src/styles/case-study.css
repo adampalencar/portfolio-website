@@ -701,6 +701,14 @@
       align-self: center;
     }
 
+    .cs-tension {
+      flex-direction: column;
+    }
+
+    .cs-tension__vs {
+      align-self: center;
+    }
+
   }
 
   /* Tension / versus comparison */
@@ -750,13 +758,4 @@
     flex-shrink: 0;
   }
 
-  @media (max-width: 600px) {
-    .cs-tension {
-      flex-direction: column;
-    }
-
-    .cs-tension__vs {
-      align-self: center;
-    }
-  }
 }

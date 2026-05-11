@@ -662,11 +662,25 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
       .tier1-card__title {
         font-size: 28px;
       }
+
+      .work-page__title {
+        font-size: 48px;
+      }
+
+      .tier2-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+      }
+
+      .tier3-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4);
+      }
     }
 
     @media (max-width: 767px) {
       .work-page__title {
-        font-size: 48px;
+        font-size: 36px;
       }
 
       .tier1-card__title {
@@ -683,8 +697,7 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
       }
 
       .tier3-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-4);
+        grid-template-columns: 1fr;
       }
 
       .work-card__footer {
