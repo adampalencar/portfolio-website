@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import portraitImg from '../assets/adam-portrait.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const toolGroups = [
@@ -45,11 +47,7 @@ const toolGroups = [
 
   <section class="about-hero" data-reveal>
     <div class="about-hero__photo">
-      <div class="about-hero__initials">
-        <span class="about-hero__mark about-hero__mark--tl">+</span>
-        <span class="about-hero__mark about-hero__mark--br">+</span>
-        AP
-      </div>
+      <Image src={portraitImg} alt="Adam Palenčár" class="about-hero__img" widths={[280, 500]} sizes="280px" quality={95} />
     </div>
     <div class="about-hero__content">
       <h1>Adam Palenčár</h1>
@@ -139,14 +137,6 @@ const toolGroups = [
     ))}
   </section>
 
-  <section class="about-section about-section--personal about-section--narrow" data-reveal style="--reveal-delay: 0">
-    <div class="section-marker">
-      <span class="section-marker__title">PERSONAL</span>
-      <span class="section-marker__line"></span>
-    </div>
-    <p>I compose and produce music, mostly inspired by video games. I follow indie game development closely and I'm building my own puzzle game, Orbital Concierge. I also play way too many roguelikes, collect vinyl, and occasionally try to cook something that isn't pasta.</p>
-  </section>
-
   <section class="about-contact" data-reveal style="--reveal-delay: 0">
     <div class="section-marker">
       <span class="section-marker__title">CONTACT</span>
@@ -175,39 +165,20 @@ const toolGroups = [
 
     .about-hero__photo {
       flex-shrink: 0;
-    }
-
-    .about-hero__initials {
-      background: var(--bg-secondary);
-      aspect-ratio: 3 / 4;
-      max-width: 280px;
       width: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      aspect-ratio: 3 / 4;
       border-radius: var(--space-2);
-      font-family: var(--font-display), var(--font-body), system-ui, sans-serif;
-      font-size: 80px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: var(--border-visible);
-      position: relative;
+      background: #5f8169;
       overflow: hidden;
+      display: flex;
+      align-items: flex-end;
     }
 
-    .about-hero__mark {
-      position: absolute;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      color: rgba(26, 26, 26, 0.08);
+    .about-hero__img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
-
-    [data-theme="dark"] .about-hero__mark {
-      color: rgba(240, 237, 230, 0.06);
-    }
-
-    .about-hero__mark--tl { top: 16px; left: 16px; }
-    .about-hero__mark--br { bottom: 16px; right: 16px; }
 
     .about-hero__content {
       flex: 1;
@@ -249,9 +220,8 @@ const toolGroups = [
         align-items: center;
       }
 
-      .about-hero__initials {
+      .about-hero__photo {
         width: 200px;
-        max-width: 200px;
       }
 
       .about-hero__content {
@@ -282,11 +252,6 @@ const toolGroups = [
     .about-section--tools {
       padding-top: var(--space-6);
       padding-bottom: var(--space-6);
-    }
-
-    .about-section--personal {
-      padding-top: var(--space-5);
-      padding-bottom: var(--space-5);
     }
 
     .about-section--narrow p {

@@ -14,7 +14,7 @@ const tier1 = allStudies
   });
 
 const tier2 = allStudies
-  .filter(s => s.data.tier === 2)
+  .filter(s => s.data.tier === 2 && s.body && s.body.trim().length > 50)
   .sort((a, b) => a.id.localeCompare(b.id));
 
 const tier3 = allStudies
@@ -249,7 +249,6 @@ const hasFullStudy = (entry: typeof allStudies[0]) =>
       font-size: var(--size-lg);
       color: var(--text-secondary);
       margin: 0;
-      max-width: 520px;
     }
 
     /* --- Tier sections --- */
