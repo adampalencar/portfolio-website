@@ -62,6 +62,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
     let progressHandler: (() => void) | null = null;
     let carouselTimer: ReturnType<typeof setInterval> | null = null;
     let carouselTimers: ReturnType<typeof setInterval>[] = [];
+    let videoObserver: IntersectionObserver | null = null;
 
     document.addEventListener('astro:page-load', () => {
       const bar = document.querySelector('.case-study__progress') as HTMLElement;
@@ -119,6 +120,21 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
 
         resetTimer();
       });
+
+      const autoplayVideos = document.querySelectorAll('video[data-autoplay-scroll]');
+      if (autoplayVideos.length) {
+        videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target as HTMLVideoElement;
+            if (entry.isIntersecting) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.4 });
+        autoplayVideos.forEach((v) => videoObserver!.observe(v));
+      }
     });
 
     document.addEventListener('astro:before-swap', () => {
@@ -131,6 +147,10 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         carouselTimer = null;
       }
       carouselTimers?.forEach(t => clearInterval(t));
+      if (videoObserver) {
+        videoObserver.disconnect();
+        videoObserver = null;
+      }
     });
   </script>
 </BaseLayout>

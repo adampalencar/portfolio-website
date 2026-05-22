@@ -318,111 +318,121 @@ const isWorkSubpage = currentPath.startsWith('/work/');
 </style>
 
 <script>
-  let drawerInitialized = false;
+  function getDrawer() { return document.getElementById('mobile-drawer') as HTMLElement | null; }
+  function getHamburger() { return document.querySelector('.top-bar__hamburger') as HTMLElement | null; }
 
-  document.addEventListener('astro:page-load', () => {
-    const drawer = document.getElementById('mobile-drawer');
-    const hamburger = document.querySelector('.top-bar__hamburger');
-    const closeBtn = document.querySelector('.mobile-drawer__close');
-    const backdrop = document.querySelector('.mobile-drawer__backdrop');
+  function trapFocus(e: KeyboardEvent) {
+    if (e.key !== 'Tab') return;
+    const panel = getDrawer()?.querySelector('.mobile-drawer__panel');
+    if (!panel) return;
+    const focusable = panel.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
 
-    if (!drawer || !hamburger) return;
+  function openDrawer() {
+    const drawer = getDrawer();
+    const hamburger = getHamburger();
+    if (!drawer) return;
+    drawer.dataset.open = 'true';
+    drawer.setAttribute('aria-hidden', 'false');
+    hamburger?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', trapFocus);
+    const closeBtn = drawer.querySelector('.mobile-drawer__close') as HTMLElement;
+    closeBtn?.focus();
+  }
 
-    // Only bind interaction listeners once (drawer persists across navigations)
-    if (!drawerInitialized) {
-      drawerInitialized = true;
+  function closeDrawer() {
+    const drawer = getDrawer();
+    const hamburger = getHamburger();
+    if (!drawer) return;
+    document.removeEventListener('keydown', trapFocus);
+    drawer.dataset.open = 'false';
+    drawer.setAttribute('aria-hidden', 'true');
+    hamburger?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamburger?.focus();
+  }
 
-      function trapFocus(e: KeyboardEvent) {
-        if (e.key !== 'Tab') return;
-        const panel = drawer!.querySelector('.mobile-drawer__panel');
-        if (!panel) return;
-        const focusable = panel.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        );
-        if (!focusable.length) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
+  // Event delegation: always queries fresh DOM refs
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element;
 
-      function openDrawer() {
-        drawer!.dataset.open = 'true';
-        drawer!.setAttribute('aria-hidden', 'false');
-        hamburger!.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-        document.addEventListener('keydown', trapFocus);
-        (closeBtn as HTMLElement)?.focus();
-      }
-
-      function closeDrawer() {
-        document.removeEventListener('keydown', trapFocus);
-        drawer!.dataset.open = 'false';
-        drawer!.setAttribute('aria-hidden', 'true');
-        hamburger!.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-        (hamburger as HTMLElement).focus();
-      }
-
-      hamburger.addEventListener('click', () => {
-        const isOpen = drawer!.dataset.open === 'true';
-        isOpen ? closeDrawer() : openDrawer();
-      });
-
-      closeBtn?.addEventListener('click', closeDrawer);
-      backdrop?.addEventListener('click', closeDrawer);
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && drawer!.dataset.open === 'true') {
-          closeDrawer();
-        }
-      });
-
-      // Accordion toggle for Work folder in drawer
-      const drawerTriggers = drawer.querySelectorAll('.mobile-drawer__folder-trigger');
-      drawerTriggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-          const targetId = trigger.getAttribute('aria-controls');
-          if (!targetId) return;
-          const target = document.getElementById(targetId);
-          if (!target) return;
-          const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-          trigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-          target.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
-        });
-      });
-
-      // Contact link: smooth scroll on homepage, clean URL
-      drawer.querySelectorAll('[href="/#contact"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-          const onHomepage = (window.location.pathname.replace(/\/$/, '') || '/') === '/';
-          if (onHomepage) {
-            closeDrawer();
-            const target = document.getElementById('contact');
-            if (target) {
-              e.preventDefault();
-              target.scrollIntoView({ behavior: 'smooth' });
-              history.replaceState(null, '', '/');
-            }
-          }
-        });
-      });
+    if (target.closest('.top-bar__hamburger')) {
+      const drawer = getDrawer();
+      if (!drawer) return;
+      drawer.dataset.open === 'true' ? closeDrawer() : openDrawer();
+      return;
     }
 
-    // Ensure drawer is closed on page load (handles View Transition persistence)
+    if (target.closest('.mobile-drawer__close')) {
+      closeDrawer();
+      return;
+    }
+
+    if (target.closest('.mobile-drawer__backdrop')) {
+      closeDrawer();
+      return;
+    }
+
+    const folderTrigger = target.closest('.mobile-drawer__folder-trigger');
+    if (folderTrigger) {
+      const targetId = folderTrigger.getAttribute('aria-controls');
+      if (!targetId) return;
+      const panel = document.getElementById(targetId);
+      if (!panel) return;
+      const isExpanded = folderTrigger.getAttribute('aria-expanded') === 'true';
+      folderTrigger.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      panel.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+      return;
+    }
+
+    const contactLink = target.closest('.mobile-drawer [href="/#contact"]');
+    if (contactLink) {
+      const onHomepage = (window.location.pathname.replace(/\/$/, '') || '/') === '/';
+      if (onHomepage) {
+        closeDrawer();
+        const contactEl = document.getElementById('contact');
+        if (contactEl) {
+          e.preventDefault();
+          contactEl.scrollIntoView({ behavior: 'smooth' });
+          history.replaceState(null, '', '/');
+        }
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && getDrawer()?.dataset.open === 'true') {
+      closeDrawer();
+    }
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    const drawer = getDrawer();
+    const hamburger = getHamburger();
+    if (!drawer) return;
+
+    // Ensure drawer is closed after navigation
     if (drawer.dataset.open === 'true') {
       drawer.dataset.open = 'false';
       drawer.setAttribute('aria-hidden', 'true');
-      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger?.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
 
-    // Update aria-current in drawer based on current path (must run each navigation)
+    // Update aria-current based on current path
     const currentPath = window.location.pathname;
     const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
     drawer.querySelectorAll('[data-nav-link]').forEach(link => {
