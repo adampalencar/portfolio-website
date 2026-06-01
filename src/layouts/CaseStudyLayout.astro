@@ -62,6 +62,7 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
     let progressHandler: (() => void) | null = null;
     let carouselTimer: ReturnType<typeof setInterval> | null = null;
     let carouselTimers: ReturnType<typeof setInterval>[] = [];
+    let resizeHandlers: (() => void)[] = [];
     let videoObserver: IntersectionObserver | null = null;
 
     document.addEventListener('astro:page-load', () => {
@@ -99,11 +100,26 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         const dots = dotsContainer.querySelectorAll('.cs-carousel__dot');
         const prevBtn = carousel.querySelector('.cs-carousel__prev') as HTMLElement;
         const nextBtn = carousel.querySelector('.cs-carousel__next') as HTMLElement;
+        const captionEl = carousel.querySelector('.cs-carousel__caption') as HTMLElement | null;
+        const viewport = carousel.querySelector('.cs-carousel__viewport') as HTMLElement;
+        const captions = Array.from(slides).map(s => (s as HTMLElement).dataset.caption || '');
+        if (captionEl && captions[0]) captionEl.textContent = captions[0];
+
+        function sizeSlides() {
+          const w = viewport.offsetWidth;
+          slides.forEach(s => (s as HTMLElement).style.width = `${w}px`);
+          track.style.transform = `translateX(-${current * w}px)`;
+        }
+        sizeSlides();
+        window.addEventListener('resize', sizeSlides);
+        resizeHandlers.push(sizeSlides);
 
         function goTo(index: number) {
           current = ((index % count) + count) % count;
-          track.style.transform = `translateX(-${current * 100}%)`;
+          const w = viewport.offsetWidth;
+          track.style.transform = `translateX(-${current * w}px)`;
           dots.forEach((d, i) => d.classList.toggle('cs-carousel__dot--active', i === current));
+          if (captionEl && captions[current]) captionEl.textContent = captions[current];
         }
 
         prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
@@ -147,6 +163,8 @@ const { title, role, timeline, tools, thumbnail, oneliner } = entry.data;
         carouselTimer = null;
       }
       carouselTimers?.forEach(t => clearInterval(t));
+      resizeHandlers.forEach(h => window.removeEventListener('resize', h));
+      resizeHandlers = [];
       if (videoObserver) {
         videoObserver.disconnect();
         videoObserver = null;

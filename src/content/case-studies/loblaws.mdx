@@ -1,0 +1,208 @@
+---
+title: Loblaws Checkout Audit
+oneliner: "A grocery retailer redesigned their checkout. Sales dropped 17%. We had 90 days and three research methods to find out why."
+code: LB-01
+discipline: UX Research
+role: UX Researcher
+timeline: "2025"
+tools:
+  - Figma
+  - Google Analytics
+category: Academic
+tier: 1
+thumbnail: ../../assets/case-studies/loblaws/hero.png
+tags:
+  - ux-research
+  - e-commerce
+  - heuristic-evaluation
+---
+
+import { Image } from 'astro:assets';
+import heroImg from '../../assets/case-studies/loblaws/hero.png';
+import timelineImg from '../../assets/case-studies/loblaws/research-timeline.png';
+import frictionFlowImg from '../../assets/case-studies/loblaws/friction-flow.png';
+import competitiveMatrixImg from '../../assets/case-studies/loblaws/competitive-matrix.png';
+import abWireframeImg from '../../assets/case-studies/loblaws/ab-wireframe.png';
+import scItemPageImg from '../../assets/case-studies/loblaws/sc-item-page.png';
+import scPcidLoginImg from '../../assets/case-studies/loblaws/sc-pcid-login.png';
+import scEmptyCartImg from '../../assets/case-studies/loblaws/sc-empty-cart.png';
+
+<div class="cs-summary">
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">5 phases</span>
+    <span class="cs-summary__label">90-day research plan</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">8+ issues</span>
+    <span class="cs-summary__label">Heuristic evaluation</span>
+  </div>
+  <div class="cs-summary__stat">
+    <span class="cs-summary__value">10 scenarios</span>
+    <span class="cs-summary__label">A/B tests designed</span>
+  </div>
+</div>
+
+## Steady Traffic, Seventeen Percent Fewer Buyers
+
+A shopper adds chicken and rice to their cart. They click checkout. The button is grey. They click again. Nothing. They scroll, looking for an explanation. Eventually they open the cart dropdown and discover a $30 minimum order requirement. They have $11.48. They close the tab.
+
+Loblaws is one of Canada's largest grocery retailers. Their website traffic held steady after a redesign of the digital buy flow. Online sales dropped 17% in two months. Same visitors, fewer purchases. The friction was somewhere in the flow.
+
+This was an academic project. Our team of three designed a 5-phase, 90-day research plan to diagnose the cause. We executed the first three phases: stakeholder interviews, heuristic evaluation, and competitive analysis. The remaining phases, usability testing and A/B testing, were designed with full screeners and test plans but never run with real users. **The deliverable was a diagnosis with testable recommendations, not a redesigned checkout.**
+
+<figure class="cs-figure cs-figure--full">
+  <Image src={timelineImg} alt="5-phase research timeline: Planning and Preparation (Weeks 1-2), Understanding User Behaviour (Weeks 3-4), Qualitative Insights (Weeks 5-8), Optimisation (Weeks 9-12), and Final Reporting (Week 12)" />
+  <figcaption class="cs-figure__caption">Fig. 01 / Research methodology: 5 phases, 12 weeks</figcaption>
+</figure>
+
+## I Ran the Heuristic Evaluation Before We Recruited Anyone
+
+I led the heuristic evaluation against Nielsen's 10 usability principles. The goal was to build a map of specific, testable hypotheses before spending time and budget on participant recruitment. Expert review is fast and cheap. Usability testing is slow and expensive. **Running heuristics first meant every test session could target a documented issue instead of fishing for problems.**
+
+<div class="cs-fixes">
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Finding · High</span>
+      <span class="cs-fixes__text">Checkout button grey. Hover state also grey. Looked disabled.</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Recommendation</span>
+      <span class="cs-fixes__text">Distinct visual states for default, hover, and active</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Finding · High</span>
+      <span class="cs-fixes__text">$30 minimum cart threshold invisible until clicking cart dropdown</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Recommendation</span>
+      <span class="cs-fixes__text">Surface minimum spend on item pages before checkout</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Finding · High</span>
+      <span class="cs-fixes__text">Cart wiped after PC ID registration redirect</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Recommendation</span>
+      <span class="cs-fixes__text">Persist cart contents through authentication flow</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Finding · High</span>
+      <span class="cs-fixes__text">PC ID login page had zero Loblaws branding. Felt like a redirect to a different site.</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Recommendation</span>
+      <span class="cs-fixes__text">Add Loblaws branding and breadcrumb trail to PC ID page</span>
+    </div>
+  </div>
+  <div class="cs-fixes__item">
+    <div class="cs-fixes__problem">
+      <span class="cs-fixes__tag">Finding · Medium</span>
+      <span class="cs-fixes__text">Meal planner only accessible from item pages, invisible from homepage or browsing</span>
+    </div>
+    <span class="cs-fixes__arrow" aria-hidden="true">&rarr;</span>
+    <div class="cs-fixes__solution">
+      <span class="cs-fixes__tag">Recommendation</span>
+      <span class="cs-fixes__text">Add meal planner access to primary navigation</span>
+    </div>
+  </div>
+</div>
+
+<div class="cs-carousel">
+  <div class="cs-carousel__viewport">
+    <div class="cs-carousel__track">
+      <figure class="cs-carousel__slide" data-caption="Grey buttons (1, 2) look disabled. Checkout button (3) gives no feedback when clicked below $30.">
+        <Image src={scItemPageImg} alt="Loblaws item page: grey add/remove buttons with no hover feedback, grey checkout button in top-right that looks disabled, and no indication of $30 minimum order requirement" />
+      </figure>
+      <figure class="cs-carousel__slide" data-caption="Checkout redirects to PC ID login. No Loblaws branding. Users cannot tell they are still on the same site.">
+        <Image src={scPcidLoginImg} alt="PC ID login page with no Loblaws branding: generic sign-in form showing PC Optimum, Express, Health, Shoppers, and Joe Fresh logos but no Loblaws identity" />
+      </figure>
+      <figure class="cs-carousel__slide" data-caption="After signing up, the cart is wiped. MY SHOP means nothing to a new user. This is where they leave.">
+        <Image src={scEmptyCartImg} alt="Empty cart page after PC ID registration showing Your Cart is empty message with MY SHOP and HOMEPAGE buttons, cart shows zero dollars and zero items" />
+      </figure>
+    </div>
+    <button class="cs-carousel__prev" aria-label="Previous slide">&#8592;</button>
+    <button class="cs-carousel__next" aria-label="Next slide">&#8594;</button>
+    <div class="cs-carousel__caption"></div>
+  </div>
+  <div class="cs-carousel__dots"></div>
+</div>
+
+The checkout button hit two heuristics at once: Visibility of System Status and Consistency and Standards. A button that looks disabled when it isn't stops users from clicking. Users who don't click don't buy. The cart loss after registration hit Error Prevention. A user who spends 10 minutes filling a cart, signs up for an account, and returns to an empty basket is not going to start over.
+
+<figure class="cs-figure cs-figure--full">
+  <Image src={frictionFlowImg} alt="Annotated checkout flow: Browse Groceries, Add to Cart, Click Checkout, PC ID Login, Complete Purchase. Three high-severity friction points marked: grey checkout button confusion, hidden $30 minimum threshold, and cart loss after registration redirect" />
+  <figcaption class="cs-figure__caption">Fig. 02 / Checkout friction map: 3 friction points, all high severity</figcaption>
+</figure>
+
+<div class="cs-callout">
+
+**Research decision:** I used heuristic evaluation to generate hypotheses, not conclusions. Expert opinion is fast and specific, but it is not user evidence. Every finding became a testable question for the usability testing phase. The alternative was to go straight to usability testing, but without a map of suspected issues, those sessions would have been exploratory instead of targeted.
+
+</div>
+
+## Three Grocery Sites, One Clear Gap on Mobile
+
+I co-led the competitive analysis against Walmart and Costco across desktop and mobile. The question was not "what are competitors doing better?" but "what are shoppers already trained to expect?"
+
+Online grocery shoppers in Canada split time across these retailers. Walmart had set the bar: card-based navigation, clear calls to action, consistent button styling, integrated login. **Loblaws' mobile experience was functional but felt dense by comparison.** Costco had the same density problems as Loblaws: long lists, cluttered menus, navigation buried under promotional content.
+
+<figure class="cs-figure cs-figure--full">
+  <Image src={competitiveMatrixImg} alt="Competitive benchmark matrix: Loblaws vs Walmart vs Costco across 5 criteria. Loblaws scores Weak on all five (mobile navigation, checkout clarity, button feedback, account flow, feature discoverability). Walmart scores Strong on four. Costco mixed." />
+  <figcaption class="cs-figure__caption">Fig. 03 / Competitive benchmark: 3 retailers, 5 criteria</figcaption>
+</figure>
+
+<div class="cs-callout">
+
+**What I chose not to do:** I excluded No Frills from the competitive set because it runs on the same Loblaws website codebase. I excluded Longos because it operates only in Ontario, making it an invalid national comparison. Two competitors doing the same thing does not make it correct, so I used the comparison to identify where Loblaws fell below established patterns, not to copy solutions.
+
+</div>
+
+## Every A/B Scenario Started With a Finding
+
+I designed 4 of the 10 A/B testing scenarios, including the strongest one: the $30 minimum cart requirement. The heuristic evaluation found that users only discovered this threshold after clicking the cart dropdown. By then, users who didn't want to spend $30 had already invested time adding items. That is cart abandonment built into the flow.
+
+- **Variation A (current):** Minimum threshold messaging appears only in the cart dropdown after clicking.
+- **Variation B:** Immediate messaging on the item page when items total below $30, with a clear explanation of how much more is needed.
+
+<figure class="cs-figure cs-figure--full">
+  <Image src={abWireframeImg} alt="A/B wireframe comparison: Variation A shows item page where user discovers $30 minimum only after opening cart dropdown. Variation B surfaces the threshold immediately on the item page with clear messaging showing cart total and amount needed. Target KPI: cart abandonment rate." />
+  <figcaption class="cs-figure__caption">Fig. 04 / A/B test: surfacing the $30 minimum threshold</figcaption>
+</figure>
+
+The other 9 scenarios covered the rest of the findings. Each traced back to a specific heuristic violation or competitive gap:
+
+<div class="cs-columns">
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">From Heuristic Eval</span>
+    <span class="cs-columns__function">6 scenarios</span>
+    <span class="cs-columns__question">Guest checkout, button feedback, cart persistence, PC ID branding, meal planner chatbot undo, terminology clarity</span>
+  </div>
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">From Competitive Analysis</span>
+    <span class="cs-columns__function">3 scenarios</span>
+    <span class="cs-columns__question">Persistent cart summary during browsing, meal planner placement, sidebar filter redesign</span>
+  </div>
+  <div class="cs-columns__cell">
+    <span class="cs-columns__position">From Both</span>
+    <span class="cs-columns__function">1 scenario</span>
+    <span class="cs-columns__question">Minimum cart threshold messaging (the $30 test)</span>
+  </div>
+</div>
+
+**These scenarios were designed but never ran.** If executed, each had a KPI tied to it: cart abandonment for the threshold test, checkout completion for guest checkout, feature usage for meal planner visibility. The screeners are written, test tasks defined, and A/B variations have implementation instructions. What they need is users.
+
+## The Map Before the Territory
+
+This project taught me how much structure matters before any user sits down to test. The heuristic evaluation and competitive analysis gave me a map of the problem space in 2 weeks. Without that map, usability testing would have been exploratory instead of targeted.
+
+I am confident in the diagnosis because the heuristic findings are specific and reproducible. But until someone watches a real user struggle through the checkout, the recommendations remain educated predictions. What I would do differently is push to run at least 3 of the A/B scenarios during the project timeline instead of delivering all 10 as a plan. Three validated findings carry more weight than ten untested hypotheses.

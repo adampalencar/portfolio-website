@@ -169,6 +169,34 @@
     margin: var(--space-5) 0;
   }
 
+  /* Full-bleed figures: break out of 860px body into 1200px page width */
+  .cs-figure {
+    margin: var(--space-6) 0;
+  }
+
+  .cs-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .cs-figure--full {
+    width: 100vw;
+    max-width: var(--content-max);
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .cs-figure__caption {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary);
+  }
+
   .cs-placeholder {
     background: #333;
     border: 1px dashed #666;
@@ -247,12 +275,12 @@
   }
 
   .cs-carousel__slide {
-    min-width: 100%;
+    flex: 0 0 auto;
     height: 100%;
-    flex-shrink: 0;
     margin: 0;
     padding: 0;
     position: relative;
+    overflow: hidden;
   }
 
   .cs-carousel__slide img {
@@ -264,19 +292,24 @@
     margin: 0;
   }
 
-  .cs-carousel__slide figcaption {
+  .cs-carousel__caption {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     font-family: var(--font-mono);
-    font-size: var(--size-sm);
-    color: var(--text-primary);
+    font-size: var(--size-xs);
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: var(--tracking-wide);
     text-align: center;
-    background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+  }
+
+  .cs-carousel__slide figcaption {
+    display: none;
     z-index: 1;
   }
 
