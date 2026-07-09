@@ -4,14 +4,12 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const allStudies = await getCollection('case-studies');
-const order = ['orbital-concierge', 'krom', 'loblaws'];
-const tier1 = allStudies
-  .filter(s => s.data.tier === 1)
-  .sort((a, b) => {
-    const ai = order.indexOf(a.id);
-    const bi = order.indexOf(b.id);
-    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-  });
+// Curated home feature: Meristem in place of Orbital Concierge so the home page
+// leads with brand/product work. Pulled by id regardless of tier so /work is untouched.
+const featuredIds = ['meristem', 'krom', 'loblaws'];
+const tier1 = featuredIds
+  .map(id => allStudies.find(s => s.id === id))
+  .filter((s): s is typeof allStudies[number] => Boolean(s));
 ---
 
 <BaseLayout title="Adam Palencar - UI/UX Designer" description="Portfolio of Adam Palencar, UI/UX Designer. Interactive products, tools, and digital experiences.">
@@ -24,7 +22,7 @@ const tier1 = allStudies
     <div class="hero__content">
       <p class="hero__eyebrow">UI/UX DESIGNER · TORONTO · AVAILABLE FOR WORK</p>
       <h1 class="hero__name"><span class="hero__name--first">Adam</span> <span class="hero__surname" title="Pronounced: Pal-en-char"><span class="hero__surname-slot"><span class="hero__surname-real">Palenčár</span><span class="hero__surname-pron" aria-hidden="true">Pal‑en‑char</span></span></span></h1>
-      <p class="hero__statement">I design interfaces that earn their complexity. Games, tools, and interactive products where clarity and craft have to coexist.</p>
+      <p class="hero__statement">I design interfaces that earn their complexity. Brands, tools, and interactive products where clarity and craft have to coexist.</p>
       <a href="/work" class="btn-primary" style="color:#fff">View my work</a>
     </div>
     <div class="hero__visual" aria-hidden="true">
@@ -59,8 +57,8 @@ const tier1 = allStudies
               <Image
                 src={thumbnail}
                 alt={title}
-                widths={[400, 800, 1200]}
-                sizes="(max-width: 767px) 90vw, 600px"
+                widths={[400, 800, 1200, 1600]}
+                sizes="(max-width: 767px) 90vw, (max-width: 1199px) 460px, 680px"
               />
             </a>
           );
