@@ -110,6 +110,7 @@ const ogImageUrl = ogImage || new URL('/og-default.svg', Astro.site).href;
       grid-template-columns: var(--sidebar-width) 1fr;
       grid-template-rows: 1fr auto;
       min-height: 100vh;
+      overflow-x: clip;
     }
 
     .site-layout__main {

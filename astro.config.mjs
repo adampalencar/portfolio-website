@@ -7,7 +7,7 @@ export default defineConfig({
   output: 'static',
   site: 'https://adampalencar.netlify.app',
   build: { inlineStylesheets: 'always' },
-  image: { quality: 80 },
+  image: { quality: 92 },
   integrations: [icon(), mdx(), sitemap()],
   fonts: [
     {

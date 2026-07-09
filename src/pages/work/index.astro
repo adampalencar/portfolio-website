@@ -18,7 +18,7 @@ const tier1 = allStudies
 const tier2 = allStudies
   .filter(s => s.data.tier === 2 && s.body && s.body.trim().length > 50)
   .sort((a, b) => {
-    const order = ['crate-digging'];
+    const order = ['meristem', 'crate-digging'];
     const ai = order.indexOf(a.id);
     const bi = order.indexOf(b.id);
     return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
